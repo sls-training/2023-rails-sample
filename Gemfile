@@ -1,3 +1,5 @@
+## 中身いじったらbundle installとserverのリロードが必要そうやね
+
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 

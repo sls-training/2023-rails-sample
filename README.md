@@ -315,3 +315,20 @@ https://api.rubyonrails.org/classes/ActiveModel/Type/String.html
 ```bash
 rails g migration add_password_digest_to_users password_digest:string
 ```
+
+
+- Hotwire
+Rails7からRailsのデフォルトになった
+
+- Turbo
+  - js lib
+  - js書かずにSPAライクなページが作れるとか
+- Stimulus
+  - js lib
+- Strada
+  - mobile application開発の際に必要らしい。詳しいことがわからなかった
+
+React fetch(client) => response(json) : render(client)
+Hotwire fetch(client) => response(HTML) : render(server)
+
+turboの機能中にturbo driveとか色々あるらしい後でググろ
