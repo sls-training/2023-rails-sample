@@ -1,5 +1,44 @@
 # Static-site
 
+やったこと
+-  install homebrew 
+- rbenvのinstall
+- 初期設定
+  ```bash
+  echo 'eval "$(~/.rbenv/bin/rbenv init - bash)"' >> ~/.bash_profile
+  ```
+- 一番最新のrubyをinstall (失敗して警告されたのでlibyamlもinstall)
+
+  ```bash
+  brew install rbenv ruby-build libyaml
+  ```
+# ruby3.2.2(stable)のinstall
+```bash
+rbenv install 3.2.2
+rbenv global 3.2.2
+```
+pathが通ってなかったため通す(rbenv init) ~/.zshrc にかく<br>
+eval "$(rbenv init - zsh)"
+
+# create rails app
+```
+rails _${version}_ new ${app_name}
+```
+
+## toy application
+user modelの作成
+
+```bash
+rails generate scaffold User name:string email:string
+rails db:migrate
+```
+
+対話型shell
+```ls
+rails console
+```
+
+
 ```bash
 ## 追加
 rails g controller StaticPages home help
@@ -255,3 +294,24 @@ vender => サードパーティライブラリ
 helper関数のテスト書く時
 test/helpers/*.rb ActionView::TestCase継承したクラスでequalとかテストしてやる
 helperのモジュールはtest_helperにincludeしてtest_helperから叩く
+
+
+- migrateミスった時
+rails db:reset
+?
+development.sqlite3消す
+
+
+validation => https://railsguides.jp/active_record_validations.html#uniqueness
+ここ見ればいけそう
+
+
+APIはここググればいけそう
+https://api.rubyonrails.org/classes/ActiveModel/Type/String.html
+
+
+
+例としてusers tableにpassword_digestを追加するとき
+```bash
+rails g migration add_password_digest_to_users password_digest:string
+```
