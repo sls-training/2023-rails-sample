@@ -1,6 +1,6 @@
-# Static-site
+# Ruby Tutorial
 
-やったこと
+## install
 -  install homebrew 
 - rbenvのinstall
 - 初期設定
@@ -24,6 +24,20 @@ eval "$(rbenv init - zsh)"
 ```
 rails _${version}_ new ${app_name}
 ```
+
+## deploy
+
+これしないとlinuxサーバー上のbundle installでこける
+```bash
+bundle lock --add-platform x86_64-linux
+```
+
+---
+
+↓こっからは大体お勉強の内容
+
+---
+
 
 ## toy application
 user modelの作成
