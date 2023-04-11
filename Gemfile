@@ -14,6 +14,8 @@ gem 'jquery-rails'
 gem 'autoprefixer-rails'
 gem 'rails-controller-testing'
 gem "bcrypt", "3.1.18"
+gem 'pg', '>=1.1.4'
+
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"

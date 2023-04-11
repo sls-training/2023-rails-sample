@@ -1,29 +1,39 @@
 # Ruby Tutorial
 
-## install
--  install homebrew 
+## How to install
+- homebrewをinstallする
 - rbenvのinstall
-- 初期設定
-  ```bash
-  echo 'eval "$(~/.rbenv/bin/rbenv init - bash)"' >> ~/.bash_profile
-  ```
-- 一番最新のrubyをinstall (失敗して警告されたのでlibyamlもinstall)
+    - 初期設定
+    
+        rbenv init
+        ```bash
+            % rbenv init
+            # Load rbenv automatically by appending
+            # the following to ~/.zshrc:
 
-  ```bash
-  brew install rbenv ruby-build libyaml
-  ```
-# ruby3.2.2(stable)のinstall
-```bash
-rbenv install 3.2.2
-rbenv global 3.2.2
-```
-pathが通ってなかったため通す(rbenv init) ~/.zshrc にかく<br>
-eval "$(rbenv init - zsh)"
+            eval "$(rbenv init - zsh)"
+        ```
+        環境によってちょっと変わりそうなので注意して設定
+        ```bash
+            echo 'eval "$(rbenv init - zsh)"' >> ~/.zshrc
+        ```
+- install ruby
+    
+    ```bash
+    # 失敗して警告されたのでlibyamlもinstall
+    brew install rbenv ruby-build libyaml
+    
+    # ruby3.2.2(stable)のinstall
+    # 一番最新のrubyをinstallした
+    rbenv install 3.2.2
+    rbenv global 3.2.2
+    ```
+  
 
-# create rails app
-```
-rails _${version}_ new ${app_name}
-```
+- create rails app
+    ```
+    rails _${version}_ new ${app_name}
+    ```
 
 ## deploy
 
@@ -32,6 +42,28 @@ rails _${version}_ new ${app_name}
 bundle lock --add-platform x86_64-linux
 ```
 
+### dbをpostgresに対応させる
+productionを次のようにする
+
+```bash
+production:
+  <<: *default
+  adapter: postgresql
+  encoding: unicode
+  url: <%= ENV['DATABASE_URL'] %>
+```
+
+- DATABASE_URLをproduction時に環境変数通す
+- pgを入れる必要があるらしい
+なんとなくGemfileに追加してみた
+```
+gem 'pg', '>=1.1.4'
+```
+
+
+あとはRenderでごにょごにょ<br>
+多分使うことなさそうだしTutorial見ればいいか
+
 ---
 
 ↓こっからは大体お勉強の内容
@@ -39,7 +71,7 @@ bundle lock --add-platform x86_64-linux
 ---
 
 
-## toy application
+## メモ (勉強の落書き)
 user modelの作成
 
 ```bash
