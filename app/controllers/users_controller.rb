@@ -15,6 +15,9 @@ class UsersController < ApplicationController
     ## logger.debug(user_params) とか使えばログ表示できて便利
     @user = User.new(user_params)
     if @user.save
+      ##セッション固定攻撃対策
+      reset_session
+      log_in @user
       # 保存が成功した時
       flash[:success] = "Welcome to the Sample App!"
       redirect_to @user # = redirect_to user_url(@user)

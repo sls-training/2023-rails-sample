@@ -36,5 +36,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
       follow_redirect! ## follow_redirectはメソッド、!がついてるから失敗すると例外で失敗する
       assert_template 'users/show'
       # assert_select "div.nav"	 ### 例えばこういうのがあるか検証できる「<div class="nav">foobar</div>」
+      assert is_logged_in?
     end
 end
