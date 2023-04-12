@@ -12,7 +12,9 @@ class SessionsController < ApplicationController
       # セッション固定と呼ばれる攻撃に対応するためログインの前に書く
       # 対策 : ユーザがログインした直後にsessionをリセットすること
       # rails security guide
-      reset_session
+      reset_sessions
+      
+      remember user
       
       ## ユーザページに遷移
       log_in user
