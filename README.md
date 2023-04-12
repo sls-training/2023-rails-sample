@@ -381,6 +381,19 @@ Hotwire fetch(client) => response(HTML) : render(server)
 
 turboの機能中にturbo driveとか色々あるらしい後でググろ
 
+10章でようやく出てきたturbo君
+turbo-method
+```html
+<a href="/cats/1" data-turbo-method="delete">リンク</a>
+```
+こんなんが書けるとか
+リンクでPOST・PUT・PATCH・DELETEを使うことができるらしい
+erbだとこうか
+turbo-confirm => data-turbo-confirm属性になって確認ダイアログでる
+```erb
+<%= link_to "delete", user, data: { "turbo-method": :delete,
+                                          turbo_confirm: "You sure?" } %>
+```
 
 ## 永続cookieと一時cookie
 ### なんぞ？
@@ -410,3 +423,33 @@ tutorial君の方針コピーしてきた
 5. 永続ユーザーIDを含むcookiesを受け取ったら、そのIDでデータベースを検索し、記憶トークンのcookiesがデータベース内のハッシュ値と一致することを確認する。
 
 確かにこうやって方針書き出すと設計しやすそうだしいいかも...
+
+
+## テスト
+
+### 受け入れテスト
+
+  実装する前に統合テストを書く
+  ある機能の実装が完了して受け入れ可能な状態になったかどうかをテストする。
+  
+  
+
+## ページネーション
+ユーザ一覧のページングをマジで簡単に作れた.びっくり
+
+Gemfileにこれ書いただけ
+
+```bash
+gem "will_paginate",           "3.3.1"
+gem "bootstrap-will_paginate", "1.0.0"
+```
+User.pagenation(page: 1)とかで手に入るオブジェクトの実態はん<br>
+ActiveRecord_Relation というものらしい...何？ん<br>
+
+ActiveRecordとは、DBの操やらレコードの読み込みとかとかん<br>
+ふむふむ
+
+Relationって確かhasuraでみたやつやん<br>
+中間テーブルとかでテーブルに関係性持たせるやつやねん<br>
+
+RubyでWhere、OrderByとか呼べる抽象メソッド的な？まあ今はこの認識でよいか

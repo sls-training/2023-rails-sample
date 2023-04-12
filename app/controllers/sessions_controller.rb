@@ -9,6 +9,9 @@ class SessionsController < ApplicationController
       ## ユーザーログイン後にユーザー情報のページにリダイレクトする ##
       ################################################################
       
+      # フレンドリフォワーディング
+      forwarding_url = session[:forwarding_url]
+      
       # セッション固定と呼ばれる攻撃に対応するためログインの前に書く
       # 対策 : ユーザがログインした直後にsessionをリセットすること
       # rails security guide
@@ -17,7 +20,7 @@ class SessionsController < ApplicationController
       
       ## ユーザページに遷移
       log_in @user
-      redirect_to @user
+      redirect_to forwarding_url || @user
     else
       ## flash -> flash.now : レンダリングが完了していても表示することができる
       flash.now[:danger] = 'Invalid email/password combination'

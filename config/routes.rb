@@ -1,15 +1,23 @@
 Rails.application.routes.draw do
   get 'sessions/new'
   get 'users/new'
+  
+  # static
   root 'static_pages#home'
   get '/help', to:'static_pages#help'
   get '/about', to: 'static_pages#about'
   get '/contact', to: 'static_pages#contact'
+  
+  ## user
   get '/signup', to: 'users#new'
+  #get '/edit', to: 'users#edit'
+  
   ## session
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  
+
   resources :users # users/{id}のURLが有効になる
 
 end

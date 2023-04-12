@@ -16,6 +16,13 @@ gem 'rails-controller-testing'
 gem "bcrypt", "3.1.18"
 gem 'pg', '>=1.1.4'
 
+## 架空のユーザ名作ってくれる
+## 今回は本番環境でも使うけど普通はしないから一応注意
+gem "faker", "2.21.0"
+
+## ページネーション
+gem "will_paginate",           "3.3.1"
+gem "bootstrap-will_paginate", "1.0.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"

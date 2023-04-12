@@ -39,8 +39,8 @@ class User < ApplicationRecord
 
     validates :password, 
         presence: true,
-        length: {minimum: 6}
-    
+        length: {minimum: 6},
+        allow_nil: true
     
     ## 永続セッションのためにユーザをデータベースに記憶
     def remember

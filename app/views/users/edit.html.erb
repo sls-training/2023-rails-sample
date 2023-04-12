@@ -1,0 +1,19 @@
+<% provide(:title, "Edit user") %>
+<h1>Update your profile</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= render 'form' %> => 
+    <!--users/formともかける。
+    コンポーネント化してフォルダまとめたりできるっすね-->
+    <div class="gravatar_edit">
+      <%= gravatar_for @user %>
+      <!--
+        _blankでは新しいウィンドウがでる。
+        rel="noopener"で遷移先のページでwindowオブジェクトを扱えないようになる
+        これないとwindow.opener.location = "uouo"みたいなレダイレクトが行われて元のサイトが勝手に遷移する
+      -->
+      <a rel="noopener" href="https://gravatar.com/emails" target="_blank">change</a>
+    </div>
+  </div>
+</div>
