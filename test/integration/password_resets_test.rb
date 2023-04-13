@@ -128,6 +128,6 @@ class ExpiredTokenTest < ExpiredToken
   test "should include the word 'expired' on the password-reset page" do
     follow_redirect!
     ## bodyにexpireが含まれているかどうかを検証
-    assert_match `/expired/i`, response.body
+    assert_match /expired/i, response.body
   end
 end
