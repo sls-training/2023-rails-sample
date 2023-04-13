@@ -20,7 +20,7 @@ class User < ApplicationRecord
         end
     end
     
-    attr_accessor :remember_token, :activation_token
+    attr_accessor :remember_token, :activation_token, :reset_token
     
     ## 書き方をメソッド参照に変更
     before_save :downcase_email # メールアドレスを事前に小文字に直す
@@ -78,6 +78,26 @@ class User < ApplicationRecord
     def send_activation_email
         UserMailer.account_activation(self).deliver_now
     end
+    
+    
+    ## パスワード再設定の属性を設定する
+    def create_reset_digest
+        self.reset_token = User.new_token
+        # self.update_attribute(:reset_digest,  User.digest(reset_token))
+        # self.update_attribute(:reset_sent_at, Time.zone.now)
+        ## validationがかからないらしいから注意
+        self.update_columns(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
+    end
+    
+    ## パスワード再設定のメールを送信する
+    def send_password_reset_email
+        UserMailer.password_reset(self).deliver_now
+    end
+    
+    def password_reset_expired?
+        reset_sent_at < 2.hours.ago
+    end
+    
     
     private
         ## メールアドレスをすべて小文字にする
