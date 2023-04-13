@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
-  get 'users/new'
   
   # static
   root 'static_pages#home'
@@ -17,7 +15,6 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   
-
   resources :users # users/{id}のURLが有効になる
-
+  resources :account_activations, only: [:edit]
 end

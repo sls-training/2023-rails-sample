@@ -59,6 +59,10 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  ## cloud IDE利用のため
+  host = 'https://5fe07fc1b3e3498a8b5ff40eed22fd64.vfs.cloud9.ap-northeast-1.amazonaws.com'
+  config.action_mailer.default_url_options = { host: host, protocol: 'https' }
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 

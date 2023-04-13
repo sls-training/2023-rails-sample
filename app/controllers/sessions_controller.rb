@@ -5,22 +5,29 @@ class SessionsController < ApplicationController
   def create
     @user = User.find_by(email: params[:session][:email].downcase)
     if @user&.authenticate(params[:session][:password]) ## = user && user.authenticate(params[:session][:password])
-      ################################################################
-      ## ユーザーログイン後にユーザー情報のページにリダイレクトする ##
-      ################################################################
-      
-      # フレンドリフォワーディング
-      forwarding_url = session[:forwarding_url]
-      
-      # セッション固定と呼ばれる攻撃に対応するためログインの前に書く
-      # 対策 : ユーザがログインした直後にsessionをリセットすること
-      # rails security guide
-      reset_session
-      params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
-      
-      ## ユーザページに遷移
-      log_in @user
-      redirect_to forwarding_url || @user
+      if @user.activated?
+        ################################################################
+        ## ユーザーログイン後にユーザー情報のページにリダイレクトする ##
+        ################################################################
+        
+        # フレンドリフォワーディング
+        forwarding_url = session[:forwarding_url]
+        
+        # セッション固定と呼ばれる攻撃に対応するためログインの前に書く
+        # 対策 : ユーザがログインした直後にsessionをリセットすること
+        # rails security guide
+        reset_session
+        params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
+        
+        ## ユーザページに遷移
+        log_in @user
+        redirect_to forwarding_url || @user
+      else
+        message = "Account not activated. "
+        message += "Check your email for the activation link. "
+        flash[:warning] = message
+        redirect_to root_url
+      end
     else
       ## flash -> flash.now : レンダリングが完了していても表示することができる
       flash.now[:danger] = 'Invalid email/password combination'

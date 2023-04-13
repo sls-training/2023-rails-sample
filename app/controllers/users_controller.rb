@@ -12,12 +12,15 @@ class UsersController < ApplicationController
   end
   
   def index
-    @users = User.paginate(page: params[:page])
+    #有効なユーザだけ
+    @users = User.where(activated: true).paginate(page: params[:page])
+    # @users = User.paginate(page: params[:page])
   end
 
   
   def show
     @user = User.find(params[:id])
+    redirect_to(root_url, status: :see_other) and return unless @user.activated
     #debugger #差し込んでdebug止めたりできるっぽい
   end
 
@@ -26,12 +29,20 @@ class UsersController < ApplicationController
     ## logger.debug(user_params) とか使えばログ表示できて便利
     @user = User.new(user_params)
     if @user.save
-      ##セッション固定攻撃対策
-      reset_session
-      log_in @user
-      # 保存が成功した時
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user # = redirect_to user_url(@user)
+      @user.send_activation_email
+      # UserMailer.account_activation(@user).deliver_now
+      flash[:info] = "Please check email to activate your account"
+      redirect_to root_url
+      
+      ################################################
+      # アカウント有効化機能実装のためコメントアウト #
+      ################################################
+      # ##セッション固定攻撃対策
+      # reset_session
+      # log_in @user
+      # # 保存が成功した時
+      # flash[:success] = "Welcome to the Sample App!"
+      # redirect_to @user # = redirect_to user_url(@user)
     else
       # :unprocessable_entity is 422 Unprocessable Entity
       # オブジェクトの変更に失敗した時であってう
