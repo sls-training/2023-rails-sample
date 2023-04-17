@@ -17,9 +17,27 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   
+  
+  resources :users do
+    # memberメソッド
+    # urlの深掘りオプション
+    # 
+    # Prefix Verb            URI Pattern                      Controller#Action
+    # following_user GET    /users/:id/following(.:format)    users#following
+    
+    ## ひとつなら下のようにかける
+    ## resources :users do
+    ##  get :followings, on: :member
+    ## end 
+    member do
+      get :following, :followers
+    end
+  end
+  
   resources :users # users/{id}のURLが有効になる
   resources :account_activations, only: [:edit]
-  resources :password_resets, only: [:new, :create, :edit, :update]
-  resources :microposts, only: [:create, :destroy]
+  resources :password_resets,     only: [:new, :create, :edit, :update]
+  resources :microposts,          only: [:create, :destroy]
+  resources :relationships,       only: [:create, :destroy]
   get '/microposts', to: 'static_pages#home'
 end

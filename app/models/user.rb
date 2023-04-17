@@ -23,6 +23,18 @@ class User < ApplicationRecord
     attr_accessor :remember_token, :activation_token, :reset_token
     ## micropostを複数持つ
     has_many :microposts, dependent: :destroy
+    
+    # follwer, follwered
+    has_many :active_relationships, class_name:  "Relationship",
+                                    foreign_key: "follower_id",
+                                    dependent:   :destroy
+    
+    has_many :passive_relationships,    class_name:  "Relationship",
+                                        foreign_key: "followed_id",
+                                        dependent:   :destroy
+    has_many :following, through: :active_relationships, source: :followed
+    has_many :followers, through: :passive_relationships, source: :follower
+
     ## 書き方をメソッド参照に変更
     before_save :downcase_email # メールアドレスを事前に小文字に直す
     before_create :create_activation_digest
@@ -44,6 +56,22 @@ class User < ApplicationRecord
         presence: true,
         length: {minimum: 6},
         allow_nil: true
+    
+    # ユーザーをフォローする
+    def follow(other_user)
+        following << other_user unless self == other_user
+    end
+
+    # ユーザーをフォロー解除する
+    def unfollow(other_user)
+        following.delete(other_user)
+    end
+
+    # 現在のユーザーが他のユーザーをフォローしていればtrueを返す
+    def following?(other_user)
+        following.include?(other_user)
+    end
+
     
     ## 永続セッションのためにユーザをデータベースに記憶
     def remember
@@ -98,9 +126,25 @@ class User < ApplicationRecord
     def password_reset_expired?
         reset_sent_at < 2.hours.ago
     end
-    
-     def feed
-        Micropost.where("user_id = ?", id) # = microposts
+
+    def feed
+        # 同じ変数を複数の場所に差し込む場合は、key, valueで書くと良い
+        # following_ids = "SELECT followed_id FROM relationships
+        #                 WHERE  follower_id = :user_id"
+        # Micropost.where("user_id IN (#{following_ids})
+        #              OR user_id = :user_id", user_id: id)
+        #              .includes(:user, image_attachment: :blob)
+        # #Micropost.where("user_id = ?", id) # = microposts
+        
+        
+        # ↓
+        
+        part_of_feed = "relationships.follower_id = :id or microposts.user_id = :id"
+        
+        ## distinctで重複項目の削除
+        Micropost.left_outer_joins(user: :followers)
+                 .where(part_of_feed, { id: id }).distinct
+                 .includes(:user, image_attachment: :blob)
     end
     
     private
