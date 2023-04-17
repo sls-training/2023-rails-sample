@@ -13,8 +13,11 @@ gem 'sass-rails', '>= 3.2'
 gem 'jquery-rails'
 gem 'autoprefixer-rails'
 gem 'rails-controller-testing'
+gem "active_storage_validations", "0.9.8"
 gem "bcrypt", "3.1.18"
 gem 'pg', '>=1.1.4'
+
+gem "image_processing",           "1.12.2"
 
 ## 架空のユーザ名作ってくれる
 ## 今回は本番環境でも使うけど普通はしないから一応注意
@@ -87,4 +90,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+end
+
+group :production do
+  #gem "pg",         "1.3.5"
+  gem "aws-sdk-s3", "1.114.0", require: false
 end

@@ -21,7 +21,8 @@ class User < ApplicationRecord
     end
     
     attr_accessor :remember_token, :activation_token, :reset_token
-    
+    ## micropostを複数持つ
+    has_many :microposts, dependent: :destroy
     ## 書き方をメソッド参照に変更
     before_save :downcase_email # メールアドレスを事前に小文字に直す
     before_create :create_activation_digest
@@ -98,6 +99,9 @@ class User < ApplicationRecord
         reset_sent_at < 2.hours.ago
     end
     
+     def feed
+        Micropost.where("user_id = ?", id) # = microposts
+    end
     
     private
         ## メールアドレスをすべて小文字にする
