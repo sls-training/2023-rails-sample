@@ -86,27 +86,4 @@ RSpec.describe User, type: :model do
     user1.follow(user1)
     expect((user1).following?(user1)).to eq false
   end
-  
-  # test "feed should have the right posts" do
-  #   user1 = FactoryBot.create(:user, :noadmin)
-  #   user2 = FactoryBot.create(:user, :noadmin)
-  #   user3 = FactoryBot.create(:user, :noadmin)
-  #   # フォローしているユーザーの投稿を確認
-  #   lana.microposts.each do |post_following|
-  #     assert michael.feed.include?(post_following)
-  #   end
-  #   # フォロワーがいるユーザー自身の投稿を確認
-  #   michael.microposts.each do |post_self|
-  #     assert michael.feed.include?(post_self)
-  #     assert_equal michael.feed.distinct, michael.feed
-  #   end
-  #   # フォロワーがいないユーザー自身の投稿を確認
-  #   archer.microposts.each do |post_self|
-  #     assert archer.feed.include?(post_self)
-  #   end
-  #   # フォローしていないユーザーの投稿を確認
-  #   archer.microposts.each do |post_unfollowed|
-  #     assert_not michael.feed.include?(post_unfollowed)
-  #   end
-  # end
 end

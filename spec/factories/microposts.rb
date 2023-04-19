@@ -8,5 +8,9 @@ FactoryBot.define do
       content {"Most recent content"}
       created_at { Time.zone.now }
     end
+    trait :invalid do
+      # 無効になっている trait :invalid do
+      content { nil }
+    end
   end
 end
