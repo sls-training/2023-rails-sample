@@ -28,8 +28,7 @@ RSpec.describe Micropost, type: :model do
     expect(micropost.errors[:content]).to include("is too long (maximum is 140 characters)")
   end
   
-  it "it is first with order most recent" do
-      #assert_equal microposts(:most_recent), Micropost.first
+  it "is first with order most recent" do
       expect(most_recent).to eq Micropost.first
   end
 end

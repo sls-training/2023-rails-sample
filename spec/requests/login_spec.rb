@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Login", type: :request do
   let(:user) { FactoryBot.create(:user) }
+  include SessionsSupport
   describe "GET /login" do
     it "is correct routing" do
       get login_path
