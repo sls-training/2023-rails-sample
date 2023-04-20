@@ -11,7 +11,6 @@ RSpec.describe "About", type: :request do
       get "/about"
       expect(response).to be_successful
       expect(response.body).to include "About | #{base_title}"
-      #assert_select "title", "About | #{base_title}"
     end
   end
 end

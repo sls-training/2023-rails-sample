@@ -6,8 +6,7 @@ RSpec.describe "StaticPages", type: :request do
     it "responds successfully root" do
       get root_path
       expect(response).to be_successful
-      
-      assert_select "title", "Home | #{base_title}"
+      expect(response.body).to include "Home | #{base_title}"
     end
   end
 end

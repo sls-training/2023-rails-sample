@@ -11,7 +11,6 @@ RSpec.describe "Contact", type: :request do
       get "/contact"
       expect(response).to be_successful
       expect(response.body).to include "Contact | #{base_title}"
-      #assert_select "title", "Contact | #{base_title}"
     end
   end
 end
