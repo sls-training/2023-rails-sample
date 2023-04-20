@@ -69,7 +69,7 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   
   test "successful edit with friendly forwarding" do
     # フレンドリフォワーディング
-    # 最初editページにアクセスしてたんならログインした後にそこに誘導してあげよーねってこと
+    # 最初editページにアクセスしてたんなら
     get edit_user_path(@user)
     log_in_as(@user)
     assert_redirected_to edit_user_url(@user)

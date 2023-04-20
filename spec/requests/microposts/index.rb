@@ -13,6 +13,7 @@ RSpec.describe "Microposts", type: :request do
   # end
 
   it "should redirect create when not logged in" do
+  
     expect {
       post microposts_path, params: { micropost: { content: "Lorem ipsum" } }
     }.to_not change(Micropost, :count)

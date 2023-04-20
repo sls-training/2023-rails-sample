@@ -15,6 +15,7 @@ gem 'autoprefixer-rails'
 gem 'rails-controller-testing'
 gem "active_storage_validations", "0.9.8"
 gem "bcrypt", "3.1.18"
+gem 'rexml', '~> 3.2', '>= 3.2.4'
 # gem 'pg', '>=1.1.4'
 
 gem "image_processing",           "1.12.2"
@@ -91,7 +92,7 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "selenium-webdriver"
+  gem "selenium-webdriver", "~> 4.0.0"
   gem "webdrivers"
 end
 
