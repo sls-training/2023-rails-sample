@@ -1,11 +1,9 @@
 require 'rails_helper'
 
-RSpec.describe "Sessions", type: :system do
-  before do
-    driven_by(:rack_test)
-  end
-  
-  describe "#new" do
+RSpec.describe 'Sessions', type: :system do
+  before { driven_by(:rack_test) }
+
+  describe '#new' do
     context '値が無効' do
       #visit login_path
     end

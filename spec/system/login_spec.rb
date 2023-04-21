@@ -9,7 +9,7 @@
 #     fill_in "Email", with: user.email
 #     fill_in "Password", with: user.password
 #     click_button "Log in"
-    
+
 #     visit root_path
 #     expect(page).to_not include "a[href=?]", login_path
 #     #assert_select "a[href=?]", logout_path
@@ -18,5 +18,5 @@
 #     #expect(page).to have_content "a[href=?]", user_path(user)
 #     end
 #   end
- 
+
 # end

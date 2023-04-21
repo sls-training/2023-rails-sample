@@ -1,0 +1,21 @@
+{
+  "name": "rails-sample",
+  "description": "## How to install - homebrewをinstallする - rbenvのinstall     - 初期設定",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@prettier/plugin-ruby": "^3.2.2",
+    "prettier": "^2.8.7",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-prettier": "^3.0.0"
+  }
+}
