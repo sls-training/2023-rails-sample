@@ -14,6 +14,7 @@ services:
     volumes:
       - ..:/home/vscode/environment:cached
       - bundle-volume:/usr/local/bundle
-    command: sleep infinity
+    tty: true
+    
 volumes:
   bundle-volume:

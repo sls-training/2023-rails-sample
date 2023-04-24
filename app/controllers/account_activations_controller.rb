@@ -9,7 +9,7 @@ class AccountActivationsController < ApplicationController
       flash[:success] = 'Account activated!'
       redirect_to user
 
-      ##トークンが無効になった場合
+      # #トークンが無効になった場合
     else
       flash[:danger] = 'Invalid activation link'
       redirect_to root_url

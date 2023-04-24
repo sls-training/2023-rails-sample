@@ -2,16 +2,18 @@ require 'rails_helper'
 
 RSpec.describe 'Login', type: :request do
   let(:user) { FactoryBot.create(:user) }
+
   include SessionsSupport
   describe 'GET /login' do
     it 'is correct routing' do
       get login_path
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
 
     ## 成功する場合
     context 'with valid info' do
       before { post login_path, params: { session: { email: user.email, password: 'password' } } }
+
       # ログインの許可
       it 'allows to login' do
         log_in_as(user)
@@ -33,7 +35,7 @@ RSpec.describe 'Login', type: :request do
       before { post login_path, params: { session: { email: user.email, password: 'invalid' } } }
 
       it 'does not allow to login with valid email/invalid password' do
-        expect(is_logged_in?).to_not be_truthy
+        expect(is_logged_in?).not_to be_truthy
       end
     end
   end
@@ -43,6 +45,7 @@ RSpec.describe 'Login', type: :request do
       log_in_as(user, remember_me: '1')
       expect(cookies[:remember_token].blank?).to be_falsey
     end
+
     it 'does not check remembering' do
       log_in_as(user, remember_me: '1')
       log_in_as(user, remember_me: '0')

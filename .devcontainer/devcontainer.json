@@ -9,11 +9,21 @@
     // Configure properties specific to VS Code.
     "vscode": {
       // Add the IDs of extensions you want installed when the container is created.
-      "extensions": ["rebornix.Ruby", "esbenp.prettier-vscode"],
+      "extensions": ["rebornix.Ruby", "esbenp.prettier-vscode", "misogi.ruby-rubocop"],
       "settings": {
         "editor.formatOnSave": true,
+        // rubocop
+        "ruby.useBundler": true,
+        "ruby.useLanguageServer": true,
+        "ruby.lint": {
+          "rubocop": {
+            "useBundler": true
+          }
+        },
+        "ruby.format": "rubocop",
         "[ruby]": {
-          "editor.defaultFormatter": "esbenp.prettier-vscode"
+          //"editor.defaultFormatter": "esbenp.prettier-vscode"
+          "editor.defaultFormatter": "misogi.ruby-rubocop"
         },
         "[javascript]": {
           "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -32,7 +42,7 @@
   // "forwardPorts": [],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  // "postCreateCommand": "ruby --version",
+  "postCreateCommand": "bundle i && npm i",
 
   // Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "vscode"

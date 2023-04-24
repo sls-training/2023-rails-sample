@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Logout', type: :request do
   let(:user) { FactoryBot.create(:user) }
+
   before do
     # ログインさせとく
     log_in_as(user)
@@ -22,7 +23,7 @@ RSpec.describe 'Logout', type: :request do
       assert_select 'a[href=?]', user_path(user), count: 0
     end
 
-    it 'should still work after logout in second window' do
+    it 'stills work after logout in second window' do
       delete logout_path
       expect(response).to redirect_to root_url
     end

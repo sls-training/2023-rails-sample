@@ -1,13 +1,7 @@
 # Ruby Tutorial
 
 ## How to install (devcontainer)
-devcontainerで開いて以下のコマンドを打つ
-
-```bash
-RUN sudo chmod -R 777 /usr/local/rvm/
-bundle i
-npm i
-```
+devcontainerで開く
 
 ## How to install
 

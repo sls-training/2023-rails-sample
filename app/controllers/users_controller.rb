@@ -1,4 +1,4 @@
-##paramsにUserのオブジェクトが渡るってことか
+# #paramsにUserのオブジェクトが渡るってことか
 class UsersController < ApplicationController
   ## Userを作成するためのページを返すってこと
   ## つまりsingupにアクセスした時に呼ばれる => new.html.erb
@@ -7,12 +7,8 @@ class UsersController < ApplicationController
   before_action :correct_user, only: %i[edit update]
   before_action :admin_user, only: :destroy
 
-  def new
-    @user = User.new
-  end
-
   def index
-    #有効なユーザだけ
+    # 有効なユーザだけ
     @users = User.where(activated: true).paginate(page: params[:page])
     # @users = User.paginate(page: params[:page])
   end
@@ -21,10 +17,18 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
     redirect_to(root_url, status: :see_other) and return unless @user.activated
-    #debugger #差し込んでdebug止めたりできるっぽい
+    # debugger #差し込んでdebug止めたりできるっぽい
   end
 
-  #/users/{id}のpostはcreateアクションに紐づいている
+  def new
+    @user = User.new
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  # /users/{id}のpostはcreateアクションに紐づいている
   def create
     ## logger.debug(user_params) とか使えばログ表示できて便利
     @user = User.new(user_params)
@@ -50,15 +54,11 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
-    @user = User.find(params[:id])
-  end
-
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      #更新に成功
-      #ユーザのページにリダイレクト
+      # 更新に成功
+      # ユーザのページにリダイレクト
       flash[:success] = 'Profile updated'
       redirect_to @user
     else
@@ -101,11 +101,11 @@ class UsersController < ApplicationController
 
   def logged_in_user
     # unlessはif not
-    unless logged_in?
-      store_location
-      flash[:danger] = 'Please log in.'
-      redirect_to login_url, status: :see_other
-    end
+    return if logged_in?
+
+    store_location
+    flash[:danger] = 'Please log in.'
+    redirect_to login_url, status: :see_other
   end
 
   # 正しいユーザかどうか

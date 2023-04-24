@@ -14,6 +14,7 @@ class User < ApplicationRecord
       cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
       BCrypt::Password.create(string, cost: cost)
     end
+
     ## ランダムなトークンを生成
     def new_token
       SecureRandom.urlsafe_base64
@@ -21,6 +22,7 @@ class User < ApplicationRecord
   end
 
   attr_accessor :remember_token, :activation_token, :reset_token
+
   ## micropostを複数持つ
   has_many :microposts, dependent: :destroy
 
@@ -34,7 +36,7 @@ class User < ApplicationRecord
   ## 書き方をメソッド参照に変更
   before_save :downcase_email # メールアドレスを事前に小文字に直す
   before_create :create_activation_digest
-  #括弧で括ったりもできるっぽい
+  # 括弧で括ったりもできるっぽい
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates(:name, presence: true, length: { minimum: 0, maximum: 50 })
 
@@ -42,10 +44,10 @@ class User < ApplicationRecord
             presence: true,
             length: {
               minimum: 0,
-              maximum: 255,
+              maximum: 255
             },
             format: {
-              with: VALID_EMAIL_REGEX,
+              with: VALID_EMAIL_REGEX
             }, ## *@*.com
             uniqueness: true ## 一意
 
@@ -72,7 +74,7 @@ class User < ApplicationRecord
 
   ## 永続セッションのためにユーザをデータベースに記憶
   def remember
-    self.remember_token = User.new_token #ローカル変数にはせずインスタンス変数
+    self.remember_token = User.new_token # ローカル変数にはせずインスタンス変数
     update_attribute(:remember_digest, User.digest(remember_token))
     remember_digest
   end
@@ -83,6 +85,7 @@ class User < ApplicationRecord
     # よく見る
     digest = self.send("#{attribute}_digest")
     return false if digest.nil?
+
     BCrypt::Password.new(digest).is_password?(token)
   end
 
@@ -148,7 +151,7 @@ class User < ApplicationRecord
 
   ## メールアドレスをすべて小文字にする
   def downcase_email
-    #self.email = email.downcase
+    # self.email = email.downcase
     self.email.downcase!
   end
 

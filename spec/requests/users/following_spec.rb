@@ -10,6 +10,7 @@ RSpec.describe 'UsersFollowing', type: :request do
         log_in_as(user)
         user.follow(f1)
       end
+
       it 'allows to access' do
         get following_user_path(user)
         expect(response).to have_http_status :unprocessable_entity
@@ -18,6 +19,7 @@ RSpec.describe 'UsersFollowing', type: :request do
         user.following.each { |user| assert_select 'a[href=?]', user_path(user) }
       end
     end
+
     context 'without login' do
       it 'does not allow to show without login' do
         get following_user_path(user)

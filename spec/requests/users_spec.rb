@@ -21,12 +21,12 @@ RSpec.describe 'Users', type: :request do
       end
 
       it 'can access' do
-        expect(response).to have_http_status 200
+        expect(response).to have_http_status :ok
       end
 
       it 'paginate users' do
-        expect(response.body).to_not include 'pagination'
-        #とりあえずユーザこれで作ってタグの確認する
+        expect(response.body).not_to include 'pagination'
+        # とりあえずユーザこれで作ってタグの確認する
         expect(user_list.count).to eq 50
         get users_path
         expect(response.body).to include 'pagination'
@@ -43,7 +43,7 @@ RSpec.describe 'Users', type: :request do
       end
 
       it 'can access' do
-        expect(response).to have_http_status 200
+        expect(response).to have_http_status :ok
       end
     end
   end
@@ -52,7 +52,7 @@ RSpec.describe 'Users', type: :request do
   ## ログインなしの場合 ##
   #####################
   context 'without login' do
-    it 'should redirect index when not logged in' do
+    it 'redirects index when not logged in' do
       get users_path
       expect(response).to redirect_to login_url
     end

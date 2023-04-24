@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'UsersIndex', type: :request do
+RSpec.describe 'Index', type: :request do
   let!(:user) { FactoryBot.create(:user) }
   let!(:noadmin) { FactoryBot.create(:user, :noadmin) }
   let!(:noactivated) { FactoryBot.create(:user, :noactivated) }
@@ -14,6 +14,7 @@ RSpec.describe 'UsersIndex', type: :request do
         log_in_as(user)
         get user_path(user)
       end
+
       it 'allows to access' do
         expect(response).to have_http_status :success
 
@@ -29,6 +30,7 @@ RSpec.describe 'UsersIndex', type: :request do
 
     context 'without user' do
       before { get user_path(user) }
+
       it 'does not allow to access' do
         # ログインなくてもユーザの投稿だけは見れる
         expect(response).to have_http_status :success
@@ -63,13 +65,13 @@ RSpec.describe 'UsersIndex', type: :request do
 
       ## 削除できる
       it 'can delete non-admin user' do
-        expect { delete user_path(noadmin) }.to change(User, :count).by (-1)
+        expect { delete user_path(noadmin) }.to change(User, :count).by(-1)
 
         assert_response :see_other
         assert_redirected_to users_url
       end
 
-      it 'should display only activated users' do
+      it 'displays only activated users' do
         ## ページにいる最初のユーザーを無効化する。
         ## toggle : インスタンスに保存されているbooleanの値を反転させて保存、成功すればtrue
         User.paginate(page: 1).first.toggle! :activated
@@ -79,6 +81,7 @@ RSpec.describe 'UsersIndex', type: :request do
         assigns(:users).each { |user| assert user.activated }
       end
     end
+
     #################
     ### Adminでない場合
     ##################

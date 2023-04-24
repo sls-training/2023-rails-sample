@@ -39,7 +39,7 @@ module SessionsHelper
     end
   end
 
-  #ログインしてるかどうか な
+  # ログインしてるかどうか な
   def logged_in?
     !current_user.nil?
   end

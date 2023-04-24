@@ -2,12 +2,13 @@ RSpec.describe 'PasswordReset', type: :request do
   let(:user) { FactoryBot.create(:user) }
 
   before { ActionMailer::Base.deliveries.clear }
+
   describe 'POST /password_resets' do
     context 'with valid info' do
-      it 'reset with valid email' do
+      it 'resets with valid email' do
         post password_resets_path, params: { password_reset: { email: user.email } }
         @reset_user = controller.instance_variable_get('@user')
-        expect(user.reset_digest).to_not eq @reset_user.reset_digest
+        expect(user.reset_digest).not_to eq @reset_user.reset_digest
         expect(ActionMailer::Base.deliveries.size).to eq 1
         expect(flash.empty?).to be_falsey
         expect(response).to redirect_to root_url
@@ -29,6 +30,7 @@ RSpec.describe 'PasswordReset', type: :request do
       post password_resets_path, params: { password_reset: { email: user.email } }
       @reset_user = controller.instance_variable_get('@user')
     end
+
     context 'with valid info' do
       it 'update with valid password and confirmation' do
         patch password_reset_path(@reset_user.reset_token),
@@ -36,13 +38,14 @@ RSpec.describe 'PasswordReset', type: :request do
                 email: @reset_user.email,
                 user: {
                   password: 'foobaz',
-                  password_confirmation: 'foobaz',
-                },
+                  password_confirmation: 'foobaz'
+                }
               }
         assert is_logged_in?
         assert_not flash.empty?
         assert_redirected_to @reset_user
       end
+
       context 'passwordリセットした後のテスト' do
         before do
           # トークンを手動で失効させる
@@ -53,16 +56,16 @@ RSpec.describe 'PasswordReset', type: :request do
                   email: @reset_user.email,
                   user: {
                     password: 'foobar',
-                    password_confirmation: 'foobar',
-                  },
+                    password_confirmation: 'foobar'
+                  }
                 }
         end
 
-        it 'should redirect to the password-reset page' do
+        it 'redirects to the password-reset page' do
           expect(response).to redirect_to new_password_reset_url
         end
 
-        it "should include the word 'expired' on the password-reset page" do
+        it "includes the word 'expired' on the password-reset page" do
           follow_redirect!
           ## bodyにexpireが含まれているかどうかを検証
           assert_match /expired/i, response.body
@@ -77,19 +80,20 @@ RSpec.describe 'PasswordReset', type: :request do
                 email: @reset_user.email,
                 user: {
                   password: 'foobaz',
-                  password_confirmation: 'barquux',
-                },
+                  password_confirmation: 'barquux'
+                }
               }
         assert_select 'div#error_explanation'
       end
+
       it 'update with empty password' do
         patch password_reset_path(@reset_user.reset_token),
               params: {
                 email: @reset_user.email,
                 user: {
                   password: '',
-                  password_confirmation: '',
-                },
+                  password_confirmation: ''
+                }
               }
         assert_select 'div#error_explanation'
       end

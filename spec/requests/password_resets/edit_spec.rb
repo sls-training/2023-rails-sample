@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'PasswordResetEdit', type: :request do
+RSpec.describe 'PasswordNew', type: :request do
   let(:user) { FactoryBot.create(:user) }
 
   before do
@@ -12,7 +12,7 @@ RSpec.describe 'PasswordResetEdit', type: :request do
   describe 'EDIT' do
     it 'reset with right email and right token' do
       get edit_password_reset_path(@reset_user.reset_token, email: @reset_user.email)
-      #assert_template 'password_resets/edit'
+      # assert_template 'password_resets/edit'
       assert_select 'input[name=email][type=hidden][value=?]', @reset_user.email
     end
 
@@ -20,11 +20,13 @@ RSpec.describe 'PasswordResetEdit', type: :request do
       get edit_password_reset_path(@reset_user.reset_token, email: '')
       expect(response).to redirect_to root_url
     end
+
     it 'reset with inactive user' do
       @reset_user.toggle!(:activated)
       get edit_password_reset_path(@reset_user.reset_token, email: @reset_user.email)
       expect(response).to redirect_to root_url
     end
+
     it 'reset with right email but wrong token' do
       get edit_password_reset_path('wrong token', email: @reset_user.email)
       expect(response).to redirect_to root_url

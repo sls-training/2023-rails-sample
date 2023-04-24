@@ -8,10 +8,10 @@ Rails.application.configure do
   ActionMailer::Base.smtp_settings = {
     port: 587,
     address: 'smtp.mailgun.org',
-    user_name: ENV['MAILGUN_SMTP_LOGIN'],
-    password: ENV['MAILGUN_SMTP_PASSWORD'],
+    user_name: ENV.fetch('MAILGUN_SMTP_LOGIN', nil),
+    password: ENV.fetch('MAILGUN_SMTP_PASSWORD', nil),
     domain: host,
-    authentication: :plain,
+    authentication: :plain
   }
 
   # Settings specified here will take precedence over those in config/application.rb.
@@ -89,7 +89,7 @@ Rails.application.configure do
   config.active_support.report_deprecations = false
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  config.log_formatter = Logger::Formatter.new
 
   # Use a different logger for distributed setups.
   # require "syslog/logger"

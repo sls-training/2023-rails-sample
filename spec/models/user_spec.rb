@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
     expect(duplicate_user.errors[:email]).to include ('has already been taken')
   end
 
-  it 'does not allow to be present whitespace ' do
+  it 'does not allow to be present whitespace' do
     @user.password = @user.password_confirmation = ' ' * 6
     @user.valid?
     expect(@user.errors[:password]).to include ("can't be blank")
@@ -67,16 +67,16 @@ RSpec.describe User, type: :model do
     user1 = FactoryBot.create(:user, :noadmin)
     user2 = FactoryBot.create(:user, :noadmin)
 
-    expect((user1).following?(user2)).to eq false
+    expect(user1.following?(user2)).to eq false
     user1.follow(user2)
-    expect((user1).following?(user2)).to eq true
+    expect(user1.following?(user2)).to eq true
 
     expect(user2.followers.include?(user1)).to eq true
     user1.unfollow(user2)
-    expect((user1).following?(user2)).to eq false
+    expect(user1.following?(user2)).to eq false
 
     # # ユーザーは自分自身をフォローできない
     user1.follow(user1)
-    expect((user1).following?(user1)).to eq false
+    expect(user1.following?(user1)).to eq false
   end
 end

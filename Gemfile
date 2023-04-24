@@ -16,7 +16,6 @@ gem 'rails-controller-testing'
 gem 'active_storage_validations', '0.9.8'
 gem 'bcrypt', '3.1.18'
 gem 'rexml', '~> 3.2', '>= 3.2.4'
-# gem 'pg', '>=1.1.4'
 
 gem 'image_processing', '1.12.2'
 
@@ -93,6 +92,13 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  ## linter
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rubycw', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'rubocop-inflector', require: false
 end
 
 group :test do
@@ -103,6 +109,6 @@ group :test do
 end
 
 group :production do
-  gem "pg", '>=1.1.4'
+  gem 'pg', '>=1.1.4'
   gem 'aws-sdk-s3', '1.114.0', require: false
 end

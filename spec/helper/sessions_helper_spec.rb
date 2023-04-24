@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Microposts', type: :helper do
   let!(:user) { FactoryBot.create(:user) }
+
   before { remember(user) }
 
   it 'current_user returns right user when session is nil' do

@@ -3,9 +3,22 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": true
   },
-  "[ruby]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  // rubocop
+  "ruby.useBundler": true,
+  "ruby.useLanguageServer": true,
+  "ruby.lint": {
+    "rubocop": {
+      "useBundler": true
+    }
   },
+  // "ruby.rubocop.executePath": "./bin/",
+  "ruby.format": "rubocop",
+
+  "[ruby]": {
+    //"editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "misogi.ruby-rubocop"
+  },
+  // prettier
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },

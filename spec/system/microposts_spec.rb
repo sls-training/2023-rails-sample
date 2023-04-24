@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Microposts', type: :system do
   let!(:user) { FactoryBot.create(:user) }
-  #include SessionsSupport
+  # include SessionsSupport
 
-  scenario 'user creates a new micropost' do
+  it 'user creates a new micropost' do
     visit root_path
     click_link 'Log in'
     fill_in 'Email', with: user.email
@@ -12,20 +12,20 @@ RSpec.describe 'Microposts', type: :system do
     click_button 'Log in'
 
     visit root_path
-    expect {
+    expect do
       fill_in 'micropost[content]', with: 'Test Message'
       click_button 'Post'
       expect(page).to have_content 'Micropost created!'
       expect(page).to have_content 'Test Message'
-    }.to change(user.microposts, :count).by(1)
+    end.to change(user.microposts, :count).by(1)
   end
-  #expect(page).to have_css('#record')
+  # expect(page).to have_css('#record')
 
   # textarea = find('#course_body')
   # expect(textarea.value).to match
 
-  #fill_in "Content", with: "uououo"
-  #click_button "commit"
+  # fill_in "Content", with: "uououo"
+  # click_button "commit"
   # fill_in "Message", with: "My book cover"
   # attach_file "Attachment", "#{Rails.root}/spec/files/kitten.jpg"
   # expect(page).to have_content "UOuo"

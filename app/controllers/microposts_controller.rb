@@ -17,17 +17,17 @@ class MicropostsController < ApplicationController
   def destroy
     @micropost.destroy
     flash[:success] = 'Micropost deleted'
-    if request.referrer.nil?
+    if request.referer.nil?
       redirect_to root_url, status: :see_other
     else
       # 元のページに戻る
-      redirect_to request.referrer, status: :see_other
+      redirect_to request.referer, status: :see_other
     end
   end
 
   private
 
-  #strong parameter
+  # strong parameter
   def micropost_params
     params.require(:micropost).permit(:content)
   end

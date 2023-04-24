@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'UsersEdit', type: :request do
   let!(:user) { FactoryBot.create(:user) }
   let!(:other) { FactoryBot.create(:user, :noadmin) }
+
   describe 'Get /users/{id}/edit' do
     #########################
     ## ログイン済み
@@ -21,16 +22,17 @@ RSpec.describe 'UsersEdit', type: :request do
 
           patch user_path(user), params: { user: { name: name, email: email, password: '', password_confirmation: '' } }
 
-          expect(flash.empty?).to_not eq true
+          expect(flash.empty?).not_to eq true
           expect(response).to redirect_to user
-          #expect(response).to have_http_status 302
+          # expect(response).to have_http_status 302
 
-          #リロードしてあってる確認
+          # リロードしてあってる確認
           user.reload
           expect(name).to eq user.name
           expect(email).to eq user.email
         end
       end
+
       ## 入力情報に不備
       context 'with invalid info' do
         ## 編集の失敗 422
@@ -39,25 +41,27 @@ RSpec.describe 'UsersEdit', type: :request do
           get edit_user_path(user)
           expect(response).to have_http_status :success
 
-          #失敗するパッチ
+          # 失敗するパッチ
           patch user_path(user),
                 params: {
                   user: {
                     name: '',
                     email: 'foo@invalid',
                     password: 'foo',
-                    password_confirmation: 'bar',
-                  },
+                    password_confirmation: 'bar'
+                  }
                 }
-          expect(response).to have_http_status(422)
+          expect(response).to have_http_status(:unprocessable_entity)
         end
       end
     end
+
     #########################
     ## 別のユーザがログイン済み
     #########################
     context 'with other login' do
       before { log_in_as(other) }
+
       ## 別のユーザのページを見れてしまわないか検証する
       it 'does not allow to access other user' do
         get edit_user_path(user)
@@ -71,6 +75,7 @@ RSpec.describe 'UsersEdit', type: :request do
         expect(response).to redirect_to root_url
       end
     end
+
     #########################
     ## ログインなし
     #########################
