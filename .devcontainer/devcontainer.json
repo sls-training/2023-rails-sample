@@ -13,8 +13,7 @@
       "settings": {
         "editor.formatOnSave": true,
         "[ruby]": {
-          "editor.defaultFormatter": "esbenp.prettier-vscode",
-          "editor.formatOnSaveTimeout": 2000000
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
         },
         "[javascript]": {
           "editor.defaultFormatter": "esbenp.prettier-vscode"
