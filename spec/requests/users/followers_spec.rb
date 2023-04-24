@@ -2,16 +2,27 @@ require 'rails_helper'
 
 RSpec.describe 'Followers', type: :request do
   let!(:user) { FactoryBot.create(:user) }
+  let!(:f1) { FactoryBot.create(:user, :noadmin) }
+  #let(:relationship) { FactoryBot.create(:relationship) }
   describe 'GET /users/{id}/followers' do
-    it 'correct user' do
-      log_in_as(user)
-      expect(is_logged_in?).to eq true
-      #get `/users/#{user.id}/following`
-      get followers_user_path(user)
-      #何故422なのか？
-      #expect(response).to have_http_status 200
-    end
+    context 'with login user' do
+      before do
+        log_in_as(user)
+        #user.follow(f1)
+        f1.follow(user)
+      end
+      it 'followers page' do
+        get followers_user_path(user)
+        expect(response).to have_http_status :unprocessable_entity
 
+        # follwersの中身がない状態で次のテストが行われるとスルーされてしまい検証できない
+        expect(user.followers.empty?).to be_falsey
+        expect(response.body).to include user.followers.count.to_s
+        user.followers.each { |user| assert_select 'a[href=?]', user_path(user) }
+      end
+    end
+  end
+  context 'without login' do
     it 'does not allow to show without login' do
       get followers_user_path(user)
       expect(response).to have_http_status :see_other

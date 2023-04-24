@@ -12,7 +12,6 @@ RSpec.describe 'Logout', type: :request do
     it 'responds successfully' do
       delete logout_path
       expect(is_logged_in?).to eq false
-
       expect(response).to have_http_status :see_other
       expect(response).to redirect_to root_url
 

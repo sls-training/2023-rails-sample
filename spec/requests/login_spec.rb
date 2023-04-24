@@ -16,19 +16,15 @@ RSpec.describe 'Login', type: :request do
       it 'allows to login' do
         log_in_as(user)
         expect(is_logged_in?).to be_truthy
-        #assert_redirected_to user
+        expect(response).to redirect_to user_path(user)
       end
 
       # ログインした後のリダイレクト先があっているか
       it 'redirects after login' do
-        #follow_redirect!
-        # ここも一旦後
-        # assert_template 'users/show'
-        # expect(response).to redirect_to user_path(user)
-        #expect(response.body).to_not include "a[href=?]", login_path
-        #assert_select "a[href=?]", logout_path
-        #expect(response.body).to include "a[href=?]", logout_path
-        #expect(response.body).to include "a[href=?]", user_path(user)
+        follow_redirect!
+        assert_select 'a[href=?]', login_path, count: 0
+        assert_select 'a[href=?]', logout_path
+        assert_select 'a[href=?]', user_path(user)
       end
     end
 

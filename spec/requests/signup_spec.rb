@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe 'UsersSignup', type: :request do
   before { ActionMailer::Base.deliveries.clear }
 
-  #############
+  #################################################
   ## contextの書き方としては、〇〇な場合を連ねていくのが
   ## 正しそう、つまりこの書き方 is ヤバイ
-  #########
+  #############################################
   describe 'Signup test' do
     it 'is invalid ' do
       ## postする前後でUser.countに変化がないことを検証する

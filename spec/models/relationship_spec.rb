@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Relationship, type: :model do
   let!(:user1) { FactoryBot.create(:user, :noadmin) }
   let!(:user2) { FactoryBot.create(:user, :noadmin) }
+
   let!(:relationship) { Relationship.new(follower_id: user1.id, followed_id: user2.id) }
 
   it 'is valid relationship' do
