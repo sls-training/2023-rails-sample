@@ -10,7 +10,8 @@ RSpec.describe 'UserMailler', type: :mailer do
     expect(mail.to).to eq [user.email]
     expect(mail.from).to eq ['sakisaki200012@gmail.com']
     expect(mail.body.encoded).to include user.name
-    expect(mail.body.encoded).to include user.activation_token
+    expect(mail.body.encoded).to
+    include user.activation_token
     expect(mail.body.encoded).to include CGI.escape(user.email)
   end
 

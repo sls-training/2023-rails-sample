@@ -83,6 +83,7 @@ group :development do
   gem 'web-console'
   gem 'guard'
   # code format
+  gem 'prettier'
   gem 'prettier_print'
   gem 'syntax_tree'
   gem 'syntax_tree-haml'
