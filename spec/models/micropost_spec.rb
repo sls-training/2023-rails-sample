@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Micropost, type: :model do
+RSpec.describe Micropost do
   let!(:user) { FactoryBot.create(:user) }
   let!(:micropost) { user.microposts.build(content: 'Lorem ipsum') }
   let!(:most_recent) { FactoryBot.create(:micropost, :most_recent) }
@@ -13,7 +13,7 @@ RSpec.describe Micropost, type: :model do
   it 'is invalid without user_id' do
     micropost.user_id = nil
     micropost.valid?
-    expect(micropost.errors[:user_id]).to include ("can't be blank")
+    expect(micropost.errors[:user_id]).to include("can't be blank")
   end
 
   it 'is invalid without content' do

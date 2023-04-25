@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
+RSpec.describe User do
   before { @user = FactoryBot.build(:user) }
 
   it 'is valid with a name, email, password, password_confirmation' do

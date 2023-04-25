@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'UsersEdit', type: :request do
+RSpec.describe 'UsersEdit' do
   let!(:user) { FactoryBot.create(:user) }
   let!(:other) { FactoryBot.create(:user, :noadmin) }
 

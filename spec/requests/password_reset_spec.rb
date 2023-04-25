@@ -1,4 +1,4 @@
-RSpec.describe 'PasswordReset', type: :request do
+RSpec.describe 'PasswordReset' do
   let(:user) { FactoryBot.create(:user) }
 
   before { ActionMailer::Base.deliveries.clear }
@@ -7,7 +7,7 @@ RSpec.describe 'PasswordReset', type: :request do
     context 'with valid info' do
       it 'resets with valid email' do
         post password_resets_path, params: { password_reset: { email: user.email } }
-        @reset_user = controller.instance_variable_get('@user')
+        @reset_user = controller.instance_variable_get(:@user)
         expect(user.reset_digest).not_to eq @reset_user.reset_digest
         expect(ActionMailer::Base.deliveries.size).to eq 1
         expect(flash.empty?).to be_falsey
@@ -28,7 +28,7 @@ RSpec.describe 'PasswordReset', type: :request do
     before do
       # パスワードリセットのトークンを作成する
       post password_resets_path, params: { password_reset: { email: user.email } }
-      @reset_user = controller.instance_variable_get('@user')
+      @reset_user = controller.instance_variable_get(:@user)
     end
 
     context 'with valid info' do
@@ -36,8 +36,8 @@ RSpec.describe 'PasswordReset', type: :request do
         patch password_reset_path(@reset_user.reset_token),
               params: {
                 email: @reset_user.email,
-                user: {
-                  password: 'foobaz',
+                user:  {
+                  password:              'foobaz',
                   password_confirmation: 'foobaz'
                 }
               }
@@ -54,8 +54,8 @@ RSpec.describe 'PasswordReset', type: :request do
           patch password_reset_path(@reset_user.reset_token),
                 params: {
                   email: @reset_user.email,
-                  user: {
-                    password: 'foobar',
+                  user:  {
+                    password:              'foobar',
                     password_confirmation: 'foobar'
                   }
                 }
@@ -68,7 +68,7 @@ RSpec.describe 'PasswordReset', type: :request do
         it "includes the word 'expired' on the password-reset page" do
           follow_redirect!
           ## bodyにexpireが含まれているかどうかを検証
-          assert_match /expired/i, response.body
+          assert_match(/expired/i, response.body)
         end
       end
     end
@@ -78,8 +78,8 @@ RSpec.describe 'PasswordReset', type: :request do
         patch password_reset_path(@reset_user.reset_token),
               params: {
                 email: @reset_user.email,
-                user: {
-                  password: 'foobaz',
+                user:  {
+                  password:              'foobaz',
                   password_confirmation: 'barquux'
                 }
               }
@@ -90,8 +90,8 @@ RSpec.describe 'PasswordReset', type: :request do
         patch password_reset_path(@reset_user.reset_token),
               params: {
                 email: @reset_user.email,
-                user: {
-                  password: '',
+                user:  {
+                  password:              '',
                   password_confirmation: ''
                 }
               }

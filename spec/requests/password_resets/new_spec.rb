@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'PasswordReset', type: :request do
+RSpec.describe 'PasswordReset' do
   let(:user) { FactoryBot.create(:user) }
 
   before { ActionMailer::Base.deliveries.clear }

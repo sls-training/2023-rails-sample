@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe 'PasswordNew', type: :request do
+RSpec.describe 'PasswordNew' do
   let(:user) { FactoryBot.create(:user) }
 
   before do
     ActionMailer::Base.deliveries.clear
     post password_resets_path, params: { password_reset: { email: user.email } }
-    @reset_user = controller.instance_variable_get('@user')
+    @reset_user = controller.instance_variable_get(:@user)
   end
 
   describe 'EDIT' do

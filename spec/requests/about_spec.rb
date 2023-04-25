@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'About', type: :request do
+RSpec.describe 'About' do
   # viewの内容を確認できる
   # render_views
 

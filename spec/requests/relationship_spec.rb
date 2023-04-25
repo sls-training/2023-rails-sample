@@ -1,6 +1,6 @@
 require 'rails_helper'
 ## realation頑張って作ってね
-RSpec.describe 'Relationships', type: :request do
+RSpec.describe 'Relationships' do
   let(:user1) { FactoryBot.create(:user) }
   let(:user2) { FactoryBot.create(:user, :noadmin) }
   let(:other) { FactoryBot.create(:user, :noadmin) }

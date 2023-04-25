@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Contact', type: :request do
+RSpec.describe 'Contact' do
   # viewの内容を確認できる
   # render_views
 

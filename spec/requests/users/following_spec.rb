@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'UsersFollowing', type: :request do
+RSpec.describe 'UsersFollowing' do
   let!(:user) { FactoryBot.create(:user) }
   let!(:f1) { FactoryBot.create(:user, :noadmin) }
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'RootSystem', type: :system do
+RSpec.describe 'RootSystem' do
   let!(:user) { FactoryBot.create(:user) }
 
   it 'feeds on Home page' do

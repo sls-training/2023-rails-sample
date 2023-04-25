@@ -2,7 +2,7 @@ require 'rails_helper'
 ##########################
 ## /users
 ##########################
-RSpec.describe 'Users', type: :request do
+RSpec.describe 'Users' do
   let!(:user) { FactoryBot.create(:user) }
   let!(:noadmin) { FactoryBot.create(:user, :noadmin) }
   let!(:noactivated) { FactoryBot.create(:user, :noactivated) }

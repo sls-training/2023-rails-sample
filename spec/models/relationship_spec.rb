@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Relationship, type: :model do
+RSpec.describe Relationship do
   let!(:user1) { FactoryBot.create(:user, :noadmin) }
   let!(:user2) { FactoryBot.create(:user, :noadmin) }
 

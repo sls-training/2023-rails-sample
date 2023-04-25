@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe SiteLayout, type: :system do
+RSpec.describe 'SiteLayout' do
   context 'with layout' do
     # 移動
     subject(:body) { page }

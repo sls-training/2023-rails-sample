@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Index', type: :request do
+RSpec.describe 'Index' do
   let!(:user) { FactoryBot.create(:user) }
   let!(:noadmin) { FactoryBot.create(:user, :noadmin) }
   let!(:noactivated) { FactoryBot.create(:user, :noactivated) }

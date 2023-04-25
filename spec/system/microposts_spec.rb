@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Microposts', type: :system do
+RSpec.describe 'Microposts' do
   let!(:user) { FactoryBot.create(:user) }
   # include SessionsSupport
 

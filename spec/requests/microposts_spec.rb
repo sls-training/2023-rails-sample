@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Microposts', type: :request do
+RSpec.describe 'Microposts' do
   # #マイクロポスト付きのデータの作成の仕方がわからん
   let!(:user) { FactoryBot.create(:user) }
   let!(:other) { FactoryBot.create(:user, :noadmin) }
