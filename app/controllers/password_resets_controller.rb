@@ -22,19 +22,22 @@ class PasswordResetsController < ApplicationController
     end
   end
 
+  def on_reset_password
+    # パスワードを変えた時にユーザのsessionを初期化
+    # @user.forget
+    reset_session
+    log_in @user
+    @user.update_attribute(:reset_digest, nil)
+    flash[:success] = 'Password has been reset. '
+    redirect_to @user
+  end
+
   def update
     if params[:user][:password].empty?
       @user.errors.add(:password, "Can't be empty")
       render 'edit', status: :unprocessable_entity
     elsif @user.update(user_params)
-      # パスワードを変えた時にユーザのsessionを初期化
-      # @user.forget
-      reset_session
-
-      log_in @user
-      @user.update_attribute(:reset_digest, nil)
-      flash[:success] = 'Password has been reset. '
-      redirect_to @user
+      on_reset_password
     else
       render 'edit', status: :unprocessable_entity
     end

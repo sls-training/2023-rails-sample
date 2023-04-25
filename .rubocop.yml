@@ -24,7 +24,7 @@ RSpec/ExampleLength:
   Max: 20 # default: 5
   CountAsOne: ['array', 'hash', 'heredoc']
 
-# ActiveRecordを操作するメソッドの警告(設定するべきではないと思う)
+# ActiveRecordを操作するメソッドの警告(falseに設定するべきではないと思う)
 Rails/SkipsModelValidations:
   Enabled: false
 
@@ -49,9 +49,6 @@ Metrics/MethodLength:
   Enabled: true
   CountComments: false
   Max: 20
-
-# Metrics/AbcSize:
-#   Max: 30 # default 15, base.yml(20)
 
 ###############################
 # NewCops: enableで追加した項目 #

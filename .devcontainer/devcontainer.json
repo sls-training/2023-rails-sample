@@ -9,7 +9,14 @@
     // Configure properties specific to VS Code.
     "vscode": {
       // Add the IDs of extensions you want installed when the container is created.
-      "extensions": ["rebornix.Ruby", "esbenp.prettier-vscode", "misogi.ruby-rubocop"],
+      "extensions": [
+        "castwide.solargraph",
+        "bung87.rails",
+        "aki77.rails-db-schema",
+        "Shopify.ruby-lsp",
+        "esbenp.prettier-vscode",
+        "misogi.ruby-rubocop"
+      ],
       "settings": {
         "editor.formatOnSave": true,
         // rubocop
