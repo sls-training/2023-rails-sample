@@ -1,8 +1,9 @@
 # RuboCop RSpec の設定ファイル
 # 通常、基本設定ファイル (base.yml) と同時に利用する
 
-require: rubocop-rspec
-
+require:
+  - rubocop-rspec
+  - rubocop-capybara
 ########################################
 # RSpec Cops: TODO
 ########################################

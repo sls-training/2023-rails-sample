@@ -3,6 +3,7 @@ inherit_from:
   - ./rubocop/config/rails.yml
   - ./rubocop/config/rspec.yml # RSpec 利用時のみ
 AllCops:
+  NewCops: enable
   TargetRubyVersion: 2.7
   Exclude:
     - bin/**/*
