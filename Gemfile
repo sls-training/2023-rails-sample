@@ -112,3 +112,7 @@ group :production do
   gem 'pg', '>=1.1.4'
   gem 'aws-sdk-s3', '1.114.0', require: false
 end
+
+
+  source 'https://rubygems.org'
+  git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
