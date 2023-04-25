@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Micropost do
-  let!(:user) { FactoryBot.create(:user) }
+  let!(:user) { create(:user) }
   let!(:micropost) { user.microposts.build(content: 'Lorem ipsum') }
-  let!(:most_recent) { FactoryBot.create(:micropost, :most_recent) }
+  let!(:most_recent) { create(:micropost, :most_recent) }
 
   it 'is valid micropost' do
     micropost.valid?
@@ -29,6 +31,6 @@ RSpec.describe Micropost do
   end
 
   it 'is first with order most recent' do
-    expect(most_recent).to eq Micropost.first
+    expect(most_recent).to eq described_class.first
   end
 end

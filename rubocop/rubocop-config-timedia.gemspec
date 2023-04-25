@@ -8,7 +8,8 @@ Gem::Specification.new do |spec|
 
   spec.authors  = ['Ryo MAEDA']
   spec.metadata = {
-    'allowed_push_host' => 'https://timedia.co.jp/' # rake release できないように適当な host を設定
+    'allowed_push_host'     => 'https://timedia.co.jp/',
+    'rubygems_mfa_required' => 'true' # rake release できないように適当な host を設定
   }
 
   spec.files = Dir['config/*.yml']

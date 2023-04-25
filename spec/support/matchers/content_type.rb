@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # # カスタムマッチャ　(例)
 # Rspec::Matchers.define :have_content_type do |expected|
 #   match do |actual|

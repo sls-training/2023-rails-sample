@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Followers' do
-  let!(:user) { FactoryBot.create(:user) }
-  let!(:f1) { FactoryBot.create(:user, :noadmin) }
+  let!(:user) { create(:user) }
+  let!(:f1) { create(:user, :noadmin) }
 
   # let(:relationship) { FactoryBot.create(:relationship) }
   describe 'GET /users/{id}/followers' do
@@ -18,7 +20,7 @@ RSpec.describe 'Followers' do
         expect(response).to have_http_status :unprocessable_entity
 
         # follwersの中身がない状態で次のテストが行われるとスルーされてしまい検証できない
-        expect(user.followers.empty?).to be_falsey
+        expect(user.followers).not_to be_empty
         expect(response.body).to include user.followers.count.to_s
         user.followers.each { |user| assert_select 'a[href=?]', user_path(user) }
       end

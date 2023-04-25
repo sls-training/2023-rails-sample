@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 ## realation頑張って作ってね
 RSpec.describe 'Relationships' do
-  let(:user1) { FactoryBot.create(:user) }
-  let(:user2) { FactoryBot.create(:user, :noadmin) }
-  let(:other) { FactoryBot.create(:user, :noadmin) }
+  let(:user1) { create(:user) }
+  let(:user2) { create(:user, :noadmin) }
+  let(:other) { create(:user, :noadmin) }
   let!(:one) { Relationship.create(follower_id: user1.id, followed_id: user2.id) }
 
   describe 'POST /relationships'

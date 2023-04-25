@@ -1,12 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 ##########################
 ## /users
 ##########################
 RSpec.describe 'Users' do
-  let!(:user) { FactoryBot.create(:user) }
-  let!(:noadmin) { FactoryBot.create(:user, :noadmin) }
-  let!(:noactivated) { FactoryBot.create(:user, :noactivated) }
-  let(:user_list) { FactoryBot.create_list(:user, 50, :noadmin) }
+  let!(:user) { create(:user) }
+  let!(:noadmin) { create(:user, :noadmin) }
+  let(:user_list) { create_list(:user, 50, :noadmin) }
   # let!(:microposts) { FactoryBot.create_list(:micropost, 50) }
 
   describe 'GET /users' do

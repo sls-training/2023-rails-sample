@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'UsersFollowing' do
-  let!(:user) { FactoryBot.create(:user) }
-  let!(:f1) { FactoryBot.create(:user, :noadmin) }
+  let!(:user) { create(:user) }
+  let!(:f1) { create(:user, :noadmin) }
 
   describe 'GET /users/{id}/following' do
     context 'with login user' do
@@ -14,7 +16,7 @@ RSpec.describe 'UsersFollowing' do
       it 'allows to access' do
         get following_user_path(user)
         expect(response).to have_http_status :unprocessable_entity
-        expect(user.following.empty?).to be_falsey
+        expect(user.following).not_to be_empty
         expect(response.body).to include user.following.count.to_s
         user.following.each { |user| assert_select 'a[href=?]', user_path(user) }
       end

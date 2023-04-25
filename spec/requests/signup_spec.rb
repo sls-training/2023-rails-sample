@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'UsersSignup' do
@@ -16,9 +18,9 @@ RSpec.describe 'UsersSignup' do
         post users_path,
              params: {
                user: {
-                 name: '',
-                 email: 'user@invalid',
-                 password: 'foo',
+                 name:                  '',
+                 email:                 'user@invalid',
+                 password:              'foo',
                  password_confirmation: 'bar'
                }
              }
@@ -39,9 +41,9 @@ RSpec.describe 'UsersSignup' do
         post users_path,
              params: {
                user: {
-                 name: 'Uouo Example',
-                 email: 'uouo@example.com',
-                 password: 'hogehoge',
+                 name:                  'Uouo Example',
+                 email:                 'uouo@example.com',
+                 password:              'hogehoge',
                  password_confirmation: 'hogehoge'
                }
              }
@@ -56,19 +58,19 @@ RSpec.describe 'UsersSignup' do
       post users_path,
            params: {
              user: {
-               name: 'Example User',
-               email: 'user@example.com',
-               password: 'password',
+               name:                  'Example User',
+               email:                 'user@example.com',
+               password:              'password',
                password_confirmation: 'password'
              }
            }
-      @user = controller.instance_variable_get('@user')
+      @user = controller.instance_variable_get(:@user)
     end
     # let(:user) = FactoryBot.create()
 
     context 'with no activation' do
       it 'is no activation user' do
-        expect(@user.activated?).not_to be_truthy
+        expect(@user).not_to be_activated
       end
 
       # アカウントがアクティブになる前にログインできたりしないよね？
@@ -91,7 +93,7 @@ RSpec.describe 'UsersSignup' do
     context 'with activation' do
       it 'allows valid activation token and email' do
         get edit_account_activation_path(@user.activation_token, email: @user.email)
-        expect(@user.reload.activated?).to be_truthy
+        expect(@user.reload).to be_activated
         follow_redirect!
         expect(is_logged_in?).to be_truthy
       end

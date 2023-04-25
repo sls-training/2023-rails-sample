@@ -1,11 +1,16 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Index' do
-  let!(:user) { FactoryBot.create(:user) }
-  let!(:noadmin) { FactoryBot.create(:user, :noadmin) }
-  let!(:noactivated) { FactoryBot.create(:user, :noactivated) }
-  let!(:user_list) { FactoryBot.create_list(:user, 50, :noadmin) }
-  let!(:micropost_list) { FactoryBot.create_list(:micropost, 50, { user_id: user.id }) }
+  let!(:user) { create(:user) }
+  let!(:noadmin) { create(:user, :noadmin) }
+  let!(:noactivated) { create(:user, :noactivated) }
+  let!(:user_list) { create_list(:user, 50, :noadmin) }
+
+  before do
+    create_list(:micropost, 50, { user_id: user.id })
+  end
 
   # 正味GETリクエストなんてまとめて検証した方がわかりやすい気もしてくるが...どうなんだろう
   describe 'GET /users/{id}' do
@@ -78,14 +83,14 @@ RSpec.describe 'Index' do
         # /usersを再度取得して、無効化済みのユーザーが表示されていないことを確かめる
         get users_path
         # 表示されているすべてのユーザーが有効化済みであることを確かめる
-        assigns(:users).each { |user| assert user.activated }
+        assigns(:users).each { |user| expect(user.activated).to be_truthy }
       end
     end
 
     #################
     ### Adminでない場合
     ##################
-    context 'with admin user' do
+    context 'with no admin user' do
       before do
         user_list
         log_in_as(noadmin)

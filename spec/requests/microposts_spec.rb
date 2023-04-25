@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Microposts' do
   # #マイクロポスト付きのデータの作成の仕方がわからん
-  let!(:user) { FactoryBot.create(:user) }
-  let!(:other) { FactoryBot.create(:user, :noadmin) }
-  let!(:micropost_list) { FactoryBot.create_list(:micropost, 50, { user_id: user.id }) }
+  let!(:user) { create(:user) }
+  let!(:other) { create(:user, :noadmin) }
+
+  before { create_list(:micropost, 50, { user_id: user.id }) }
 
   ##--------------------------------##
   describe 'GET /microposts' do

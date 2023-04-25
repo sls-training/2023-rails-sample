@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SessionsHelper
   def log_in(user)
     # sessionは一時cookiesとして自動的に暗号化される
@@ -21,7 +23,7 @@ module SessionsHelper
     ## 永続セッションの場合、一時セッションからユーザを取り出す
     if (user_id = session[:user_id])
       user = User.find_by(id: user_id)
-      @current_user = user if user && session[:session_token] == user.session_token
+      current = user if user && session[:session_token] == user.session_token
 
       # # ユーザのメモ化 => reactのuseMemoですよ完全に理解した
       # @current_user ||= User.find_by(id: user_id)
@@ -32,11 +34,12 @@ module SessionsHelper
       # これで永続トークンがexpireしない限り同じ端末でいつでもログイン状態になるのか
     elsif (user_id = cookies.encrypted[:user_id])
       user = User.find_by(id: user_id)
-      if user && user.authenticated?(:remember, cookies[:remember_token])
+      if user&.authenticated?(:remember, cookies[:remember_token])
         log_in user
-        @current_user = user
+        current = user
       end
     end
+    current
   end
 
   # ログインしてるかどうか な
@@ -62,7 +65,6 @@ module SessionsHelper
   def log_out
     forget(current_user)
     reset_session
-    @current_user = nil
   end
 
   ## こういうふうに関数化するのが慣習

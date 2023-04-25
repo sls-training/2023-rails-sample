@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Login' do
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { create(:user) }
 
   include SessionsSupport
   describe 'GET /login' do
@@ -43,13 +45,13 @@ RSpec.describe 'Login' do
   describe 'remembering' do
     it 'checks remembering' do
       log_in_as(user, remember_me: '1')
-      expect(cookies[:remember_token].blank?).to be_falsey
+      expect(cookies[:remember_token]).not_to be_blank
     end
 
     it 'does not check remembering' do
       log_in_as(user, remember_me: '1')
       log_in_as(user, remember_me: '0')
-      expect(cookies[:remember_token].blank?).to be_truthy
+      expect(cookies[:remember_token]).to be_blank
     end
   end
 end

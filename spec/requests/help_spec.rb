@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe 'Help', type: :request do
+RSpec.describe 'Help' do
   # viewの内容を確認できる
   # render_views
 

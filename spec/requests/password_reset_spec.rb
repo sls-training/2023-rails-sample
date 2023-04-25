@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe 'PasswordReset' do
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { create(:user) }
 
   before { ActionMailer::Base.deliveries.clear }
 
@@ -10,7 +12,7 @@ RSpec.describe 'PasswordReset' do
         @reset_user = controller.instance_variable_get(:@user)
         expect(user.reset_digest).not_to eq @reset_user.reset_digest
         expect(ActionMailer::Base.deliveries.size).to eq 1
-        expect(flash.empty?).to be_falsey
+        expect(flash).not_to be_empty
         expect(response).to redirect_to root_url
       end
     end
@@ -19,7 +21,7 @@ RSpec.describe 'PasswordReset' do
       it 'reset path with invalid email' do
         post password_resets_path, params: { password_reset: { email: '' } }
         expect(response).to have_http_status :unprocessable_entity
-        expect(flash.empty?).to be_falsey
+        expect(flash).not_to be_empty
       end
     end
   end

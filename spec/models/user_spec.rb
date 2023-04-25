@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User do
-  before { @user = FactoryBot.build(:user) }
+  before { @user = build(:user) }
 
   it 'is valid with a name, email, password, password_confirmation' do
     expect(@user).to be_valid
@@ -20,7 +22,7 @@ RSpec.describe User do
   end
 
   it 'is invalid with too long' do
-    @user.email = 'a' * 244 + '@example.com'
+    @user.email = "#{'a' * 244}@example.com"
     @user.valid?
     expect(@user.errors[:email]).to include('is too long (maximum is 255 characters)')
   end
@@ -30,7 +32,7 @@ RSpec.describe User do
     invalid_addresses.each do |invalid_address|
       @user.email = invalid_address
       @user.valid?
-      expect(@user.errors[:email]).to include ('is invalid')
+      expect(@user.errors[:email]).to include('is invalid')
     end
   end
 
@@ -38,23 +40,23 @@ RSpec.describe User do
     duplicate_user = @user.dup
     @user.save
     duplicate_user.valid?
-    expect(duplicate_user.errors[:email]).to include ('has already been taken')
+    expect(duplicate_user.errors[:email]).to include('has already been taken')
   end
 
   it 'does not allow to be present whitespace' do
     @user.password = @user.password_confirmation = ' ' * 6
     @user.valid?
-    expect(@user.errors[:password]).to include ("can't be blank")
+    expect(@user.errors[:password]).to include("can't be blank")
   end
 
   it 'does not allow too short password' do
     @user.password = @user.password_confirmation = 'a' * 5
     @user.valid?
-    expect(@user.errors[:password]).to include ('is too short (minimum is 6 characters)')
+    expect(@user.errors[:password]).to include('is too short (minimum is 6 characters)')
   end
 
   it 'is authenticated? return false for a user with nil digest' do
-    expect(@user.authenticated?(:remember, '')).to eq false
+    expect(@user.authenticated?(:remember, '')).to be false
   end
 
   it 'must destory associated microposts' do
@@ -64,19 +66,19 @@ RSpec.describe User do
   end
 
   it 'follow and unfollow a user' do
-    user1 = FactoryBot.create(:user, :noadmin)
-    user2 = FactoryBot.create(:user, :noadmin)
+    user1 = create(:user, :noadmin)
+    user2 = create(:user, :noadmin)
 
-    expect(user1.following?(user2)).to eq false
+    expect(user1.following?(user2)).to be false
     user1.follow(user2)
-    expect(user1.following?(user2)).to eq true
+    expect(user1.following?(user2)).to be true
 
-    expect(user2.followers.include?(user1)).to eq true
+    expect(user2.followers.include?(user1)).to be true
     user1.unfollow(user2)
-    expect(user1.following?(user2)).to eq false
+    expect(user1.following?(user2)).to be false
 
     # # ユーザーは自分自身をフォローできない
     user1.follow(user1)
-    expect(user1.following?(user1)).to eq false
+    expect(user1.following?(user1)).to be false
   end
 end

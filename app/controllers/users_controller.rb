@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # #paramsにUserのオブジェクトが渡るってことか
 class UsersController < ApplicationController
   ## Userを作成するためのページを返すってこと

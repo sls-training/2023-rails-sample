@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SessionsSupport
   # include Warden::Test::Helpers
   # Run tests in parallel with specified workers

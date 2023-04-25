@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe 'PasswordNew' do
-  let(:user) { FactoryBot.create(:user) }
+RSpec.describe 'Password' do
+  let(:user) { create(:user) }
 
   before do
     ActionMailer::Base.deliveries.clear

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ## ApplicationRecordはActiveRecordを継承
 ## https://api.rubyonrails.org/v7.0/classes/ActiveRecord/Callbacks/ClassMethods.html#method-i-before_save
 class User < ApplicationRecord
@@ -27,9 +29,12 @@ class User < ApplicationRecord
   has_many :microposts, dependent: :destroy
 
   # follwer, follwered
-  has_many :active_relationships, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy
+  has_many :active_relationships, class_name: 'Relationship', foreign_key: 'follower_id', dependent: :destroy,
+inverse_of: :follower
 
-  has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
+  has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy,
+inverse_of: :followed
+
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
 
@@ -37,16 +42,16 @@ class User < ApplicationRecord
   before_save :downcase_email # メールアドレスを事前に小文字に直す
   before_create :create_activation_digest
   # 括弧で括ったりもできるっぽい
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   validates(:name, presence: true, length: { minimum: 0, maximum: 50 })
 
   validates :email,
-            presence: true,
-            length: {
+            presence:   true,
+            length:     {
               minimum: 0,
               maximum: 255
             },
-            format: {
+            format:     {
               with: VALID_EMAIL_REGEX
             }, ## *@*.com
             uniqueness: true ## 一意
@@ -83,7 +88,7 @@ class User < ApplicationRecord
   def authenticated?(attribute, token)
     # sendメソッドはメソッドテキストでcallできるやつ
     # よく見る
-    digest = self.send("#{attribute}_digest")
+    digest = send("#{attribute}_digest")
     return false if digest.nil?
 
     BCrypt::Password.new(digest).is_password?(token)
@@ -114,7 +119,7 @@ class User < ApplicationRecord
     # self.update_attribute(:reset_digest,  User.digest(reset_token))
     # self.update_attribute(:reset_sent_at, Time.zone.now)
     ## validationがかからないらしいから注意
-    self.update_columns(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
+    update_columns(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
   end
 
   ## パスワード再設定のメールを送信する
@@ -152,7 +157,7 @@ class User < ApplicationRecord
   ## メールアドレスをすべて小文字にする
   def downcase_email
     # self.email = email.downcase
-    self.email.downcase!
+    email.downcase!
   end
 
   ## 有効化トークンとダイジェストを作成及び代入する

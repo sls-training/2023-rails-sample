@@ -1,18 +1,19 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Logout' do
-  let(:user) { FactoryBot.create(:user) }
+  let(:user) { create(:user) }
 
   before do
     # ログインさせとく
     log_in_as(user)
-    expect(is_logged_in?).to eq true
   end
 
   describe 'Delete /logout' do
     it 'responds successfully' do
       delete logout_path
-      expect(is_logged_in?).to eq false
+      expect(is_logged_in?).to be false
       expect(response).to have_http_status :see_other
       expect(response).to redirect_to root_url
 

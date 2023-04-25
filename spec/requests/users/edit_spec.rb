@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'UsersEdit' do
-  let!(:user) { FactoryBot.create(:user) }
-  let!(:other) { FactoryBot.create(:user, :noadmin) }
+  let!(:user) { create(:user) }
+  let!(:other) { create(:user, :noadmin) }
 
   describe 'Get /users/{id}/edit' do
     #########################
@@ -22,7 +24,7 @@ RSpec.describe 'UsersEdit' do
 
           patch user_path(user), params: { user: { name: name, email: email, password: '', password_confirmation: '' } }
 
-          expect(flash.empty?).not_to eq true
+          expect(flash.empty?).not_to be true
           expect(response).to redirect_to user
           # expect(response).to have_http_status 302
 
@@ -45,9 +47,9 @@ RSpec.describe 'UsersEdit' do
           patch user_path(user),
                 params: {
                   user: {
-                    name: '',
-                    email: 'foo@invalid',
-                    password: 'foo',
+                    name:                  '',
+                    email:                 'foo@invalid',
+                    password:              'foo',
                     password_confirmation: 'bar'
                   }
                 }
@@ -65,13 +67,13 @@ RSpec.describe 'UsersEdit' do
       ## 別のユーザのページを見れてしまわないか検証する
       it 'does not allow to access other user' do
         get edit_user_path(user)
-        expect(flash.empty?).to eq true
+        expect(flash.empty?).to be true
         expect(response).to redirect_to root_url
       end
 
       it 'does not allow to edit other user' do
         patch user_path(user), params: { user: { name: user.name, email: user.email } }
-        expect(flash.empty?).to eq true
+        expect(flash.empty?).to be true
         expect(response).to redirect_to root_url
       end
     end
@@ -87,7 +89,7 @@ RSpec.describe 'UsersEdit' do
 
       it 'does not allow to update' do
         patch user_path(user), params: { user: { name: user.name, email: user.email } }
-        expect(flash.empty?).to eq false
+        expect(flash.empty?).to be false
         expect(response).to redirect_to login_path
       end
     end

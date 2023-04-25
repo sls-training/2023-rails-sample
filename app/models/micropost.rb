@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Micropost < ApplicationRecord
   belongs_to :user
   # アップロードされたファイルとモデルを関連づける
@@ -10,11 +12,11 @@ class Micropost < ApplicationRecord
   # 画像サイズの制限
   validates :image,
             content_type: {
-              in: %w[image/jpeg image/gif image/png],
+              in:      %w[image/jpeg image/gif image/png],
               message: 'must be a valid image format'
             },
-            size: {
+            size:         {
               less_than: 5.megabytes,
-              message: 'should be less than 5MB'
+              message:   'should be less than 5MB'
             }
 end

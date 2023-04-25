@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # 変更後
 Capybara.register_driver :chrome_headless do |app|
   options = Selenium::WebDriver::Chrome::Options.new
@@ -18,10 +20,10 @@ RSpec.configure do |config|
   config.before(:each, js: true, type: :system) do
     if ENV['SELENIUM_DRIVER_URL'].present?
       driven_by :selenium,
-                using: :chrome,
+                using:   :chrome,
                 options: {
-                  browser: :remote,
-                  url: ENV.fetch('SELENIUM_DRIVER_URL'),
+                  browser:              :remote,
+                  url:                  ENV.fetch('SELENIUM_DRIVER_URL'),
                   desired_capabilities: :chrome
                 }
     else

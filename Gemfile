@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ## 中身いじったらbundle installとserverのリロードが必要そうやね
 
 source 'https://rubygems.org'
@@ -8,14 +10,14 @@ ruby '3.2.2'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
 
-gem 'bootstrap-sass', '~> 3.3.6'
-gem 'sass-rails', '>= 3.2'
-gem 'jquery-rails'
-gem 'autoprefixer-rails'
-gem 'rails-controller-testing'
 gem 'active_storage_validations', '0.9.8'
+gem 'autoprefixer-rails'
 gem 'bcrypt', '3.1.18'
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'jquery-rails'
+gem 'rails-controller-testing'
 gem 'rexml', '~> 3.2', '>= 3.2.4'
+gem 'sass-rails', '>= 3.2'
 
 gem 'image_processing', '1.12.2'
 
@@ -24,8 +26,8 @@ gem 'image_processing', '1.12.2'
 gem 'faker', '2.21.0'
 
 ## ページネーション
-gem 'will_paginate', '3.3.1'
 gem 'bootstrap-will_paginate', '1.0.0'
+gem 'will_paginate', '3.3.1'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -73,14 +75,14 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
 
-  gem 'rspec-rails'
   gem 'factory_bot_rails'
+  gem 'rspec-rails'
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem 'web-console'
   gem 'guard'
+  gem 'web-console'
   # code format
   gem 'prettier'
   gem 'prettier_print'
@@ -94,11 +96,11 @@ group :development do
   # gem "spring"
   ## linter
   gem 'rubocop', require: false
-  gem 'rubocop-rails', require: false
-  gem 'rubocop-performance', require: false
-  gem 'rubocop-rubycw', require: false
-  gem 'rubocop-rspec', require: false
   gem 'rubocop-inflector', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'rubocop-rubycw', require: false
 end
 
 group :test do
@@ -109,10 +111,9 @@ group :test do
 end
 
 group :production do
-  gem 'pg', '>=1.1.4'
   gem 'aws-sdk-s3', '1.114.0', require: false
+  gem 'pg', '>=1.1.4'
 end
 
-
-  source 'https://rubygems.org'
-  git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
+source 'https://rubygems.org'
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
