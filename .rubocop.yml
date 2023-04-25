@@ -50,8 +50,9 @@ Metrics/MethodLength:
   CountComments: false
   Max: 20
 
-Metrics/AbcSize:
-  Max: 30 # default 15, base.yml(20)
+# Metrics/AbcSize:
+#   Max: 30 # default 15, base.yml(20)
+
 ###############################
 # NewCops: enableで追加した項目 #
 ##############################
