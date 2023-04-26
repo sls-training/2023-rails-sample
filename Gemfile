@@ -77,6 +77,10 @@ group :development, :test do
 
   gem 'factory_bot_rails'
   gem 'rspec-rails'
+
+  github 'timedia/styleguide', glob: 'ruby/**/*.gemspec' do
+    gem 'rubocop-config-timedia', require: false
+  end
 end
 
 group :development do
@@ -94,13 +98,6 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-  ## linter
-  gem 'rubocop', require: false
-  gem 'rubocop-inflector', require: false
-  gem 'rubocop-performance', require: false
-  gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec', require: false
-  gem 'rubocop-rubycw', require: false
 end
 
 group :test do
@@ -114,6 +111,3 @@ group :production do
   gem 'aws-sdk-s3', '1.114.0', require: false
   gem 'pg', '>=1.1.4'
 end
-
-source 'https://rubygems.org'
-git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }

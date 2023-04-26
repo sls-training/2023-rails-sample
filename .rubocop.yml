@@ -1,8 +1,15 @@
+inherit_gem:
+  rubocop-config-timedia:
+    - config/base.yml
+    - config/rails.yml
+    - config/rspec.yml # RSpec 利用時のみ
 inherit_from:
-  - ./rubocop/config/base.yml
-  - ./rubocop/config/rails.yml
-  - ./rubocop/config/rspec.yml # RSpec 利用時のみ
+  # - ./rubocop/config/base.yml
+  # - ./rubocop/config/rails.yml
+  # - ./rubocop/config/rspec.yml # RSpec 利用時のみ
+  - .rubocop_todo.yml
 AllCops:
+  SuggestExtensions: false
   NewCops: enable
   TargetRubyVersion: 2.7
   Exclude:
@@ -12,56 +19,4 @@ AllCops:
     - db/**/*
     - node_modules/**/*
     - vendor/**/*
-
-## 追加
-
-####################
-# base.ymlにない項目 #
-####################
-# 行数
-RSpec/ExampleLength:
-  Enabled: true
-  Max: 20 # default: 5
-  CountAsOne: ['array', 'hash', 'heredoc']
-
-# ActiveRecordを操作するメソッドの警告(falseに設定するべきではないと思う)
-Rails/SkipsModelValidations:
-  Enabled: false
-
-# Assertionの個数
-RSpec/MultipleExpectations:
-  Enabled: true
-  Max: 5 # default: 1
-
-# ネストの個数
-RSpec/NestedGroups:
-  Enabled: true
-  Max: 5 # default: 3
-
-# RSpecでインスタンス変数を使えないようにするか
-RSpec/InstanceVariable:
-  Enabled: false
-
-####################
-# base.ymlにある項目 #
-####################
-Metrics/MethodLength:
-  Enabled: true
-  CountComments: false
-  Max: 20
-
-###############################
-# NewCops: enableで追加した項目 #
-##############################
-# index付きの変数を何個まで宣言できるか
-RSpec/IndexedLet:
-  Enabled: true
-  Max: 2
-
-# 複数言語対応するか
-Rails/I18nLocaleTexts:
-  Enabled: false
-
-# 冗長なpresenceを消す設定
-Rails/RedundantPresenceValidationOnBelongsTo:
-  Enabled: false
+    - tmp/**/*
