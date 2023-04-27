@@ -10,11 +10,13 @@ ruby '3.2.2'
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
 
+gem 'active_model_serializers' # レスポンスを綺麗にしてくれる
 gem 'active_storage_validations', '0.9.8'
 gem 'autoprefixer-rails'
 gem 'bcrypt', '3.1.18'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
+gem 'jwt'
 gem 'rails-controller-testing'
 gem 'rexml', '~> 3.2', '>= 3.2.4'
 gem 'sass-rails', '>= 3.2'
