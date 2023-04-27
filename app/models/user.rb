@@ -17,6 +17,10 @@ class User < ApplicationRecord
       BCrypt::Password.create(string, cost: cost)
     end
 
+    def inspect(password, password_digest)
+      BCrypt::Password.new(password_digest).is_password?(password)
+    end
+
     ## ランダムなトークンを生成
     def new_token
       SecureRandom.urlsafe_base64
@@ -91,7 +95,7 @@ inverse_of: :followed
     digest = send("#{attribute}_digest")
     return false if digest.nil?
 
-    BCrypt::Password.new(digest).is_password?(token)
+    inspect(token, digest)
   end
 
   ## ログイン情報の破棄
