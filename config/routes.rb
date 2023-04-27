@@ -17,6 +17,12 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
+  namespace :api, format: 'json' do
+    namespace :v1 do
+      resources :token, only: [:create]
+    end
+  end
+
   resources :users do
     # memberメソッド
     # urlの深掘りオプション
