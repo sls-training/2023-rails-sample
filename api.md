@@ -95,7 +95,6 @@ curl \
 ## POST /api/user
 
 ユーザを作成する API。
-使用するには admin ユーザで/api/token からトークン情報を生成する必要がある。
 
 ### リソース URL
 
@@ -120,7 +119,20 @@ curl -X POST\
 
 ### Response
 
-200 OK
+201 Created
+
+````json
+{
+  "id": 1,
+  "name": "Example User",
+  "email": "example@railstutorial.org",
+  "created_at": "2023-04-20T07:52:47.897Z",
+  "updated_at": "2023-04-25T06:37:02.675Z",
+  "admin": true,
+  "activated": true,
+  "activated_at": "2023-04-20T07:52:47.665Z"
+}
+```
 
 ## DELETE /api/user
 
@@ -142,7 +154,7 @@ http://localhost:3000/api/user
 curl -X DELETE \
   -H "Authorization: Bearer <YOUR-TOKEN>"\
   http://localhost:3000/api/user
-```
+````
 
 ### Response
 
