@@ -187,13 +187,13 @@ curl -X POST\
 }
 ```
 
-## DELETE /api/user
+## DELETE /api/user/:id
 
 ユーザの削除用 API
 
 ### リソース URL
 
-http://localhost:3000/api/user
+http://localhost:3000/api/user/:id
 
 ### Parameters
 
@@ -206,7 +206,7 @@ http://localhost:3000/api/user
 ```bash
 curl -X DELETE \
   -H "Authorization: Bearer <YOUR-TOKEN>"\
-  http://localhost:3000/api/user
+  http://localhost:3000/api/user/123
 ````
 
 ### Response
