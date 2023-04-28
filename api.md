@@ -268,6 +268,6 @@ curl -X POST\
 
 ```json
 {
-  "mssage": "Access denied. you are not admin user"
+  "message": "Access denied. you are not admin user"
 }
 ```
