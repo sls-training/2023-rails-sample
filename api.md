@@ -42,6 +42,15 @@ http://localhost:3000/api/user
 | register | 'newer' &#124; 'older' | optional | ユーザ登録順 | 'newer'      | 'older' |
 | order    | 'desc' &#124; 'asc'    | optional | 並び順       | 'asc'        | 'desc'  |
 
+### request
+
+```bash
+curl \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer <YOUR-TOKEN>"\
+  http://localhost:3000/api/user?limit=10&register=older&order=desc
+```
+
 ### Response
 
 | プロパティ名 | 型      | 説明                   |
@@ -99,6 +108,16 @@ http://localhost:3000/api/user
 | name  | required | ユーザ名 | "uouo chan"        |
 | email | required | メール   | "test@example.com" |
 
+## Request
+
+```bash
+curl -X POST\
+ -H "Content-Type: application/json" \
+ -H "Authorization: Bearer <YOUR-TOKEN>"\
+ -d '{"name": "testuser", "email":"hoge@example.com"}'
+  http://localhost:3000/api/user
+```
+
 ### Response
 
 200 OK
@@ -116,6 +135,14 @@ http://localhost:3000/api/user
 | 名称 | 必須か   | 　説明    | 例    |
 | ---- | -------- | --------- | ----- |
 | id   | required | ユーザ ID | 11111 |
+
+### request
+
+```bash
+curl -X DELETE \
+  -H "Authorization: Bearer <YOUR-TOKEN>"\
+  http://localhost:3000/api/user
+```
 
 ### Response
 
@@ -141,6 +168,16 @@ http://localhost:3000/api/token
 | -------- | -------- | ------------------ | ------------------ |
 | email    | required | ユーザのメール     | "uouo@example.com" |
 | password | required | ユーザのパスワード | "foobar"           |
+
+### request
+
+```bash
+curl -X POST\
+ -H "Content-Type: application/json" \
+ -H "Authorization: Bearer <YOUR-TOKEN>"\
+ -d '{"email": "hoge@example.com", "password":"hogehoge"}'
+  http://localhost:3000/api/token
+```
 
 ### Response
 
