@@ -248,7 +248,6 @@ curl -X POST\
 
 | プロパティ名 | 型     | 説明             |
 | ------------ | ------ | ---------------- |
-| token_type   | Date   | タイプ           |
 | access_token | String | アクセストークン |
 
 - success
@@ -257,7 +256,6 @@ curl -X POST\
 
 ```json
 {
-  "token_type": "bearer",
   "access_token": "AAAAAAAAAAAAAAAAAAAAAMLheAAAAAAA0%2BuSeid%2BULvsea4JtiGRiSDSJSI%3DEUifiRBkKG5E2XzMDjRfl76ZC9Ub0wnz4XsNiRVBChTYbJcE3F"
 }
 ```
