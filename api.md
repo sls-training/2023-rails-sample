@@ -137,10 +137,10 @@ http://localhost:3000/api/token
 
 ### Parameters
 
-| 名称          | 必須か   | 　説明             | 例                 |
-| ------------- | -------- | ------------------ | ------------------ |
-| user_email    | required | ユーザのメール     | "uouo@example.com" |
-| user_password | required | ユーザのパスワード | "foobar"           |
+| 名称     | 必須か   | 　説明             | 例                 |
+| -------- | -------- | ------------------ | ------------------ |
+| email    | required | ユーザのメール     | "uouo@example.com" |
+| password | required | ユーザのパスワード | "foobar"           |
 
 ### Response
 
