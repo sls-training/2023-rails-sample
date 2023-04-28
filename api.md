@@ -32,7 +32,7 @@ Header に BearerToken を必要とする。<br>
 
 ### リソース URL
 
-http://localhost:3000/api/user
+http://localhost:3000/api/users
 
 ### Parameters
 
@@ -52,6 +52,8 @@ curl \
 ```
 
 ### Response
+
+200 OK
 
 | プロパティ名 | 型      | 説明                   |
 | ------------ | ------- | ---------------------- |
@@ -89,6 +91,57 @@ curl \
     },
    ...
   ]
+}
+```
+
+## GET /api/user
+
+指定 ID のユーザのを返す API。
+
+### リソース URL
+
+http://localhost:3000/api/user/:id
+
+### Parameters
+
+| 名称 | 型      | 必須か   | 　説明    |
+| ---- | ------- | -------- | --------- |
+| id   | Integer | required | ユーザ ID |
+
+### request
+
+```bash
+curl \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer <YOUR-TOKEN>"\
+  http://localhost:3000/api/user/123
+```
+
+### Response
+
+200 OK
+
+| プロパティ名 | 型      | 説明                   |
+| ------------ | ------- | ---------------------- |
+| id           | Integer | ユーザ ID              |
+| name         | String  | ユーザ名               |
+| email        | String  | メール                 |
+| created_at   | Date    | 作成日                 |
+| updated_at   | Date    | 更新日                 |
+| admin        | Boolean | 管理者かどうか         |
+| activated    | Boolean | メール認証済みかどうか |
+| activated_at | Date    | メール認証した日       |
+
+```json
+{
+  "id": 1,
+  "name": "Example User",
+  "email": "example@railstutorial.org",
+  "created_at": "2023-04-20T07:52:47.897Z",
+  "updated_at": "2023-04-25T06:37:02.675Z",
+  "admin": true,
+  "activated": true,
+  "activated_at": "2023-04-20T07:52:47.665Z"
 }
 ```
 
@@ -199,6 +252,8 @@ curl -X POST\
 | access_token | String | アクセストークン |
 
 - success
+
+  200 OK
 
 ```json
 {
