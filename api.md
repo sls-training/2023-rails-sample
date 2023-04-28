@@ -16,7 +16,7 @@ Header に BearerToken を必要とする。<br>
 | GET /api/v1/user/:id | ユーザ ID のユーザ情報を返す |
 | POST /api/v1/user    | ユーザの作成                 |
 | DELETE /api/v1/user  | ユーザの削除                 |
-| POST /api/v1/login   | トークン生成                 |
+| POST /api/v1/token   | トークン生成                 |
 
 ## Header
 
@@ -88,17 +88,16 @@ http://localhost:3000/api/v1/user
 ユーザを作成する API。
 使用するには admin ユーザで/api/v1/login からトークン情報を生成する必要がある。
 
-
 ### リソース URL
 
 http://localhost:3000/api/v1/user
 
 ### Parameters
 
-| 名称      | 必須か   | 　説明                       | 例                    |
-| --------- | -------- | ---------------------------- | --------------------- |
-| name      | required | ユーザ名                     | "uouo chan"           |
-| email     | required | メール                       | "test@example.com"    |
+| 名称  | 必須か   | 　説明   | 例                 |
+| ----- | -------- | -------- | ------------------ |
+| name  | required | ユーザ名 | "uouo chan"        |
+| email | required | メール   | "test@example.com" |
 
 ### Response
 
@@ -114,9 +113,9 @@ http://localhost:3000/api/v1/user
 
 ### Parameters
 
-| 名称      | 必須か   | 　説明                       | 例                    |
-| --------- | -------- | ---------------------------- | --------------------- |
-| id        | required | ユーザ ID                    | 11111                 |
+| 名称 | 必須か   | 　説明    | 例    |
+| ---- | -------- | --------- | ----- |
+| id   | required | ユーザ ID | 11111 |
 
 ### Response
 
@@ -165,6 +164,6 @@ http://localhost:3000/api/v1/token
 
 ```json
 {
-  "mssage": "Access denied. you are not admin user"
+  "message": "Access denied. you are not admin user"
 }
 ```
