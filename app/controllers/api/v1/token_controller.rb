@@ -5,15 +5,15 @@ module Api
     class TokenController < ActionController::API
       # POST /api/v1/token
       def create
-        email =  token_params[:email]
-        password = token_params[:password]
+        email =  params[:email]
+        password = params[:password]
         user = User.find_by(email: email)
-        if User.inspect(password, user.password_digest)
-          token = encode(user.name)
 
-          render json: token
+        if user && User.inspect(password, user.password_digest)
+          token = encode(user.name)
+          render json: { token_type: 'bearer', access_token: token }
         else
-          render json: 'failed'
+          render status: :unauthorized, json: { message: 'Access denied. you are not admin user' }
         end
       end
 
@@ -28,12 +28,6 @@ module Api
 
       def decode(token)
         JWT.decode token, Rails.application.credentials.secret_key_base, true, { algorithm: 'HS256' }
-      end
-
-      private
-
-      def token_params
-        params.require(:token).permit(:email, :password)
       end
     end
   end
