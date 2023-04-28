@@ -6,9 +6,9 @@ Header に BearerToken を必要とする。<br>
 トークンの生成は Admin ユーザのみできることとし、/api/v1/token を用いて生成を行う。<br>
 
 次の場合にはそれぞれのエラーコードを返すこととする<br>
-トークンがなくて失敗した場合には、403(message: missing_access_token)<br>
-トークンが期限切れ 401(message: expired_access_token)<br>
-トークンが有効でない 401(message: invalid_access_token)<br>
+トークンがなくて失敗した場合には、403<br>
+トークンが期限切れの場合には、401<br>
+トークンが有効でないの場合には、401<br>
 
 | endopoint            | 説明                         |
 | -------------------- | ---------------------------- |
