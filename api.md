@@ -46,7 +46,7 @@ http://localhost:3000/api/user
 
 | プロパティ名 | 型      | 説明                   |
 | ------------ | ------- | ---------------------- |
-| id           | Number  | ユーザ ID              |
+| id           | Integer | ユーザ ID              |
 | name         | String  | ユーザ名               |
 | email        | String  | メール                 |
 | created_at   | Date    | 作成日                 |
