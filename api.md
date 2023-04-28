@@ -30,17 +30,17 @@ Header に BearerToken を必要とする。<br>
 
 ユーザの一覧を返す API。
 
-何かパラメータをつけてみたいので limit を追加してみている
-
 ### リソース URL
 
 http://localhost:3000/api/user
 
 ### Parameters
 
-| 名称  | 必須か   | 　説明       | デフォルト値 | 例  |
-| ----- | -------- | ------------ | ------------ | --- |
-| limit | optional | ユーザ取得数 | 無限         | 5   |
+| 名称     | 型                     | 必須か   | 　説明       | デフォルト値 | 例      |
+| -------- | ---------------------- | -------- | ------------ | ------------ | ------- |
+| limit    | Integer                | optional | ユーザ取得数 | 無限         | 5       |
+| register | 'newer' &#124; 'older' | optional | ユーザ登録順 | 'newer'      | 'older' |
+| order    | 'desc' &#124; 'asc'    | optional | 並び順       | 'asc'        | 'desc'  |
 
 ### Response
 
