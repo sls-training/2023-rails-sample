@@ -3,20 +3,20 @@
 ユーザを閲覧、削除、追加するための API。<br>
 
 Header に BearerToken を必要とする。<br>
-トークンの生成は Admin ユーザのみできることとし、/api/v1/token を用いて生成を行う。<br>
+トークンの生成は Admin ユーザのみできることとし、/api/token を用いて生成を行う。<br>
 
 次の場合にはそれぞれのエラーコードを返すこととする<br>
 トークンがなくて失敗した場合には、403<br>
 トークンが期限切れの場合には、401<br>
 トークンが有効でないの場合には、401<br>
 
-| endopoint            | 説明                         |
-| -------------------- | ---------------------------- |
-| GET /api/v1/users    | 全てのユーザの情報を返す     |
-| GET /api/v1/user/:id | ユーザ ID のユーザ情報を返す |
-| POST /api/v1/user    | ユーザの作成                 |
-| DELETE /api/v1/user  | ユーザの削除                 |
-| POST /api/v1/token   | トークン生成                 |
+| endpoint          | 説明                         |
+| ----------------- | ---------------------------- |
+| GET /api/users    | 全てのユーザの情報を返す     |
+| GET /api/user/:id | ユーザ ID のユーザ情報を返す |
+| POST /api/user    | ユーザの作成                 |
+| DELETE /api/user  | ユーザの削除                 |
+| POST /api/token   | トークン生成                 |
 
 ## Header
 
@@ -26,7 +26,7 @@ Header に BearerToken を必要とする。<br>
 }
 ```
 
-## GET /api/v1/users
+## GET /api/users
 
 ユーザの一覧を返す API。
 
@@ -34,7 +34,7 @@ Header に BearerToken を必要とする。<br>
 
 ### リソース URL
 
-http://localhost:3000/api/v1/user
+http://localhost:3000/api/user
 
 ### Parameters
 
@@ -83,14 +83,14 @@ http://localhost:3000/api/v1/user
 }
 ```
 
-## POST /api/v1/user
+## POST /api/user
 
 ユーザを作成する API。
-使用するには admin ユーザで/api/v1/token からトークン情報を生成する必要がある。
+使用するには admin ユーザで/api/token からトークン情報を生成する必要がある。
 
 ### リソース URL
 
-http://localhost:3000/api/v1/user
+http://localhost:3000/api/user
 
 ### Parameters
 
@@ -103,13 +103,13 @@ http://localhost:3000/api/v1/user
 
 200 OK
 
-## DELETE /api/v1/user
+## DELETE /api/user
 
 ユーザの削除用 API
 
 ### リソース URL
 
-http://localhost:3000/api/v1/user
+http://localhost:3000/api/user
 
 ### Parameters
 
@@ -121,7 +121,7 @@ http://localhost:3000/api/v1/user
 
 200 OK
 
-## POST /api/v1/token
+## POST /api/token
 
 トークン発行用の API。<br>
 ベアラートークンを生成する<br>
@@ -133,7 +133,7 @@ Admin ユーザ以外で失敗した時には 403 Forbidden を返す<br>
 
 ### リソース URL
 
-http://localhost:3000/api/v1/token
+http://localhost:3000/api/token
 
 ### Parameters
 
