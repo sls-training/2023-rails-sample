@@ -22,7 +22,7 @@ Header に BearerToken を必要とする。<br>
 
 ```json
 {
-  "Authorization": "Bearer token_required"
+  "Authorization": "Bearer <YOUR-TOKEN>"
 }
 ```
 
