@@ -6,6 +6,12 @@
 
 http://localhost:3000/api/users/:id
 
+## Header
+
+```yml
+'Authorization': 'Bearer <YOUR-TOKEN>'
+```
+
 ## Parameters
 
 | 名称 | 型      | 必須か   | 　説明    |
