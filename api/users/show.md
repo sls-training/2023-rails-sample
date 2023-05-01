@@ -2,6 +2,8 @@
 
 指定 ID のユーザを返す API。
 
+日本標準時の現在時刻(JST/UTC+0900)。
+
 ## リソース URL
 
 http://localhost:3000/api/users/:id
