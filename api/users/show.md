@@ -55,9 +55,9 @@ Content-Type: `application/json`
   "email": "example@railstutorial.org",
   "admin": true,
   "activated": true,
-  "activated_at": "2023-04-20T07:52:47.665Z",
-  "created_at": "2023-04-20T07:52:47.897Z",
-  "updated_at": "2023-04-25T06:37:02.675Z"
+  "activated_at": "Sat, 22 May 2021 14:55:10.214590000 JST +09:00",
+  "created_at": "Sat, 22 May 2021 14:35:10.214590000 JST +09:00",
+  "updated_at": "Fri, 2 July 2021 2:15:10.214590000 JST +09:00"
 }
 ```
 
