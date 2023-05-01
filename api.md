@@ -1,4 +1,4 @@
-# User API
+# Users API
 
 ユーザを閲覧、削除、追加するための API。<br>
 
@@ -10,13 +10,13 @@ Header に BearerToken を必要とする。<br>
 トークンが期限切れの場合には、401<br>
 トークンが有効でないの場合には、401<br>
 
-| endpoint          | 説明                         |
-| ----------------- | ---------------------------- |
-| GET /api/users    | 全てのユーザの情報を返す     |
-| GET /api/user/:id | ユーザ ID のユーザ情報を返す |
-| POST /api/user    | ユーザの作成                 |
-| DELETE /api/user  | ユーザの削除                 |
-| POST /api/token   | トークン生成                 |
+| endpoint           | 説明                         |
+| ------------------ | ---------------------------- |
+| GET /api/users     | 全てのユーザの情報を返す     |
+| GET /api/users/:id | ユーザ ID のユーザ情報を返す |
+| POST /api/users    | ユーザの作成                 |
+| DELETE /api/users  | ユーザの削除                 |
+| POST /api/token    | トークン生成                 |
 
 ## Header
 
@@ -48,7 +48,7 @@ http://localhost:3000/api/users
 curl \
   -H "Accept: application/json" \
   -H "Authorization: Bearer <YOUR-TOKEN>"\
-  http://localhost:3000/api/user?limit=10&register=older&order=desc
+  http://localhost:3000/api/users?limit=10&register=older&order=desc
 ```
 
 ### Response
@@ -94,13 +94,13 @@ curl \
 }
 ```
 
-## GET /api/user
+## GET /api/users
 
 指定 ID のユーザのを返す API。
 
 ### リソース URL
 
-http://localhost:3000/api/user/:id
+http://localhost:3000/api/users/:id
 
 ### Parameters
 
@@ -114,7 +114,7 @@ http://localhost:3000/api/user/:id
 curl \
   -H "Accept: application/json" \
   -H "Authorization: Bearer <YOUR-TOKEN>"\
-  http://localhost:3000/api/user/123
+  http://localhost:3000/api/users/123
 ```
 
 ### Response
@@ -145,13 +145,13 @@ curl \
 }
 ```
 
-## POST /api/user
+## POST /api/users
 
 ユーザを作成する API。
 
 ### リソース URL
 
-http://localhost:3000/api/user
+http://localhost:3000/api/users
 
 ### Parameters
 
@@ -167,7 +167,7 @@ curl -X POST\
  -H "Content-Type: application/json" \
  -H "Authorization: Bearer <YOUR-TOKEN>"\
  -d '{"name": "testuser", "email":"hoge@example.com"}'
-  http://localhost:3000/api/user
+  http://localhost:3000/api/users
 ```
 
 ### Response
@@ -187,13 +187,13 @@ curl -X POST\
 }
 ```
 
-## DELETE /api/user/:id
+## DELETE /api/users/:id
 
 ユーザの削除用 API
 
 ### リソース URL
 
-http://localhost:3000/api/user/:id
+http://localhost:3000/api/users/:id
 
 ### Parameters
 
@@ -206,7 +206,7 @@ http://localhost:3000/api/user/:id
 ```bash
 curl -X DELETE \
   -H "Authorization: Bearer <YOUR-TOKEN>"\
-  http://localhost:3000/api/user/123
+  http://localhost:3000/api/users/123
 ```
 
 ### Response
