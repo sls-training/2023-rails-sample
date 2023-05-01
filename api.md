@@ -211,7 +211,7 @@ curl -X DELETE \
 
 ### Response
 
-200 OK
+204 No Content
 
 ## POST /api/token
 
