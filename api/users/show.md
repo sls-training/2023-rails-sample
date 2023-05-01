@@ -63,7 +63,7 @@ Content-Type: `application/json`
 
 ### 401
 
-invalid token / user not activated
+invalid token
 
 ### 403
 
