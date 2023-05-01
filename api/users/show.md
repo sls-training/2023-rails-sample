@@ -77,7 +77,7 @@ invalid token / user not activated
 <td> 403 </td>
 <td>
 
-Missing authentication token</h5>
+Missing authentication token
 
 </td>
 </tr>
