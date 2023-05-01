@@ -55,16 +55,16 @@ curl \
 
 200 OK
 
-| プロパティ名 | 型      | 説明                   |
-| ------------ | ------- | ---------------------- |
-| id           | Integer | ユーザ ID              |
-| name         | String  | ユーザ名               |
-| email        | String  | メール                 |
-| created_at   | Date    | 作成日                 |
-| updated_at   | Date    | 更新日                 |
-| admin        | Boolean | 管理者かどうか         |
-| activated    | Boolean | メール認証済みかどうか |
-| activated_at | Date    | メール認証した日       |
+| プロパティ名 | 型       | 説明                   |
+| ------------ | -------- | ---------------------- |
+| id           | Integer  | ユーザ ID              |
+| name         | String   | ユーザ名               |
+| email        | String   | メール                 |
+| created_at   | DateTime | 作成日                 |
+| updated_at   | DateTime | 更新日                 |
+| admin        | Boolean  | 管理者かどうか         |
+| activated    | Boolean  | メール認証済みかどうか |
+| activated_at | DateTime | メール認証した日       |
 
 ```json
 {
@@ -121,16 +121,16 @@ curl \
 
 200 OK
 
-| プロパティ名 | 型      | 説明                   |
-| ------------ | ------- | ---------------------- |
-| id           | Integer | ユーザ ID              |
-| name         | String  | ユーザ名               |
-| email        | String  | メール                 |
-| created_at   | Date    | 作成日                 |
-| updated_at   | Date    | 更新日                 |
-| admin        | Boolean | 管理者かどうか         |
-| activated    | Boolean | メール認証済みかどうか |
-| activated_at | Date    | メール認証した日       |
+| プロパティ名 | 型       | 説明                   |
+| ------------ | -------- | ---------------------- |
+| id           | Integer  | ユーザ ID              |
+| name         | String   | ユーザ名               |
+| email        | String   | メール                 |
+| created_at   | DateTime | 作成日                 |
+| updated_at   | DateTime | 更新日                 |
+| admin        | Boolean  | 管理者かどうか         |
+| activated    | Boolean  | メール認証済みかどうか |
+| activated_at | DateTime | メール認証した日       |
 
 ```json
 {
