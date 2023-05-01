@@ -1,10 +1,13 @@
 # GET /api/users/:id
 
-指定 ID のユーザのを返す API。
+指定 ID のユーザを返す API。
 
 ## リソース URL
 
 http://localhost:3000/api/users/:id
+
+トークンが無効、ユーザがメール認証済みでない場合は 401<br>
+トークンがない時は 403<br>
 
 ## Header
 
@@ -29,7 +32,7 @@ curl \
 
 ## Responses
 
-### Scheme
+### 200 OK
 
 | プロパティ名 | 型       | 説明                   |
 | ------------ | -------- | ---------------------- |
@@ -42,14 +45,6 @@ curl \
 | activated    | Boolean  | メール認証済みかどうか |
 | activated_at | DateTime | メール認証した日       |
 
-<table>
-<tr>
-    <td> Status </td> 
-    <td> Response </td>
-</tr>
-<tr>
-<td> 200 </td>
-<td>
 successful operation
 
 Media type: `application/json`
@@ -67,25 +62,10 @@ Media type: `application/json`
 }
 ```
 
-</td>
-</tr>
-
-<tr>
-<td> 401 </td>
-<td>
+### 401
 
 invalid token / user not activated
 
-</td>
-</tr>
-
-<tr>
-<td> 403 </td>
-<td>
+### 403
 
 Missing authentication token
-
-</td>
-</tr>
-
-</table>
