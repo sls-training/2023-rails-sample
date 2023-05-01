@@ -174,7 +174,7 @@ curl -X POST\
 
 201 Created
 
-````json
+```json
 {
   "id": 1,
   "name": "Example User",
@@ -207,7 +207,7 @@ http://localhost:3000/api/user/:id
 curl -X DELETE \
   -H "Authorization: Bearer <YOUR-TOKEN>"\
   http://localhost:3000/api/user/123
-````
+```
 
 ### Response
 
