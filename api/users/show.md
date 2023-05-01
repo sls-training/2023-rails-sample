@@ -34,31 +34,30 @@ curl \
 
 ### 200 OK
 
+successful operation<br>
+Content-Type: `application/json`
+
 | プロパティ名 | 型       | 説明                   |
 | ------------ | -------- | ---------------------- |
 | id           | Integer  | ユーザ ID              |
 | name         | String   | ユーザ名               |
 | email        | String   | メール                 |
-| created_at   | DateTime | 作成日                 |
-| updated_at   | DateTime | 更新日                 |
 | admin        | Boolean  | 管理者かどうか         |
 | activated    | Boolean  | メール認証済みかどうか |
 | activated_at | DateTime | メール認証した日       |
-
-successful operation
-
-Media type: `application/json`
+| created_at   | DateTime | 作成日                 |
+| updated_at   | DateTime | 更新日                 |
 
 ```json
 {
   "id": 1,
   "name": "Example User",
   "email": "example@railstutorial.org",
-  "created_at": "2023-04-20T07:52:47.897Z",
-  "updated_at": "2023-04-25T06:37:02.675Z",
   "admin": true,
   "activated": true,
-  "activated_at": "2023-04-20T07:52:47.665Z"
+  "activated_at": "2023-04-20T07:52:47.665Z",
+  "created_at": "2023-04-20T07:52:47.897Z",
+  "updated_at": "2023-04-25T06:37:02.675Z"
 }
 ```
 
