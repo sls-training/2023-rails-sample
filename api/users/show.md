@@ -39,16 +39,16 @@ curl \
 successful operation<br>
 Content-Type: `application/json`
 
-| プロパティ名 | 型       | 説明                   |
-| ------------ | -------- | ---------------------- |
-| id           | Integer  | ユーザ ID              |
-| name         | String   | ユーザ名               |
-| email        | String   | メール                 |
-| admin        | Boolean  | 管理者かどうか         |
-| activated    | Boolean  | メール認証済みかどうか |
-| activated_at | DateTime | メール認証した日       |
-| created_at   | DateTime | 作成日                 |
-| updated_at   | DateTime | 更新日                 |
+| プロパティ名 | 型                   | 説明                   |
+| ------------ | -------------------- | ---------------------- |
+| id           | Integer              | ユーザ ID              |
+| name         | String               | ユーザ名               |
+| email        | String               | メール                 |
+| admin        | Boolean              | 管理者かどうか         |
+| activated    | Boolean              | メール認証済みかどうか |
+| activated_at | DateTime &#124; null | メール認証した日       |
+| created_at   | DateTime             | 作成日                 |
+| updated_at   | DateTime             | 更新日                 |
 
 ```json
 {
