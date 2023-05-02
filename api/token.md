@@ -5,9 +5,6 @@
 パスワードが間違っているなど情報が違う時には 401 Unauthorized を返す<br>
 Admin ユーザ以外で失敗した時には 403 Forbidden を返す<br>
 
-<!-- Todo: トークンを db に記録して検証できるようにする、有効期限切れなっていたら再生成する。
-トークンの有効期限は 1 時間 -->
-
 ### リソース URL
 
 http://localhost:3000/api/token
@@ -19,7 +16,7 @@ http://localhost:3000/api/token
 | email    | required | ユーザのメール     | "uouo@example.com" |
 | password | required | ユーザのパスワード | "foobar"           |
 
-### request
+### requests
 
 ```bash
 curl -X POST\
