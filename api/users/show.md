@@ -2,8 +2,6 @@
 
 指定 ID のユーザを返す API。
 
-日本標準時の現在時刻(JST/UTC+0900)。
-
 ## リソース URL
 
 http://localhost:3000/api/users/:id
@@ -47,8 +45,8 @@ Content-Type: `application/json`
 | admin        | Boolean              | 管理者かどうか         |
 | activated    | Boolean              | メール認証済みかどうか |
 | activated_at | DateTime &#124; null | メール認証した日       |
-| created_at   | DateTime             | 作成日                 |
-| updated_at   | DateTime             | 更新日                 |
+| created_at   | DateTime(ISO 8601)   | 作成日                 |
+| updated_at   | DateTime(ISO 8601)   | 更新日                 |
 
 ```json
 {
@@ -57,9 +55,9 @@ Content-Type: `application/json`
   "email": "example@railstutorial.org",
   "admin": true,
   "activated": true,
-  "activated_at": "Sat, 22 May 2021 14:55:10.214590000 JST +09:00",
-  "created_at": "Sat, 22 May 2021 14:35:10.214590000 JST +09:00",
-  "updated_at": "Fri, 2 July 2021 2:15:10.214590000 JST +09:00"
+  "activated_at": "2023-05-02T01:02:04Z",
+  "created_at": "2023-05-01T01:01:04Z",
+  "updated_at": "2023-05-03T01:05:04Z"
 }
 ```
 
