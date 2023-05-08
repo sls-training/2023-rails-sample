@@ -10,7 +10,7 @@ module Api
       if user
         if !user.admin?
           render_forbidden
-        elsif User.inspect(password, user.password_digest)
+        elsif user.authenticate(password)
           access_token = TokenUtil.encode({ email: })
           render json: { access_token: }
         else
