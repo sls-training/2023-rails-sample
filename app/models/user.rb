@@ -21,6 +21,10 @@ class User < ApplicationRecord
     def new_token
       SecureRandom.urlsafe_base64
     end
+
+    def inspect(password, password_digest)
+      BCrypt::Password.new(password_digest).is_password?(password)
+    end
   end
 
   attr_accessor :remember_token, :activation_token, :reset_token
@@ -91,7 +95,7 @@ inverse_of: :followed
     digest = send("#{attribute}_digest")
     return false if digest.nil?
 
-    BCrypt::Password.new(digest).is_password?(token)
+    inspect(token, digest)
   end
 
   ## ログイン情報の破棄
