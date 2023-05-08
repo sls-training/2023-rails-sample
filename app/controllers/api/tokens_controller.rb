@@ -4,8 +4,8 @@ module Api
   class TokensController < ActionController::API
     # POST /api/token
     def create
-      email =  token_params[:email]
-      password = token_params[:password]
+      email = params[:email]
+      password = params[:password]
       user = User.find_by(email:)
       if user
         if !user.admin?
@@ -29,10 +29,6 @@ module Api
 
     def render_unauthorized
       render status: :unauthorized, json: { message: 'Unauthorized. Make sure you have the parameters.' }
-    end
-
-    def token_params
-      params.require(:token).permit(:email, :password)
     end
   end
 end
