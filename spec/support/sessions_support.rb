@@ -15,7 +15,7 @@ module SessionsSupport
 
   # テストユーザとしてログインする
   def log_in_as(user, password: 'password', remember_me: '1')
-    post login_path, params: { session: { email: user.email, password: password, remember_me: remember_me } }
+    post login_path, params: { session: { email: user.email, password:, remember_me: } }
   end
 
   # 実行前にリクエストを発行してないと失敗する！

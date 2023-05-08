@@ -22,7 +22,7 @@ RSpec.describe 'UsersEdit' do
           name = 'Foo Bar'
           email = 'foo@bar.com'
 
-          patch user_path(user), params: { user: { name: name, email: email, password: '', password_confirmation: '' } }
+          patch user_path(user), params: { user: { name:, email:, password: '', password_confirmation: '' } }
 
           expect(flash.empty?).not_to be true
           expect(response).to redirect_to user
