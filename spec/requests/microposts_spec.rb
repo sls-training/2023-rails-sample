@@ -45,7 +45,7 @@ RSpec.describe 'Microposts' do
 
       it 'allows to create micropost on valid submission' do
         content = 'This micropost really ties the room together'
-        expect { post microposts_path, params: { micropost: { content: content } } }.to change(Micropost, :count).by(1)
+        expect { post microposts_path, params: { micropost: { content: } } }.to change(Micropost, :count).by(1)
         expect(response).to redirect_to root_url
         follow_redirect!
         expect(response.body).to include content
