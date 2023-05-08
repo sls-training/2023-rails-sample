@@ -14,7 +14,7 @@ class User < ApplicationRecord
   class << self
     def digest(string)
       cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
-      BCrypt::Password.create(string, cost: cost)
+      BCrypt::Password.create(string, cost:)
     end
 
     ## ランダムなトークンを生成
@@ -42,7 +42,7 @@ inverse_of: :followed
   before_save :downcase_email # メールアドレスを事前に小文字に直す
   before_create :create_activation_digest
   # 括弧で括ったりもできるっぽい
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates(:name, presence: true, length: { minimum: 0, maximum: 50 })
 
   validates :email,
@@ -147,7 +147,7 @@ inverse_of: :followed
     ## distinctで重複項目の削除
     Micropost
       .left_outer_joins(user: :followers)
-      .where(part_of_feed, { id: id })
+      .where(part_of_feed, { id: })
       .distinct
       .includes(:user, image_attachment: :blob)
   end
