@@ -95,7 +95,7 @@ inverse_of: :followed
     digest = send("#{attribute}_digest")
     return false if digest.nil?
 
-    inspect(token, digest)
+    User.inspect(token, digest)
   end
 
   ## ログイン情報の破棄
