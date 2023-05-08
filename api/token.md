@@ -21,7 +21,6 @@ http://localhost:3000/api/token
 ```bash
 curl -X POST\
  -H "Content-Type: application/json" \
- -H "Authorization: Bearer <YOUR-TOKEN>"\
  -d '{"email": "hoge@example.com", "password":"hogehoge"}'
   http://localhost:3000/api/token
 ```
