@@ -9,7 +9,7 @@ class AccessToken
     payload, = JWT.decode encoded_token, Rails.application.credentials.app.secret_access_key, true,
                           { algorithm: 'HS256' }
 
-    new(email: payload[:sub])
+    new(email: payload['sub'])
   end
 
   # @param email [String]
