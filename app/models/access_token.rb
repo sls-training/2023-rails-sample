@@ -1,27 +1,32 @@
 # frozen_string_literal: true
 
 class AccessToken
-  private_class_method :new
-  attr_reader :email, :exp
+  attr_reader :email
 
-  def self.create(email:)
-    new email:, exp: (Time.zone.now + 3600).to_i
-  end
-
-  def self.from_token(token)
-    payload, = JWT.decode token, Rails.application.credentials.app.secret_access_key, true,
+  # @param encoded_token [String]
+  # @return [AccessToken]
+  def self.from_token(encoded_token)
+    payload, = JWT.decode encoded_token, Rails.application.credentials.app.secret_access_key, true,
                           { algorithm: 'HS256' }
 
-    new(email: payload['email'], exp: payload['exp'])
+    new(email: payload[:sub])
   end
 
-  def initialize(email:, exp:)
+  # @param email [String]
+  # @return [self]
+  def initialize(email:)
     @email = email
-    @exp = exp
   end
 
+  # @return [String]
   def encode
-    payload = { email:, exp: }
-    JWT.encode payload, Rails.application.credentials.app.secret_access_key, 'HS256'
+    JWT.encode to_payload, Rails.application.credentials.app.secret_access_key, 'HS256'
+  end
+
+  # @return {sub : [String], iat: [Integer], exp: [Integer]}
+  def to_payload
+    issued_at = Time.current
+    expired_at = Time.current.now + 1.hour
+    { sub: email, iat: issued_at.to_i, exp: expired_at.to_i }
   end
 end
