@@ -13,7 +13,7 @@ RSpec.describe 'AccessToken' do
   end
 
   describe '#from_token' do
-    context 'トークンが正しい場合' do
+    context 'アクセストークンが正しい場合' do
       subject { AccessToken.from_token(access_token) }
 
       it 'デコードしてemailが読みとれる' do
@@ -21,17 +21,17 @@ RSpec.describe 'AccessToken' do
       end
     end
 
-    context 'トークンが期限切れの場合' do
+    context 'アクセストークンが期限切れの場合' do
       subject { AccessToken.from_token(expired_access_token) }
 
-      it 'デコードに失敗する' do
+      it 'アクセストークンのデコードに失敗する' do
         expect { subject }.to raise_error(JWT::ExpiredSignature, 'Signature has expired')
       end
     end
   end
 
   describe '#encode' do
-    context 'トークンが正しくエンコードできる場合' do
+    context 'アクセストークンが正しくエンコードできる場合' do
       let(:header) { JSON.parse(Base64.decode64(access_token.split('.')[0]), symbolize_names: true) }
       let(:payload) { JSON.parse(Base64.decode64(access_token.split('.')[1]), symbolize_names: true) }
 
