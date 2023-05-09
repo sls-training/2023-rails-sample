@@ -4,18 +4,18 @@ class AccessToken
   private_class_method :new
   attr_reader :email, :exp
 
-  def self.create(email)
-    new email, (Time.zone.now + 3600).to_i
+  def self.create(email:)
+    new email:, exp: (Time.zone.now + 3600).to_i
   end
 
   def self.from_token(token)
     payload, = JWT.decode token, Rails.application.credentials.app.secret_access_key, true,
                           { algorithm: 'HS256' }
 
-    new(payload['email'], payload['exp'])
+    new(email: payload['email'], exp: payload['exp'])
   end
 
-  def initialize(email, exp)
+  def initialize(email:, exp:)
     @email = email
     @exp = exp
   end
