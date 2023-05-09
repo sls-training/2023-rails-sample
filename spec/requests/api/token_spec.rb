@@ -22,7 +22,7 @@ RSpec.describe 'ApiToken' do
         it '403が返って、エラーメッセージを返すこと' do
           post '/api/token', params: { email: noadmin.email, password: noadmin.password }
           expect(response).to have_http_status :forbidden
-          expect(response.body.parsed_body).to have_key(:message)
+          expect(response.parsed_body).to have_key('message')
         end
       end
     end
@@ -31,7 +31,7 @@ RSpec.describe 'ApiToken' do
       it '401が返って、エラーメッセージを返すこと' do
         post '/api/token', params: { email: 'test@hogehgoe.com', password: 'invalid password' }
         expect(response).to have_http_status :unauthorized
-        expect(response.body.parsed_body).to have_key(:message)
+        expect(response.parsed_body).to have_key('message')
       end
     end
   end
