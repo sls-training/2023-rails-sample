@@ -11,7 +11,7 @@ module Api
         if !user.admin?
           render_forbidden
         elsif user.authenticate(password)
-          access_token = TokenUtil.encode({ email: })
+          access_token = AccessToken.new(email:).encode
           render json: { access_token: }
         else
           render_unauthorized
