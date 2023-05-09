@@ -23,6 +23,8 @@ class AccessToken
     JWT.encode to_payload, Rails.application.credentials.app.secret_access_key, 'HS256'
   end
 
+  private
+
   # @return {sub : [String], iat: [Integer], exp: [Integer]}
   def to_payload
     issued_at = Time.current
