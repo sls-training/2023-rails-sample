@@ -26,7 +26,7 @@ class AccessToken
   # @return {sub : [String], iat: [Integer], exp: [Integer]}
   def to_payload
     issued_at = Time.current
-    expired_at = Time.current.now + 1.hour
+    expired_at = issued_at + 1.hour
     { sub: email, iat: issued_at.to_i, exp: expired_at.to_i }
   end
 end
