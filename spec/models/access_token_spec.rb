@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'AccessToken' do
   let(:email) { 'example@test.com' }
   let(:access_token) { AccessToken.new(email:).encode }
-  let(:invalid_access_token) do
+  let(:expired_access_token) do
     issued_at = 11.hours.ago
     expired_at = issued_at + 1.hour
     payload = { sub: email, iat: issued_at.to_i, exp: expired_at.to_i }
@@ -22,10 +22,41 @@ RSpec.describe 'AccessToken' do
     end
 
     context 'トークンが期限切れの場合' do
-      subject { AccessToken.from_token(invalid_access_token) }
+      subject { AccessToken.from_token(expired_access_token) }
 
       it 'デコードに失敗する' do
-        expect(subject).to raise_error(JWT::ExpiredSignature, 'Signature has expired')
+        expect { subject }.to raise_error(JWT::ExpiredSignature, 'Signature has expired')
+      end
+    end
+  end
+
+  describe '#encode' do
+    context 'トークンが正しくエンコードできる場合' do
+      let(:header) { JSON.parse(Base64.decode64(access_token.split('.')[0]), symbolize_names: true) }
+      let(:payload) { JSON.parse(Base64.decode64(access_token.split('.')[1]), symbolize_names: true) }
+
+      it 'アルゴリズムにHS256が設定してある' do
+        expect(header[:alg]).to eq 'HS256'
+      end
+
+      it 'subにemailが設定されている' do
+        expect(payload[:sub]).to eq email
+      end
+
+      it '有効期限が1時間である' do
+        expect(payload[:exp] - payload[:iat]).to eq 1.hour.to_i
+      end
+    end
+
+    context 'emailアドレスが空の場合' do
+      it 'RuntimeErrorが出て失敗する' do
+        expect { AccessToken.new(email: '').encode }.to raise_error(RuntimeError)
+      end
+    end
+
+    context 'emailアドレスの形式が間違っている場合' do
+      it 'RuntimeErrorが出て失敗する' do
+        expect { AccessToken.new(email: 'hogehoge').encode }.to raise_error(RuntimeError)
       end
     end
   end
