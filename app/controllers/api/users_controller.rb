@@ -10,11 +10,11 @@ module Api
         id:           user.id,
         name:         user.name,
         email:        user.email,
-        created_at:   user.created_at.iso8601(2),
-        updated_at:   user.updated_at.iso8601(2),
         admin:        user.admin,
         activated:    user.activated,
-        activated_at: user.activated_at.iso8601(2)
+        activated_at: user.activated_at.iso8601(2),
+        created_at:   user.created_at.iso8601(2),
+        updated_at:   user.updated_at.iso8601(2)
       }
     end
   end

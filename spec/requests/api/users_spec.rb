@@ -23,11 +23,11 @@ RSpec.describe 'ApiUsers' do
           id:           target.id,
           name:         target.name,
           email:        target.email,
-          created_at:   target.created_at.iso8601(2),
-          updated_at:   target.updated_at.iso8601(2),
           admin:        target.admin,
           activated:    target.activated,
-          activated_at: target.activated_at.iso8601(2)
+          activated_at: target.activated_at.iso8601(2),
+          created_at:   target.created_at.iso8601(2),
+          updated_at:   target.updated_at.iso8601(2)
         }
         expect(user_data).to eq target_data
       end
