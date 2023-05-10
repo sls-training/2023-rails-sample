@@ -19,7 +19,6 @@ Rails.application.routes.draw do
 
   namespace :api, format: 'json' do
     resource :token, only: [:create]
-    resources :users, only: [:show]
   end
 
   resources :users do
