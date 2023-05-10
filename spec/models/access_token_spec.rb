@@ -32,23 +32,21 @@ RSpec.describe 'AccessToken' do
   end
 
   describe '#encode' do
-    context 'アクセストークンが正しくエンコードできる場合' do
-      let(:email) { 'example@test.com' }
-      let(:access_token) { AccessToken.new(email:).encode }
-      let(:header) { JSON.parse(Base64.decode64(access_token.split('.')[0]), symbolize_names: true) }
-      let(:payload) { JSON.parse(Base64.decode64(access_token.split('.')[1]), symbolize_names: true) }
+    let(:email) { 'example@test.com' }
+    let(:access_token) { AccessToken.new(email:).encode }
+    let(:header) { JSON.parse(Base64.decode64(access_token.split('.')[0]), symbolize_names: true) }
+    let(:payload) { JSON.parse(Base64.decode64(access_token.split('.')[1]), symbolize_names: true) }
 
-      it 'アルゴリズムにHS256が設定してある' do
-        expect(header[:alg]).to eq 'HS256'
-      end
+    it 'アルゴリズムにHS256が設定してある' do
+      expect(header[:alg]).to eq 'HS256'
+    end
 
-      it 'subにemailが設定されている' do
-        expect(payload[:sub]).to eq email
-      end
+    it 'subにemailが設定されている' do
+      expect(payload[:sub]).to eq email
+    end
 
-      it '有効期限が1時間である' do
-        expect(payload[:exp] - payload[:iat]).to eq 1.hour.to_i
-      end
+    it '有効期限が1時間である' do
+      expect(payload[:exp] - payload[:iat]).to eq 1.hour.to_i
     end
   end
 end
