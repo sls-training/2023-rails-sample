@@ -3,18 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe 'AccessToken' do
-  let(:email) { 'example@test.com' }
-  let(:access_token) { AccessToken.new(email:).encode }
-  let(:expired_access_token) do
-    issued_at = 11.hours.ago
-    expired_at = issued_at + 1.hour
-    payload = { sub: email, iat: issued_at.to_i, exp: expired_at.to_i }
-    JWT.encode payload, Rails.application.credentials.app.secret_access_key, 'HS256'
-  end
-
   describe '#from_token' do
     context 'アクセストークンが正しい場合' do
       subject { AccessToken.from_token(access_token) }
+
+      let(:email) { 'example@test.com' }
+      let(:access_token) { AccessToken.new(email:).encode }
 
       it 'デコードしてemailが読みとれる' do
         expect(subject.email).to eq email
@@ -24,6 +18,13 @@ RSpec.describe 'AccessToken' do
     context 'アクセストークンが期限切れの場合' do
       subject { AccessToken.from_token(expired_access_token) }
 
+      let(:expired_access_token) do
+        issued_at = 11.hours.ago
+        expired_at = issued_at + 1.hour
+        payload = { sub: email, iat: issued_at.to_i, exp: expired_at.to_i }
+        JWT.encode payload, Rails.application.credentials.app.secret_access_key, 'HS256'
+      end
+
       it 'アクセストークンのデコードに失敗する' do
         expect { subject }.to raise_error(JWT::ExpiredSignature, 'Signature has expired')
       end
@@ -32,6 +33,8 @@ RSpec.describe 'AccessToken' do
 
   describe '#encode' do
     context 'アクセストークンが正しくエンコードできる場合' do
+      let(:email) { 'example@test.com' }
+      let(:access_token) { AccessToken.new(email:).encode }
       let(:header) { JSON.parse(Base64.decode64(access_token.split('.')[0]), symbolize_names: true) }
       let(:payload) { JSON.parse(Base64.decode64(access_token.split('.')[1]), symbolize_names: true) }
 

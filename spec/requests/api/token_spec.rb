@@ -3,14 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe 'ApiToken' do
-  let(:user) { create(:user, :admin) }
-  let(:noadmin) { create(:user, :noadmin) }
-
-  # Token生成のAPIのテスト
-
   describe 'POST /api/token' do
     context 'ユーザが存在する場合' do
       context 'ユーザがadminの場合' do
+        let(:user) { create(:user, :admin) }
+
         it '200が返って、アクセストークンを返すこと' do
           post '/api/token', params: { email: user.email, password: user.password }
           expect(response).to be_successful
@@ -19,6 +16,8 @@ RSpec.describe 'ApiToken' do
       end
 
       context 'ユーザがAdminでない場合' do
+        let(:noadmin) { create(:user, :noadmin) }
+
         it '403が返って、エラーメッセージを返すこと' do
           post '/api/token', params: { email: noadmin.email, password: noadmin.password }
           expect(response).to have_http_status :forbidden
