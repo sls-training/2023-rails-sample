@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'ApiToken' do
-  let(:user) { create(:user) }
+  let(:user) { create(:user, :admin) }
   let(:noadmin) { create(:user, :noadmin) }
 
   # Token生成のAPIのテスト

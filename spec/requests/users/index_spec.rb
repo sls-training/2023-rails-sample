@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Index' do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :admin) }
   let!(:noadmin) { create(:user, :noadmin) }
   let!(:noactivated) { create(:user, :noactivated) }
   let!(:user_list) { create_list(:user, 50, :noadmin) }

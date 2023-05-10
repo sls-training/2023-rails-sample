@@ -6,9 +6,12 @@ FactoryBot.define do
     sequence(:email) { |n| "test#{n}@example.com" }
     password { 'password' }
     password_confirmation { 'password' }
-    admin { true }
     activated { true }
     activated_at { Time.zone.now }
+
+    trait :admin do
+      admin { true }
+    end
 
     trait :noadmin do
       admin { false }
