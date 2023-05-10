@@ -18,6 +18,7 @@ RSpec.describe 'AccessToken' do
     context 'アクセストークンが期限切れの場合' do
       subject { AccessToken.from_token(expired_access_token) }
 
+      let(:email) { 'example@test.com' }
       let(:expired_access_token) do
         issued_at = 11.hours.ago
         expired_at = issued_at + 1.hour
