@@ -18,14 +18,6 @@ RSpec.describe 'AccessToken' do
     context 'アクセストークンが期限切れの場合' do
       subject { AccessToken.from_token(expired_access_token) }
 
-      let(:email) { 'example@test.com' }
-      let(:expired_access_token) do
-        issued_at = 11.hours.ago
-        expired_at = issued_at + 1.hour
-        payload = { sub: email, iat: issued_at.to_i, exp: expired_at.to_i }
-        JWT.encode payload, Rails.application.credentials.app.secret_access_key, 'HS256'
-      end
-
       it 'アクセストークンのデコードに失敗する' do
         expect { subject }.to raise_error(JWT::ExpiredSignature, 'Signature has expired')
       end
