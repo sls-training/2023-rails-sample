@@ -18,11 +18,22 @@ RSpec.describe 'ApiUsers' do
       it 'ターゲットのIDのユーザ情報をレスポンスとして取得できる' do
         get("/api/users/#{target.id}", headers:)
         expect(response).to be_successful
+        user_data = JSON.parse(response.body, symbolize_names: true)
+        target_data = {
+          id:           target.id,
+          name:         target.name,
+          email:        target.email,
+          created_at:   target.created_at.iso8601(2),
+          updated_at:   target.updated_at.iso8601(2),
+          admin:        target.admin,
+          activated:    target.activated,
+          activated_at: target.activated_at.iso8601(2)
+        }
+        expect(user_data).to eq target_data
       end
     end
 
     context 'アクセストークンが有効期限切れの場合' do
-      #   headers = { "ACCEPT" => "application/json" }
       let(:target) { create(:user, :noadmin) }
       let(:headers) do
         {
