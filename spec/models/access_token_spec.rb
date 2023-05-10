@@ -50,17 +50,5 @@ RSpec.describe 'AccessToken' do
         expect(payload[:exp] - payload[:iat]).to eq 1.hour.to_i
       end
     end
-
-    context 'emailアドレスが空の場合' do
-      it 'RuntimeErrorが出て失敗する' do
-        expect { AccessToken.new(email: '').encode }.to raise_error(RuntimeError)
-      end
-    end
-
-    context 'emailアドレスの形式が間違っている場合' do
-      it 'RuntimeErrorが出て失敗する' do
-        expect { AccessToken.new(email: 'hogehoge').encode }.to raise_error(RuntimeError)
-      end
-    end
   end
 end

@@ -15,8 +15,6 @@ class AccessToken
   # @param email [String]
   # @return [self]
   def initialize(email:)
-    raise '入力している文字列が空か正しくありません' unless Regexp.new(/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i).match?(email)
-
     @email = email
   end
 
