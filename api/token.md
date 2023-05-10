@@ -39,7 +39,7 @@ curl -X POST\
 }
 ```
 
-401 OK
+401 Unauthorized
 
 ```json
 {
