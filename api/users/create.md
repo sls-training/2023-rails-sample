@@ -8,10 +8,12 @@ http://localhost:3000/api/users
 
 ## Parameters
 
-| 名称  | 型     | 必須か   | 　説明   | 例                 |
-| ----- | ------ | -------- | -------- | ------------------ |
-| name  | String | required | ユーザ名 | "uouo chan"        |
-| email | String | required | メール   | "test@example.com" |
+| 名称     | 型      | 必須か   | 　説明                             | 例                 |
+| -------- | ------- | -------- | ---------------------------------- | ------------------ |
+| name     | String  | required | ユーザ名                           | "uouo chan"        |
+| email    | String  | required | メール                             | "test@example.com" |
+| password | String  | required | パスワード                         | "hogehoge"         |
+| admin    | Boolean |          | 管理者かどうか(デフォルトで false) | true               |
 
 ## Request
 
@@ -19,7 +21,7 @@ http://localhost:3000/api/users
 curl -X POST\
  -H "Content-Type: application/json" \
  -H "Authorization: Bearer <YOUR-TOKEN>"\
- -d '{"name": "testuser", "email":"hoge@example.com"}'
+ -d '{"name":"testuser", "email":"hoge@example.com", "password":"hogehoge"}'
   http://localhost:3000/api/users
 ```
 
@@ -56,7 +58,7 @@ Content-Type: `application/json`
 
 ### 400 Bad Request
 
-- email または name の形式が間違っていた場合
+- パラメータの形式が間違っていた場合
 
   ```json
   {
