@@ -82,6 +82,6 @@ Content-Type: `application/json`
 
 ```json
 {
-  "message": "Not Found. User with this ID does not exist"
+  "message": "Not Found. User does not exist"
 }
 ```
