@@ -5,6 +5,11 @@ require 'rails_helper'
 RSpec.describe 'ApiUsers' do
   describe 'GET /api/users/:id' do
     context 'アクセストークンが有効の場合' do
+      subject do
+        get("/api/users/#{target.id}", headers:)
+        response
+      end
+
       let(:user) { create(:user, :admin) }
       let(:target) { create(:user, :noadmin) }
       let(:access_token) { AccessToken.new(email: user.email).encode }
@@ -16,9 +21,8 @@ RSpec.describe 'ApiUsers' do
       end
 
       it 'ターゲットのIDのユーザ情報をレスポンスとして取得できる' do
-        get("/api/users/#{target.id}", headers:)
-        expect(response).to be_successful
-        user_data = JSON.parse(response.body, symbolize_names: true)
+        expect(subject).to be_successful
+        user_data = JSON.parse(subject.body, symbolize_names: true)
         target_data = {
           id:           target.id,
           name:         target.name,
@@ -34,6 +38,11 @@ RSpec.describe 'ApiUsers' do
     end
 
     context 'アクセストークンが有効期限切れの場合' do
+      subject do
+        get("/api/users/#{target.id}", headers:)
+        response
+      end
+
       let(:target) { create(:user, :noadmin) }
       let(:headers) do
         {
@@ -43,13 +52,17 @@ RSpec.describe 'ApiUsers' do
       end
 
       it '401でエラーメッセージを出力して失敗する' do
-        get("/api/users/#{target.id}", headers:)
-        expect(response).to be_unauthorized
-        expect(response.parsed_body).to have_key('message')
+        expect(subject).to be_unauthorized
+        expect(subject.parsed_body).to have_key('message')
       end
     end
 
     context 'アクセストークンがない場合' do
+      subject do
+        get("/api/users/#{target.id}", headers:)
+        response
+      end
+
       let(:target) { create(:user, :noadmin) }
       let(:headers) do
         {
@@ -59,8 +72,8 @@ RSpec.describe 'ApiUsers' do
 
       it '401でエラーメッセージを出力して失敗する' do
         get("/api/users/#{target.id}", headers:)
-        expect(response).to be_unauthorized
-        expect(response.parsed_body).to have_key('message')
+        expect(subject).to be_unauthorized
+        expect(subject.parsed_body).to have_key('message')
       end
     end
   end
