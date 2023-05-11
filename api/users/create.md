@@ -72,6 +72,14 @@ Content-Type: `application/json`
   }
   ```
 
+- ユーザが既に存在している場合
+
+  ```json
+  {
+    "message": "Bad Request. This user already exists"
+  }
+  ```
+
 ### 401 Unauthorized
 
 - アクセストークンが無効な場合
