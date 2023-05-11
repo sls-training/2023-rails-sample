@@ -2,12 +2,20 @@
 
 module Api
   class UsersController < ApiController
+    before_action :validate_user_id, only: %i[show]
     # GET /api/users/:id
     def show
-      user = User.find_by(id: params[:id])
-      return render_user_nil if user.nil?
+      render_user user
+    end
 
-      render json: {
+    private
+
+    def user
+      @_user ||= User.find_by(id: params[:id])
+    end
+
+    def render_user(user)
+      render status: :ok, json: {
         id:           user.id,
         name:         user.name,
         email:        user.email,
@@ -19,9 +27,9 @@ module Api
       }
     end
 
-    private
+    def validate_user_id
+      return if user.present?
 
-    def render_user_nil
       render status: :not_found,
              json:   { message: 'Not Found. User does not exist' }
     end
