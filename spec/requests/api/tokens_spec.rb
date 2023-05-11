@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'ApiToken' do
+RSpec.describe 'ApiTokens' do
   describe 'POST /api/token' do
     context 'ユーザが存在する場合' do
       context 'ユーザがadminの場合' do

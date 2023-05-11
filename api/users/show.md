@@ -6,8 +6,7 @@
 
 http://localhost:3000/api/users/:id
 
-トークンが無効の場合は 401<br>
-トークンがない時は 403<br>
+トークンが無効の場合、トークンがない時は 401<br>
 
 ## Header
 
@@ -63,8 +62,18 @@ Content-Type: `application/json`
 
 ### 401
 
-invalid token
+- アクセストークンが無効な場合
 
-### 403
+```json
+{
+  "message": "Unauthorized. Invalid token"
+}
+```
 
-Missing authentication token
+- アクセストークンがない場合
+
+```json
+{
+  "message": "Unauthorized. Missing authentication token"
+}
+```
