@@ -6,8 +6,6 @@
 
 http://localhost:3000/api/users/:id
 
-トークンが無効の場合、トークンがない時は 401<br>
-
 ## Header
 
 ```yml
@@ -75,6 +73,16 @@ Content-Type: `application/json`
 ```json
 {
   "message": "Unauthorized. Missing authentication token"
+}
+```
+
+### 404
+
+存在しない ID を指定した場合
+
+```json
+{
+  "message": "Not Found. User with this ID does not exist"
 }
 ```
 
