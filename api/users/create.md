@@ -49,8 +49,8 @@ Content-Type: `application/json`
   "name": "Example User",
   "email": "example@railstutorial.org",
   "admin": true,
-  "activated": true,
-  "activated_at": "2023-04-20T07:52:47.665Z",
+  "activated": false,
+  "activated_at": null,
   "created_at": "2023-04-20T07:52:47.897Z",
   "updated_at": "2023-04-25T06:37:02.675Z"
 }
