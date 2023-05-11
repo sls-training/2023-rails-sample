@@ -15,6 +15,7 @@ module Api
         AccessToken.from_token(access_token[7..])
       rescue JWT::DecodeError
         render json: { message: 'Unauthorized. Invalid token' }, status: :unauthorized
+      end
     end
   end
 end
