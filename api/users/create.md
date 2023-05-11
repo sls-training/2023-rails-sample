@@ -11,10 +11,10 @@ http://localhost:3000/api/users
 
 ## Parameters
 
-| 名称  | 必須か   | 　説明   | 例                 |
-| ----- | -------- | -------- | ------------------ |
-| name  | required | ユーザ名 | "uouo chan"        |
-| email | required | メール   | "test@example.com" |
+| 名称  | 型     | 必須か   | 　説明   | 例                 |
+| ----- | ------ | -------- | -------- | ------------------ |
+| name  | String | required | ユーザ名 | "uouo chan"        |
+| email | String | required | メール   | "test@example.com" |
 
 ## Request
 
