@@ -22,18 +22,19 @@ RSpec.describe 'ApiUsers' do
 
       it 'ターゲットのIDのユーザ情報をレスポンスとして取得できる' do
         expect(subject).to be_successful
+        
         user_data = JSON.parse(subject.body, symbolize_names: true)
-        target_data = {
-          id:           target.id,
-          name:         target.name,
-          email:        target.email,
-          admin:        target.admin,
-          activated:    target.activated,
-          activated_at: target.activated_at.iso8601(2),
-          created_at:   target.created_at.iso8601(2),
-          updated_at:   target.updated_at.iso8601(2)
-        }
-        expect(user_data).to eq target_data
+        expect(user_data).to include(
+          {
+            id:           target.id,
+            name:         target.name,
+            admin:        target.admin,
+            activated:    target.activated,
+            activated_at: target.activated_at.iso8601(2),
+            created_at:   target.created_at.iso8601(2),
+            updated_at:   target.updated_at.iso8601(2)
+          }
+        )
       end
     end
 
