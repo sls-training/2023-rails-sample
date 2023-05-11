@@ -78,14 +78,6 @@ Content-Type: `application/json`
   }
   ```
 
-- ユーザが既に存在している場合
-
-  ```json
-  {
-    "message": "Bad Request. This user already exists"
-  }
-  ```
-
 - アクセストークンがない場合
 
   ```json
@@ -101,5 +93,15 @@ Content-Type: `application/json`
   ```json
   {
     "message": "Unauthorized. Invalid token"
+  }
+  ```
+
+### 422 Unprocessable Entity
+
+- ユーザが既に存在している場合
+
+  ```json
+  {
+    "message": "Unprocessable Entity. This user already exists"
   }
   ```
