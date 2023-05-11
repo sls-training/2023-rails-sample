@@ -3,11 +3,11 @@
 module Api
   class ApiController < ActionController::API
     include ActionController::HttpAuthentication::Token::ControllerMethods
-    before_action :authenticate
+    before_action :require_access_token
 
     protected
 
-    def authenticate
+    def require_access_token
       access_token = request.headers['Authorization']
       return render json: { message: 'Missing authentication token' }, status: :unauthorized if access_token.nil?
 
