@@ -85,13 +85,3 @@ Content-Type: `application/json`
   "message": "Not Found. User with this ID does not exist"
 }
 ```
-
-### 500
-
-サーバー側で予期しないエラーが発生した場合
-
-```json
-{
-  "message": "Internal Server Error"
-}
-```

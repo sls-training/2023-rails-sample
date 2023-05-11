@@ -13,11 +13,8 @@ module Api
 
       begin
         AccessToken.from_token(access_token[7..])
-      rescue JWT::DecodeError, JWT::ExpiredSignature, JWT::VerificationError
+      rescue JWT::DecodeError
         render json: { message: 'Unauthorized. Invalid token' }, status: :unauthorized
-      rescue StandardError
-        render json: { message: 'Internal Server Error' }, status: :internal_server_error
-      end
     end
   end
 end
