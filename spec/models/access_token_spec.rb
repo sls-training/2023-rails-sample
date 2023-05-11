@@ -3,11 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe 'AccessToken' do
+  let(:email) { 'example@test.com' }
+
   describe '#from_token' do
     context 'アクセストークンが正しい場合' do
       subject { AccessToken.from_token(access_token) }
 
-      let(:email) { 'example@test.com' }
       let(:access_token) { AccessToken.new(email:).encode }
 
       it 'デコードしてemailが読みとれる' do
@@ -16,7 +17,7 @@ RSpec.describe 'AccessToken' do
     end
 
     context 'アクセストークンが期限切れの場合' do
-      subject { AccessToken.from_token(expired_access_token) }
+      subject { AccessToken.from_token(expired_access_token(email:)) }
 
       it 'アクセストークンのデコードに失敗する' do
         expect { subject }.to raise_error(JWT::ExpiredSignature, 'Signature has expired')
@@ -25,7 +26,6 @@ RSpec.describe 'AccessToken' do
   end
 
   describe '#encode' do
-    let(:email) { 'example@test.com' }
     let(:access_token) { AccessToken.new(email:).encode }
     let(:header) { JSON.parse(Base64.decode64(access_token.split('.')[0]), symbolize_names: true) }
     let(:payload) { JSON.parse(Base64.decode64(access_token.split('.')[1]), symbolize_names: true) }
