@@ -77,3 +77,13 @@ Content-Type: `application/json`
   "message": "Unauthorized. Missing authentication token"
 }
 ```
+
+### 500
+
+サーバー側で予期しないエラーが発生した場合
+
+```json
+{
+  "message": "Internal Server Error"
+}
+```
