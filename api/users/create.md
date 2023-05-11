@@ -62,7 +62,11 @@ Content-Type: `application/json`
 
   ```json
   {
-    "message": "Bad Request. Bad email address or name"
+    "errors": [
+      { "name": "email", "message": "Invalid email" },
+      { "name": "name", "message": "Invalid name" },
+      { "name": "password", "message": "Invalid password" }
+    ]
   }
   ```
 
