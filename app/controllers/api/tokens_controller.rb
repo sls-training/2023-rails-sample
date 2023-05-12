@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class TokensController < ActionController::API
+  class TokensController < ApiController
     before_action :authenticate_user!, only: [:create]
     # POST /api/token
     def create

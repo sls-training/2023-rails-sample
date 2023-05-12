@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Api
-  class UsersController < ApiController
+  class UsersController < AuthenticateController
     before_action :validate_user_id, only: %i[show]
     # GET /api/users/:id
     def show
