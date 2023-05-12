@@ -8,12 +8,12 @@ module Api
 
     def require_access_token
       access_token = request.headers['Authorization']
-      return render json: { message: 'Missing authentication token' }, status: :unauthorized if access_token.nil?
+      return render json: { message: t(:missing_token) }, status: :unauthorized if access_token.nil?
 
       begin
         AccessToken.from_token(access_token[7..])
       rescue JWT::DecodeError
-        render json: { message: 'Unauthorized. Invalid token' }, status: :unauthorized
+        render json: { message: t(:invalid_token) }, status: :unauthorized
       end
     end
   end

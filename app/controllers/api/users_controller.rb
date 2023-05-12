@@ -31,7 +31,7 @@ module Api
       return if user.present?
 
       render status: :not_found,
-             json:   { message: 'Not Found. User does not exist' }
+             json:   { message: :no_user }
     end
   end
 end

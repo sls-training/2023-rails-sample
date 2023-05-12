@@ -23,11 +23,11 @@ module Api
     end
 
     def render_forbidden
-      render status: :forbidden, json: { message: 'Access denied. You are not admin user' }
+      render status: :forbidden, json: { message: t(:not_admin) }
     end
 
     def render_unauthorized
-      render status: :unauthorized, json: { message: 'Unauthorized. Make sure you have the parameters.' }
+      render status: :unauthorized, json: { message: t(:missing_param) }
     end
   end
 end
