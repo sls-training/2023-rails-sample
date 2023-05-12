@@ -1,0 +1,3 @@
+en:
+  invalid_token: Unauthorized. Invalid token
+  missing_token: Missing authentication token

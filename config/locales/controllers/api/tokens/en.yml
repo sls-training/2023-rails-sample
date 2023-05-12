@@ -1,0 +1,3 @@
+en:
+  not_admin: Access denied. You are not admin user
+  missing_param: Unauthorized. Make sure you have the parameters

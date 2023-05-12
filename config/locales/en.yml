@@ -30,11 +30,3 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  authenticate_controller:
-    invalid_token: Unauthorized. Invalid token
-    missing_token: Missing authentication token
-  tokens_controller:
-    not_admin: Access denied. You are not admin user
-    missing_param: Unauthorized. Make sure you have the parameters
-  users_controller:
-    no_user: Not Found. User does not exist

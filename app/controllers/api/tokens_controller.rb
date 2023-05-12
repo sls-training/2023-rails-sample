@@ -23,11 +23,11 @@ module Api
     end
 
     def render_forbidden
-      render status: :forbidden, json: { message: t(:not_admin) }
+      render status: :forbidden, json: { message: I18n.t(:not_admin) }
     end
 
     def render_unauthorized
-      render status: :unauthorized, json: { message: t(:missing_param) }
+      render status: :unauthorized, json: { message: I18n.t(:missing_param) }
     end
   end
 end
