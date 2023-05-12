@@ -48,3 +48,7 @@ Rails/I18nLocaleTexts:
 # 冗長なpresenceを消す設定
 Rails/RedundantPresenceValidationOnBelongsTo:
   Enabled: false
+
+RSpec/ImplicitSubject:
+  Enabled: true
+  EnforcedStyle: single_statement_only
