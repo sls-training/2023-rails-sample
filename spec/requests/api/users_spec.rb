@@ -37,9 +37,10 @@ RSpec.describe 'ApiUsers' do
     end
 
     context 'アクセストークンが有効期限切れの場合' do
+      let(:email) { 'hogehoge@example.com' }
       let(:headers) do
         {
-          'Authorization' => "Bearer #{expired_access_token}"
+          'Authorization' => "Bearer #{expired_access_token(email:)}"
         }
       end
 
