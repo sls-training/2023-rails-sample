@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
-module VerifyTokens
+module AccessTokenVerifiable
   extend ActiveSupport::Concern
 
-  def require_access_token
+  included do
+    before_action :verify_access_token_in_header
+  end
+
+  def verify_access_token_in_header
     access_token = request.headers['Authorization']
     return render json: { message: I18n.t(:missing_token) }, status: :unauthorized if access_token.nil?
 

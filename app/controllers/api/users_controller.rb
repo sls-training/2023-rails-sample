@@ -2,7 +2,7 @@
 
 module Api
   class UsersController < ApiController
-    before_action :require_access_token
+    include AccessTokenVerifiable
     before_action :validate_user_id, only: %i[show]
     # GET /api/users/:id
     def show
