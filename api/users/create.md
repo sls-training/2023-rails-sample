@@ -63,26 +63,27 @@ Content-Type: `application/json`
   ```json
   {
     "errors": [
-      { "name": "email", "message": "Invalid email" },
-      { "name": "name", "message": "Invalid name" },
-      { "name": "password", "message": "Invalid password" }
+      {
+        "name": "email",
+        "messages": ["is invalid"]
+      },
+      {
+        "name": "name",
+        "messages": ["can't be blank", "is too short (minimum is 0 characters)"]
+      }
     ]
   }
   ```
 
-- パラメータが足りない場合
-
-  ```json
-  {
-    "message": "Bad Request. Please check if the parameters are wrong"
-  }
-  ```
-
 - アクセストークンがない場合
-
   ```json
   {
-    "message": "Bad Request. Missing authentication token"
+    "errors": [
+      {
+        "name": "access_token",
+        "messages": ["Bad Request. Missing authentication token"]
+      }
+    ]
   }
   ```
 
@@ -92,7 +93,12 @@ Content-Type: `application/json`
 
   ```json
   {
-    "message": "Unauthorized. Invalid token"
+    "errors": [
+      {
+        "token": "access_token",
+        "messages": ["Unauthorized. Invalid token"]
+      }
+    ]
   }
   ```
 
@@ -102,6 +108,11 @@ Content-Type: `application/json`
 
   ```json
   {
-    "message": "Unprocessable Entity. This user already exists"
+    "errors": [
+      {
+        "name": "email",
+        "messages": ["has already been taken"]
+      }
+    ]
   }
   ```
