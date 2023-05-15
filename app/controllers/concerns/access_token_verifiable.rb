@@ -9,12 +9,15 @@ module AccessTokenVerifiable
 
   def verify_access_token_in_header
     access_token = request.headers['Authorization']
-    return render json: { message: I18n.t(:missing_token) }, status: :unauthorized if access_token.nil?
+    if access_token.nil?
+      return render json:   { message: t('concerns.access_token_verifiable.missing_token') },
+                    status: :unauthorized
+    end
 
     begin
       AccessToken.from_token(access_token[7..])
     rescue JWT::DecodeError
-      render json: { message: I18n.t(:invalid_token) }, status: :unauthorized
+      render json: { message: t('concerns.access_token_verifiable.invalid_token') }, status: :unauthorized
     end
   end
 end

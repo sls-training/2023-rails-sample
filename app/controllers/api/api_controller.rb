@@ -2,5 +2,6 @@
 
 module Api
   class ApiController < ActionController::API
+    include AbstractController::Translation
   end
 end

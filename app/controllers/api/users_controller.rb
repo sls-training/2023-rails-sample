@@ -32,7 +32,7 @@ module Api
       return if user.present?
 
       render status: :not_found,
-             json:   { message: I18n.t(:no_user) }
+             json:   { message: t('.no_user') }
     end
   end
 end
