@@ -69,8 +69,13 @@ Content-Type: `application/json`
       },
       {
         "name": "name",
-        "messages": ["can't be blank", "is too short (minimum is 0 characters)"]
-      }
+        "messages": ["can't be blank"]
+      },
+      {
+        "name": "name",
+        "messages": ["is too short (minimum is 0 characters)"]
+      },
+      ...
     ]
   }
   ```
