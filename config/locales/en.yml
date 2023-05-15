@@ -39,4 +39,4 @@ en:
   concerns:
     access_token_verifiable:
       invalid_token: Unauthorized. Invalid token
-      missing_token: Missing authentication token
+      missing_token: Bad request. Missing authentication token
