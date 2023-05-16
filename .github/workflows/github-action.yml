@@ -2,7 +2,8 @@ name: Run rspec, rubocop
 
 on:
   push:
-  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
