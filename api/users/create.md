@@ -65,15 +65,15 @@ Content-Type: `application/json`
     "errors": [
       {
         "name": "email",
-        "messages": ["is invalid"]
+        "message": "is invalid"
       },
       {
         "name": "name",
-        "messages": ["can't be blank"]
+        "message": "can't be blank"
       },
       {
         "name": "name",
-        "messages": ["is too short (minimum is 0 characters)"]
+        "message": "is too short (minimum is 0 characters)"
       },
       ...
     ]
@@ -86,7 +86,7 @@ Content-Type: `application/json`
     "errors": [
       {
         "name": "access_token",
-        "messages": ["Bad Request. Missing authentication token"]
+        "message": "Bad Request. Missing authentication token"
       }
     ]
   }
@@ -101,7 +101,7 @@ Content-Type: `application/json`
     "errors": [
       {
         "token": "access_token",
-        "messages": ["Unauthorized. Invalid token"]
+        "message": "Unauthorized. Invalid token"
       }
     ]
   }
@@ -116,7 +116,7 @@ Content-Type: `application/json`
     "errors": [
       {
         "name": "email",
-        "messages": ["has already been taken"]
+        "message": "has already been taken"
       }
     ]
   }
