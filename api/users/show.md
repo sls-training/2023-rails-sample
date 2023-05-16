@@ -64,7 +64,7 @@ Content-Type: `application/json`
 
 ```json
 {
-  "message": "Bad request. Missing authentication token"
+  "message": "Authentication token is missing"
 }
 ```
 
@@ -74,7 +74,7 @@ Content-Type: `application/json`
 
 ```json
 {
-  "message": "Unauthorized. Invalid token"
+  "message": "Invalid token"
 }
 ```
 
@@ -84,6 +84,6 @@ Content-Type: `application/json`
 
 ```json
 {
-  "message": "Not Found. User does not exist"
+  "message": "User does not exist"
 }
 ```
