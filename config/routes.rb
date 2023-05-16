@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   namespace :api, format: 'json' do
     resource :token, only: [:create]
-    resources :users, only: %i[show create]
+    resources :users, only: %i[show create destroy]
   end
 
   resources :users do
