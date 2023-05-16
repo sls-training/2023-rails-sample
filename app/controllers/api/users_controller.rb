@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module Api
-  class UsersController < ApiController
+  class UsersController < ApplicationController
+    include AccessTokenVerifiable
     before_action :validate_user_id, only: %i[show]
     # GET /api/users/:id
     def show
@@ -31,7 +32,7 @@ module Api
       return if user.present?
 
       render status: :not_found,
-             json:   { message: 'Not Found. User does not exist' }
+             json:   { message: t('.no_user') }
     end
   end
 end

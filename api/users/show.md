@@ -58,21 +58,23 @@ Content-Type: `application/json`
 }
 ```
 
+### 400
+
+アクセストークンがない場合
+
+```json
+{
+  "message": "Authentication token is missing"
+}
+```
+
 ### 401
 
 - アクセストークンが無効な場合
 
 ```json
 {
-  "message": "Unauthorized. Invalid token"
-}
-```
-
-- アクセストークンがない場合
-
-```json
-{
-  "message": "Unauthorized. Missing authentication token"
+  "message": "Invalid token"
 }
 ```
 
@@ -82,6 +84,6 @@ Content-Type: `application/json`
 
 ```json
 {
-  "message": "Not Found. User does not exist"
+  "message": "User does not exist"
 }
 ```

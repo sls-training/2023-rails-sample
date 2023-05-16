@@ -43,7 +43,7 @@ curl -X POST\
 
 ```json
 {
-  "message": "Unauthorized. Make sure you have the parameters."
+  "message": "Make sure you have the parameters."
 }
 ```
 
@@ -51,6 +51,6 @@ curl -X POST\
 
 ```json
 {
-  "message": "Access denied. You are not admin user"
+  "message": "You are not admin user"
 }
 ```

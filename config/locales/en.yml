@@ -30,4 +30,13 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: 'Hello world'
+  api:
+    tokens:
+      not_admin: You are not admin user
+      missing_param: Make sure you have the parameters
+    users:
+      no_user: User does not exist
+  concerns:
+    access_token_verifiable:
+      invalid_token: Invalid token
+      missing_token: Authentication token is missing
