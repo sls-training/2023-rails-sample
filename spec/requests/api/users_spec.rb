@@ -14,11 +14,7 @@ RSpec.describe 'ApiUsers' do
     context 'アクセストークンが有効の場合' do
       let(:user) { create(:user, :admin) }
       let(:access_token) { AccessToken.new(email: user.email).encode }
-      let(:headers) do
-        {
-          'Authorization' => "Bearer #{access_token}"
-        }
-      end
+      let(:headers) { { 'Authorization' => "Bearer #{access_token}" } }
 
       it 'ターゲットのIDのユーザ情報をレスポンスとして取得できる' do
         expect(subject).to be_successful
@@ -38,11 +34,7 @@ RSpec.describe 'ApiUsers' do
 
     context 'アクセストークンが有効期限切れの場合' do
       let(:email) { 'hogehoge@example.com' }
-      let(:headers) do
-        {
-          'Authorization' => "Bearer #{expired_access_token(email:)}"
-        }
-      end
+      let(:headers) { { 'Authorization' => "Bearer #{expired_access_token(email:)}" } }
 
       it '401でエラーメッセージを出力して失敗する' do
         expect(subject).to be_unauthorized
@@ -51,9 +43,8 @@ RSpec.describe 'ApiUsers' do
     end
 
     context 'アクセストークンがない場合' do
-      it '401でエラーメッセージを出力して失敗する' do
-        get("/api/users/#{target.id}")
-        expect(subject).to be_unauthorized
+      it '400でエラーメッセージを出力して失敗する' do
+        expect(subject).to be_bad_request
         expect(subject.parsed_body).to have_key('message')
       end
     end
