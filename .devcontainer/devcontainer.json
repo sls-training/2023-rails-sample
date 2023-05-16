@@ -15,7 +15,8 @@
         "aki77.rails-db-schema",
         "Shopify.ruby-lsp",
         "esbenp.prettier-vscode",
-        "misogi.ruby-rubocop"
+        "misogi.ruby-rubocop",
+        "KoichiSasada.vscode-rdbg"
       ],
       "settings": {
         "editor.formatOnSave": true,
