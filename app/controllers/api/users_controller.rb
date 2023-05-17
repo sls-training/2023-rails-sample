@@ -22,7 +22,11 @@ module Api
         password_confirmation: password,
         activated:             false
       )
-      create_user.invalid? ? render_create_failed(create_user) : render_user(create_user, :created)
+      if create_user.invalid?
+        render_create_failed(create_user)
+      else
+        render_user(create_user, :created)
+      end
     end
 
     private
