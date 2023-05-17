@@ -35,7 +35,7 @@ Nothing
   "errors": [
     {
       "name": "access_token",
-      "message": "Bad Request. Missing authentication token"
+      "message": "authentication token is missing"
     }
   ]
 }
@@ -50,7 +50,7 @@ Nothing
   "errors": [
     {
       "token": "access_token",
-      "message": "Unauthorized. Invalid token"
+      "message": "Invalid token"
     }
   ]
 }
@@ -65,7 +65,7 @@ Nothing
   "errors": [
     {
       "name": "user_id",
-      "message": "Not Found. User does not exist"
+      "message": "User does not exist"
     }
   ]
 }
