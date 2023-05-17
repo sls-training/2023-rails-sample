@@ -29,35 +29,36 @@ Nothing
 ### 400 Bad Request
 
 - アクセストークンがない場合
-  ```json
-  {
-    "errors": [
-      {
-        "name": "access_token",
-        "message": "Bad Request. Missing authentication token"
-      }
-    ]
-  }
-  ```
+
+```json
+{
+  "errors": [
+    {
+      "name": "access_token",
+      "message": "Bad Request. Missing authentication token"
+    }
+  ]
+}
+```
 
 ### 401 Unauthorized
 
 - アクセストークンが無効な場合
 
-  ```json
-  {
-    "errors": [
-      {
-        "token": "access_token",
-        "message": "Unauthorized. Invalid token"
-      }
-    ]
-  }
-  ```
+```json
+{
+  "errors": [
+    {
+      "token": "access_token",
+      "message": "Unauthorized. Invalid token"
+    }
+  ]
+}
+```
 
 ### 404 Not Found
 
-存在しない ID を指定した場合
+- 存在しない ID を指定した場合
 
 ```json
 {
@@ -72,7 +73,7 @@ Nothing
 
 ### 422 Unprocessable Entity
 
-自分の ID を指定した場合
+- 自分の ID を指定した場合
 
 ```json
 {
