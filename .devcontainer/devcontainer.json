@@ -19,6 +19,7 @@
         "KoichiSasada.vscode-rdbg"
       ],
       "settings": {
+        "files.insertFinalNewline": true,
         "editor.formatOnSave": true,
         // rubocop
         "ruby.useBundler": true,
