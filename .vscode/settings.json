@@ -1,4 +1,5 @@
 {
+  "files.insertFinalNewline": true,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true
@@ -13,7 +14,6 @@
   },
   // "ruby.rubocop.executePath": "./bin/",
   "ruby.format": "rubocop",
-
   "[ruby]": {
     //"editor.defaultFormatter": "esbenp.prettier-vscode"
     "editor.defaultFormatter": "misogi.ruby-rubocop"
