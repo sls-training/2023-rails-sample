@@ -24,7 +24,7 @@ RSpec.describe 'ApiUsers' do
             name:         target.name,
             admin:        target.admin,
             activated:    target.activated,
-            activated_at: target.activated_at.iso8601(2),
+            activated_at: target.activated_at&.iso8601(2),
             created_at:   target.created_at.iso8601(2),
             updated_at:   target.updated_at.iso8601(2)
           }
@@ -76,15 +76,7 @@ RSpec.describe 'ApiUsers' do
             expect { subject }.to change(User, :count).by(1)
             expect(response).to be_created
             expect(response.parsed_body).to include(
-              *%w[
-                id
-                name
-                admin
-                activated
-                activated_at
-                created_at
-                updated_at
-              ]
+              *%w[id name admin activated activated_at created_at updated_at]
             )
           end
         end
