@@ -23,11 +23,13 @@ module Api
     end
 
     def render_forbidden
-      render status: :forbidden, json: { message: t('.not_admin') }
+      render 'api/errors', status: :forbidden,
+                           locals: { errors: { name: 'access_token', message: t('.not_admin') } }
     end
 
     def render_unauthorized
-      render status: :unauthorized, json: { message: t('.missing_param') }
+      render 'api/errors', status: :unauthorized,
+                           locals: { errors: { name: 'access_token', message: t('.missing_param') } }
     end
   end
 end

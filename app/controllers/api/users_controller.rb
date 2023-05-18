@@ -16,16 +16,20 @@ module Api
       email = params[:email]
       password = params[:password]
       password_confirmation = password
+
+      ## ユーザがすでに存在している時
       if User.exists?(email:)
         errors = [{ name: 'email', message: t('.exist_user') }]
-        return render 'shared/api/_error', locals: { errors: }, status: :unprocessable_entity
+        return render 'api/errors', locals: { errors: }, status: :unprocessable_entity
       end
 
       new_user = User.create(name:, email:, password:, password_confirmation:)
       if new_user.invalid?
+        ## パラメータに不備があった場合
         errors = new_user.errors.map { |x| { name: x.attribute, message: x.message } }
-        render 'shared/api/_error', locals: { errors: }, status: :bad_request
+        render 'api/errors', locals: { errors: }, status: :bad_request
       else
+        # ユーザの作成に成功した場合
         render :create, locals: { user: new_user }, status: :created
       end
     end
@@ -40,7 +44,7 @@ module Api
       return if user.present?
 
       errors =  [{ name: 'user_id', message: t('.no_user') }]
-      render 'shared/api/_error', locals: { errors: }, status: :not_found
+      render 'api/errors', locals: { errors: }, status: :not_found
     end
   end
 end

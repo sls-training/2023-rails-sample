@@ -24,13 +24,13 @@ module AccessTokenVerifiable
 
   def render_missing_token
     errors = [{ name: 'access_token', message: t('concerns.access_token_verifiable.missing_token') }]
-    render 'shared/api/_error',
+    render 'api/errors',
            locals: { errors: }, status: :bad_request
   end
 
   def render_invalid_token
     errors = [{ name: 'access_token', message: t('concerns.access_token_verifiable.invalid_token') }]
-    render 'shared/api/_error',
+    render 'api/errors',
            locals: { errors: }, status: :unauthorized
   end
 end
