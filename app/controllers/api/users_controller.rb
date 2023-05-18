@@ -4,9 +4,10 @@ module Api
   class UsersController < ApplicationController
     include AccessTokenVerifiable
     before_action :validate_user_id, only: %i[show]
+
     # GET /api/users/:id
     def show
-      render_user user, :ok
+      render :show, status: :ok, locals: { user: }
     end
 
     # POST /api/users
@@ -22,11 +23,17 @@ module Api
         password_confirmation: password,
         activated:             false
       )
-      if create_user.invalid?
-        render_create_failed(create_user)
-      else
-        render_user(create_user, :created)
-      end
+
+      status =
+        if !create_user.invalid?
+          :created
+        elsif create_user.errors.count == 1 && User.exists?(email:)
+          :unprocessable_entity
+        else
+          :bad_request
+        end
+
+      render :create, locals: { user: create_user }, status:
     end
 
     private
@@ -35,31 +42,10 @@ module Api
       @_user ||= User.find_by(id: params[:id])
     end
 
-    def render_user(target, status)
-      render status:, json: {
-        id:           target.id,
-        name:         target.name,
-        email:        target.email,
-        admin:        target.admin,
-        activated:    target.activated,
-        activated_at: target.activated_at&.iso8601(2),
-        created_at:   target.created_at.iso8601(2),
-        updated_at:   target.updated_at.iso8601(2)
-      }
-    end
-
-    def render_create_failed(create_user)
-      errors = create_user.errors.map { |err| { name: err.attribute, message: err.message } }
-      is_exist = errors.length == 1 && errors.first[:message] == 'has already been taken'
-      status = is_exist ? :unprocessable_entity : :bad_request
-      render status:, json: { errors: }
-    end
-
     def validate_user_id
       return if user.present?
 
-      render status: :not_found,
-             json:   { errors: { name: 'user_id', message: t('.no_user') } }
+      render :show, status: :not_found, locals: { user: }
     end
   end
 end
