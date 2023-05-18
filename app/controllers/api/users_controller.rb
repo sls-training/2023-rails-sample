@@ -20,8 +20,7 @@ module Api
         name:,
         email:,
         password:,
-        password_confirmation: password,
-        activated:             false
+        password_confirmation: password
       )
 
       status =
