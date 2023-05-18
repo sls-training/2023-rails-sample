@@ -1,0 +1,5 @@
+<% if user.errors.any?%>
+    <%= render 'shared/api/error', errors: user.errors.map { |x| { name: x.attribute, message: x.message }}%>
+<% else %>
+    <%= render 'shared/api/user', user: user %>
+<% end %>

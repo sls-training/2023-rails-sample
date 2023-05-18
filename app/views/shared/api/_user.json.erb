@@ -1,0 +1,10 @@
+{
+    "id":           <%=raw user.id.to_json%>,
+    "name":         <%=raw user.name.to_json%>,
+    "email":        <%=raw user.email.to_json%>,
+    "admin":        <%=raw user.admin.to_json%>,
+    "activated":    <%=raw user.activated.to_json%>,
+    "activated_at": <%=raw user.activated_at&.iso8601(2).to_json%>,
+    "created_at":   <%=raw user.created_at.iso8601(2).to_json%>,
+    "updated_at":   <%=raw user.updated_at.iso8601(2).to_json%>
+}
