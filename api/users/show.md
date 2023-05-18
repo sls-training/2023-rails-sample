@@ -64,7 +64,12 @@ Content-Type: `application/json`
 
 ```json
 {
-  "message": "Authentication token is missing"
+  "errors": [
+    {
+      "name": "access_token",
+      "message": "Authentication token is missing"
+    }
+  ]
 }
 ```
 
@@ -74,7 +79,12 @@ Content-Type: `application/json`
 
 ```json
 {
-  "message": "Invalid token"
+  "errors": [
+    {
+      "name": "access_token",
+      "message": "Invalid token"
+    }
+  ]
 }
 ```
 
@@ -84,6 +94,11 @@ Content-Type: `application/json`
 
 ```json
 {
-  "message": "User does not exist"
+  "errors": [
+    {
+      "name": "user_id",
+      "message": "User does not exist"
+    }
+  ]
 }
 ```

@@ -43,7 +43,12 @@ curl -X POST\
 
 ```json
 {
-  "message": "Make sure you have the parameters."
+  "errors": [
+    {
+      "name": "access_token",
+      "message": "Make sure you have the parameters."
+    }
+  ]
 }
 ```
 
@@ -51,6 +56,11 @@ curl -X POST\
 
 ```json
 {
-  "message": "You are not admin user"
+  "errors": [
+    {
+      "name": "access_token",
+      "message": "You are not admin user"
+    }
+  ]
 }
 ```

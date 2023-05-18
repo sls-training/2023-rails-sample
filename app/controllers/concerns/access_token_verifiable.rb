@@ -23,10 +23,14 @@ module AccessTokenVerifiable
   private
 
   def render_missing_token
-    render json: { message: t('concerns.access_token_verifiable.missing_token') }, status: :bad_request
+    errors = [{ name: 'access_token', message: t('concerns.access_token_verifiable.missing_token') }]
+    render 'api/errors',
+           locals: { errors: }, status: :bad_request
   end
 
   def render_invalid_token
-    render json: { message: t('concerns.access_token_verifiable.invalid_token') }, status: :unauthorized
+    errors = [{ name: 'access_token', message: t('concerns.access_token_verifiable.invalid_token') }]
+    render 'api/errors',
+           locals: { errors: }, status: :unauthorized
   end
 end

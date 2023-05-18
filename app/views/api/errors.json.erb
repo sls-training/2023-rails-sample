@@ -1,0 +1,6 @@
+<%=raw (
+    {
+        "errors": errors.map { |err| { name: err[:name] , message: err[:message] } }
+    }.to_json
+)
+%>
