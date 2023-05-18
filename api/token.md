@@ -46,7 +46,7 @@ curl -X POST\
   "errors": [
     {
       "name": "access_token",
-      "message": "Make sure you have the parameters."
+      "message": "Incorrect input"
     }
   ]
 }
