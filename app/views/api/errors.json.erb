@@ -1,5 +1,6 @@
-<% if errors.any?%>
-{
-    "errors": <%=raw (errors.map { |err| { name: err[:name] , message: err[:message] } }).to_json %>
-}
-<% end %>
+<%=raw (
+    {
+        "errors": errors.map { |err| { name: err[:name] , message: err[:message] } }
+    }.to_json
+)
+%>
