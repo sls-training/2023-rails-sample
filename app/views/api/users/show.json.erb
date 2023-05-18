@@ -1,5 +1,1 @@
-<% if user.present?%>
-    <%= render 'shared/api/user', user: user %>
-<% else %>
-    <%= render 'shared/api/error', errors: [{ name: 'user_id', message: t('.no_user') }] %>
-<% end %>
+<%= render 'shared/api/user', user: user %>

@@ -15,24 +15,19 @@ module Api
       name = params[:name]
       email = params[:email]
       password = params[:password]
+      password_confirmation = password
+      if User.exists?(email:)
+        errors = [{ name: 'email', message: t('.exist_user') }]
+        return render 'shared/api/_error', locals: { errors: }, status: :unprocessable_entity
+      end
 
-      create_user = User.create(
-        name:,
-        email:,
-        password:,
-        password_confirmation: password
-      )
-
-      status =
-        if !create_user.invalid?
-          :created
-        elsif create_user.errors.count == 1 && User.exists?(email:)
-          :unprocessable_entity
-        else
-          :bad_request
-        end
-
-      render :create, locals: { user: create_user }, status:
+      new_user = User.create(name:, email:, password:, password_confirmation:)
+      if new_user.invalid?
+        errors = new_user.errors.map { |x| { name: x.attribute, message: x.message } }
+        render 'shared/api/_error', locals: { errors: }, status: :bad_request
+      else
+        render :create, locals: { user: new_user }, status: :created
+      end
     end
 
     private
@@ -44,7 +39,8 @@ module Api
     def validate_user_id
       return if user.present?
 
-      render :show, status: :not_found, locals: { user: }
+      errors =  [{ name: 'user_id', message: t('.no_user') }]
+      render 'shared/api/_error', locals: { errors: }, status: :not_found
     end
   end
 end

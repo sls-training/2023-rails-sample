@@ -35,6 +35,8 @@ en:
       not_admin: You are not admin user
       missing_param: Make sure you have the parameters
     users:
+      create:
+        exist_user: This email has already been taken
       show:
         no_user: User does not exist
   concerns:
