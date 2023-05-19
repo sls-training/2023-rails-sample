@@ -52,3 +52,8 @@ Rails/RedundantPresenceValidationOnBelongsTo:
 RSpec/ImplicitSubject:
   Enabled: true
   EnforcedStyle: single_statement_only
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: true
+  Max: 8
+  AllowSubject: false
