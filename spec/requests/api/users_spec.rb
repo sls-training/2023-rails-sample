@@ -5,16 +5,15 @@ require 'rails_helper'
 RSpec.describe 'ApiUsers' do
   describe 'GET /api/users/:id' do
     subject do
-      get("/api/users/#{target.id}", headers:)
+      get("/api/users/#{target.id}", headers: { 'Authorization' => "Bearer #{access_token}" })
       response
     end
 
-    let(:target) { create(:user, :noadmin) }
+    let(:user) { create(:user, :admin) }
+    let(:target) { create(:user) }
 
     context 'アクセストークンが有効の場合' do
-      let(:user) { create(:user, :admin) }
       let(:access_token) { AccessToken.new(email: user.email).encode }
-      let(:headers) { { 'Authorization' => "Bearer #{access_token}" } }
 
       it 'ターゲットのIDのユーザ情報をレスポンスとして取得できる' do
         expect(subject).to be_successful
@@ -33,7 +32,7 @@ RSpec.describe 'ApiUsers' do
     end
 
     context 'アクセストークンが有効期限切れの場合' do
-      let(:headers) { { 'Authorization' => "Bearer #{expired_access_token(email: Faker::Internet.email)}" } }
+      let(:access_token) { expired_access_token(email: user.email) }
 
       it '401でエラーメッセージを出力して失敗する' do
         expect(subject).to be_unauthorized
@@ -42,6 +41,8 @@ RSpec.describe 'ApiUsers' do
     end
 
     context 'アクセストークンがない場合' do
+      let(:access_token) { '' }
+
       it '400でエラーメッセージを出力して失敗する' do
         expect(subject).to be_bad_request
         expect(subject.parsed_body).to have_key('errors')
@@ -50,18 +51,24 @@ RSpec.describe 'ApiUsers' do
   end
 
   describe 'POST /api/users' do
-    subject { post '/api/users', headers:, params: }
+    subject do
+      post '/api/users',
+           headers: { 'Authorization' => "Bearer #{access_token}" },
+           params:  { name:, email:, password: }
+    end
+
+    let(:email) { Faker::Internet.email }
+    let(:name) { Faker::Name.name }
+    let(:password) { Faker::Internet.password(min_length: 6) }
+
+    let!(:user) { create(:user, :admin) }
 
     context 'アクセストークンが有効の場合' do
-      let!(:user) { create(:user, :admin) }
       let(:access_token) { AccessToken.new(email: user.email).encode }
-      let(:headers) { { 'Authorization' => "Bearer #{access_token}" } }
 
       context 'パラメータが適切な場合' do
         context 'ユーザが存在する場合' do
-          let(:params) do
-            { name: Faker::Name.name, email: user.email, password: Faker::Internet.password(min_length: 6) }
-          end
+          let(:email) { user.email }
 
           it '422が返って、エラーメッセージを返すこと' do
             expect { subject }.not_to change(User, :count)
@@ -71,10 +78,6 @@ RSpec.describe 'ApiUsers' do
         end
 
         context 'ユーザが存在しない場合' do
-          let(:params) do
-            { name: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password(min_length: 6) }
-          end
-
           it '201が返って、作成したユーザを返すこと' do
             expect { subject }.to change(User, :count).by(1)
             expect(response).to be_created
@@ -85,11 +88,7 @@ RSpec.describe 'ApiUsers' do
         end
       end
 
-      # rubocop:disable RSpec/MultipleMemoizedHelpers
       context 'パラメータが適切でない場合' do
-        let(:name) { Faker::Name.name }
-        let(:email) { Faker::Internet.email }
-        let(:password) { Faker::Internet.password(min_length: 6) }
         let(:wrong_cases) do
           [
             { name: '', email:, password: },
@@ -103,7 +102,6 @@ RSpec.describe 'ApiUsers' do
             { name:, email:, password: 'a' * 5 }
           ]
         end
-        # rubocop:enable RSpec/MultipleMemoizedHelpers
 
         it '400が返って、エラーメッセージを返すこと' do
           wrong_cases.each do |wrong_case|
@@ -116,11 +114,7 @@ RSpec.describe 'ApiUsers' do
     end
 
     context 'アクセストークンが有効期限切れの場合' do
-      let(:email) { Faker::Internet.email }
-      let(:headers) { { 'Authorization' => "Bearer #{expired_access_token(email:)}" } }
-      let(:params) do
-        { name: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password(min_length: 6) }
-      end
+      let(:access_token) { expired_access_token(email: user.email) }
 
       it '401でエラーメッセージを出力して失敗する' do
         expect { subject }.not_to change(User, :count)
@@ -130,9 +124,7 @@ RSpec.describe 'ApiUsers' do
     end
 
     context 'アクセストークンがない場合' do
-      let(:params) do
-        { name: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password(min_length: 6) }
-      end
+      let(:access_token) { '' }
 
       it '400でエラーメッセージを出力して失敗する' do
         expect { subject }.not_to change(User, :count)
