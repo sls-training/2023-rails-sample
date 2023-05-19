@@ -16,13 +16,24 @@
     },
     {
       "type": "rdbg",
-      "name": "Run rspec",
-      "rdbgPath": "bundle exec rdbg", // Use the debug.gem described in the Gemfile
+      "name": "rspec -all",
+      "rdbgPath": "bundle exec rdbg",
       "request": "launch",
-      "command": "bundle exec", // Breakpoints do not work with "rails".
-      "script": "rspec", // launch rails server with debugger
+      "command": "bundle exec",
+      "script": "rspec",
       "args": [],
-      "askParameters": false
+      "askParameters": false,
+      "useTerminal": true
+    },
+    {
+      "name": "rspec -current",
+      "type": "rdbg",
+      "request": "launch",
+      "command": "bundle exec rspec",
+      "script": "${file}",
+      "args": [],
+      "askParameters": true,
+      "useTerminal": true
     }
   ]
 }
