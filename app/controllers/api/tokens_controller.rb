@@ -29,7 +29,7 @@ module Api
     end
 
     def render_unauthorized
-      errors = [{ name: 'access_token', message: t('.missing_param') }]
+      errors = [{ name: 'access_token', message: t('.incorrect_input') }]
       render 'api/errors', status: :unauthorized,
                            locals: { errors: }
     end
