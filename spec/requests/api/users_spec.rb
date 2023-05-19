@@ -85,23 +85,25 @@ RSpec.describe 'ApiUsers' do
         end
       end
 
+      # rubocop:disable RSpec/MultipleMemoizedHelpers
       context 'パラメータが適切でない場合' do
+        let(:name) { Faker::Name.name }
+        let(:email) { Faker::Internet.email }
+        let(:password) { Faker::Internet.password(min_length: 6) }
         let(:wrong_cases) do
           [
-            { name: '', email: Faker::Internet.email, password: Faker::Internet.password(min_length: 6) },
-            { name: Faker::Name.name, email: '', password: Faker::Internet.password(min_length: 6) },
-            { name: Faker::Name.name, email: Faker::Internet.email, password: '' },
+            { name: '', email:, password: },
+            { name:, email: '', password: },
+            { name:, email:, password: '' },
             * %w[user@example,com user_at_foo.org user.name@example. foo@bar_baz.com foo@bar+baz.com].map do |addr|
-              { name: Faker::Name.name, email: addr, password: Faker::Internet.password(min_length: 6) }
+              { name:, email: addr, password: }
             end,
-            { name: 'a' * 51, email: Faker::Internet.email, password: Faker::Internet.password(min_length: 6) },
-            {
-              name: Faker::Name.name, email: "#{'a' * 244}@example.com",
-password: Faker::Internet.password(min_length: 6)
-            },
-            { name: Faker::Name.name, email: Faker::Internet.email, password: 'a' * 5 }
+            { name: 'a' * 51, email:, password: },
+            { name:, email: "#{'a' * 244}@example.com", password: },
+            { name:, email:, password: 'a' * 5 }
           ]
         end
+        # rubocop:enable RSpec/MultipleMemoizedHelpers
 
         it '400が返って、エラーメッセージを返すこと' do
           wrong_cases.each do |wrong_case|
