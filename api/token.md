@@ -46,7 +46,7 @@ curl -X POST\
   "errors": [
     {
       "name": "access_token",
-      "message": "Incorrect input"
+      "message": "Incorrect email or password"
     }
   ]
 }
