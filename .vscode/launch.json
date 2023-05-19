@@ -13,6 +13,27 @@
       "script": "s", // launch rails server with debugger
       "args": [],
       "askParameters": false // Do not ask startup parameter any more
+    },
+    {
+      "type": "rdbg",
+      "name": "rspec -all",
+      "rdbgPath": "bundle exec rdbg",
+      "request": "launch",
+      "command": "bundle exec",
+      "script": "rspec",
+      "args": [],
+      "askParameters": false,
+      "useTerminal": true
+    },
+    {
+      "name": "rspec -current",
+      "type": "rdbg",
+      "request": "launch",
+      "command": "bundle exec rspec",
+      "script": "${file}",
+      "args": [],
+      "askParameters": true,
+      "useTerminal": true
     }
   ]
 }
