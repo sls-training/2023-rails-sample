@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'AccessToken' do
-  let(:email) { 'example@test.com' }
+  let(:email) { Faker::Internet.email }
 
   describe '#from_token' do
     context 'アクセストークンが正しい場合' do

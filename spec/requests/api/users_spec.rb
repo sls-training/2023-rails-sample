@@ -33,8 +33,7 @@ RSpec.describe 'ApiUsers' do
     end
 
     context 'アクセストークンが有効期限切れの場合' do
-      let(:email) { 'hogehoge@example.com' }
-      let(:headers) { { 'Authorization' => "Bearer #{expired_access_token(email:)}" } }
+      let(:headers) { { 'Authorization' => "Bearer #{expired_access_token(email: Faker::Internet.email)}" } }
 
       it '401でエラーメッセージを出力して失敗する' do
         expect(subject).to be_unauthorized
@@ -60,7 +59,9 @@ RSpec.describe 'ApiUsers' do
 
       context 'パラメータが適切な場合' do
         context 'ユーザが存在する場合' do
-          let(:params) { { name: 'hogehgoe', email: user.email, password: 'foobar' } }
+          let(:params) do
+            { name: Faker::Name.name, email: user.email, password: Faker::Internet.password(min_length: 6) }
+          end
 
           it '422が返って、エラーメッセージを返すこと' do
             expect { subject }.not_to change(User, :count)
@@ -70,7 +71,9 @@ RSpec.describe 'ApiUsers' do
         end
 
         context 'ユーザが存在しない場合' do
-          let(:params) { { name: 'hogehgoe', email: 'test@example.com', password: 'foobar' } }
+          let(:params) do
+            { name: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password(min_length: 6) }
+          end
 
           it '201が返って、作成したユーザを返すこと' do
             expect { subject }.to change(User, :count).by(1)
@@ -85,15 +88,18 @@ RSpec.describe 'ApiUsers' do
       context 'パラメータが適切でない場合' do
         let(:wrong_cases) do
           [
-            { name: '', email: 'test@example.com', password: 'foobar' },
-            { name: 'hogehgoe', email: '', password: 'foobar' },
-            { name: 'hogehoge', email: 'test@example.com', password: '' },
+            { name: '', email: Faker::Internet.email, password: Faker::Internet.password(min_length: 6) },
+            { name: Faker::Name.name, email: '', password: Faker::Internet.password(min_length: 6) },
+            { name: Faker::Name.name, email: Faker::Internet.email, password: '' },
             * %w[user@example,com user_at_foo.org user.name@example. foo@bar_baz.com foo@bar+baz.com].map do |addr|
-              { name: 'hogehgoe', email: addr, password: 'foobar' }
+              { name: Faker::Name.name, email: addr, password: Faker::Internet.password(min_length: 6) }
             end,
-            { name: 'a' * 51, email: 'test@example.com', password: 'foobar'  },
-            { name: 'hogehgoe', email: "#{'a' * 244}@example.com", password: 'foobar' },
-            { name: 'hogehoge', email: 'test@example.com', password: 'a' * 5 }
+            { name: 'a' * 51, email: Faker::Internet.email, password: Faker::Internet.password(min_length: 6) },
+            {
+              name: Faker::Name.name, email: "#{'a' * 244}@example.com",
+password: Faker::Internet.password(min_length: 6)
+            },
+            { name: Faker::Name.name, email: Faker::Internet.email, password: 'a' * 5 }
           ]
         end
 
@@ -108,9 +114,11 @@ RSpec.describe 'ApiUsers' do
     end
 
     context 'アクセストークンが有効期限切れの場合' do
-      let(:email) { 'test@example.com' }
+      let(:email) { Faker::Internet.email }
       let(:headers) { { 'Authorization' => "Bearer #{expired_access_token(email:)}" } }
-      let(:params) { { name: 'hogehgoe', email: 'test@example.com', password: 'foobar' } }
+      let(:params) do
+        { name: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password(min_length: 6) }
+      end
 
       it '401でエラーメッセージを出力して失敗する' do
         expect { subject }.not_to change(User, :count)
@@ -120,7 +128,9 @@ RSpec.describe 'ApiUsers' do
     end
 
     context 'アクセストークンがない場合' do
-      let(:params) { { name: 'hogehgoe', email: 'test@example.com', password: 'foobar' } }
+      let(:params) do
+        { name: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password(min_length: 6) }
+      end
 
       it '400でエラーメッセージを出力して失敗する' do
         expect { subject }.not_to change(User, :count)
