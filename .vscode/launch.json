@@ -13,6 +13,16 @@
       "script": "s", // launch rails server with debugger
       "args": [],
       "askParameters": false // Do not ask startup parameter any more
+    },
+    {
+      "type": "rdbg",
+      "name": "Run rspec",
+      "rdbgPath": "bundle exec rdbg", // Use the debug.gem described in the Gemfile
+      "request": "launch",
+      "command": "bundle exec", // Breakpoints do not work with "rails".
+      "script": "rspec", // launch rails server with debugger
+      "args": [],
+      "askParameters": false
     }
   ]
 }
