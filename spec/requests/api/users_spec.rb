@@ -129,4 +129,70 @@ RSpec.describe 'ApiUsers' do
       end
     end
   end
+
+  describe 'DELETE /api/users/:id' do
+    subject do
+      delete("/api/users/#{target_id}", headers:)
+      response
+    end
+
+    let!(:current_user) { create(:user, :admin) }
+    let!(:target_user) { create(:user) }
+
+    context 'アクセストークンがある場合' do
+      let(:headers) { { 'Authorization' => "Bearer #{access_token}" } }
+
+      context 'アクセストークンが有効期限内の場合' do
+        let(:access_token) { AccessToken.new(email: current_user.email).encode }
+
+        context '自分以外のユーザIDの場合' do
+          context 'ユーザが存在する場合' do
+            let(:target_id) { target_user.id }
+
+            it '204でユーザが削除される' do
+              expect { subject }.to change(User, :count).by(-1)
+              expect(subject).to have_http_status :no_content
+            end
+          end
+
+          context 'ユーザが存在しない場合' do
+            let(:target_id) { 1_000_000 }
+
+            it '404でユーザの削除に失敗しエラーメッセージを返す' do
+              expect(subject).to have_http_status :not_found
+              expect(subject.parsed_body).to have_key('errors')
+            end
+          end
+        end
+
+        context '自分のユーザIDの場合' do
+          let(:target_id) { current_user.id }
+
+          it '422でユーザの削除に失敗しメッセージを返す' do
+            expect(subject).to have_http_status :unprocessable_entity
+            expect(subject.parsed_body).to have_key('errors')
+          end
+        end
+      end
+
+      context 'アクセストークンが有効期限切れの場合' do
+        let(:access_token) { expired_access_token(email: current_user.email) }
+        let(:target_id) {  current_user.id }
+
+        it '401でエラーメッセージを出力して失敗する' do
+          expect(subject).to be_unauthorized
+          expect(subject.parsed_body).to have_key('errors')
+        end
+      end
+    end
+
+    context 'アクセストークンがない場合' do
+      let(:target_id) { current_user.id }
+
+      it '400でエラーメッセージを出力して失敗する' do
+        expect(subject).to be_bad_request
+        expect(subject.parsed_body).to have_key('errors')
+      end
+    end
+  end
 end
