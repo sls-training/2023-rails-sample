@@ -20,3 +20,8 @@ AllCops:
     - node_modules/**/*
     - vendor/**/*
     - tmp/**/*
+
+# ネストの個数
+RSpec/NestedGroups:
+  Enabled: true
+  Max: 7 # default: 3
