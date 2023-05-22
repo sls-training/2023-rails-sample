@@ -20,3 +20,8 @@ AllCops:
     - node_modules/**/*
     - vendor/**/*
     - tmp/**/*
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: true
+  Max: 8
+  AllowSubject: false
