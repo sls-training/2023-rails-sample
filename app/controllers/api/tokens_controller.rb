@@ -16,8 +16,8 @@ module Api
       email = params[:email]
       password = params[:password]
       user = User.find_by(email:)
-      return render_unauthorized unless user
-      return render_forbidden unless user.admin
+      render_unauthorized and return unless user
+      render_forbidden and return unless user.admin
 
       render_unauthorized unless user.authenticate(password)
     end
