@@ -11,7 +11,7 @@ module AccessTokenVerifiable
     authorization_header = request.headers['Authorization']
     access_token = authorization_header&.match(/Bearer (?<token>.+)/)&.[](:token)
 
-    return render_missing_token if access_token.nil?
+    render_missing_token and return if access_token.nil?
 
     begin
       AccessToken.from_token(access_token)
