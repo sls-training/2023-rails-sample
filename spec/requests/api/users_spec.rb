@@ -177,7 +177,7 @@ RSpec.describe 'ApiUsers' do
 
       context 'アクセストークンが有効期限切れの場合' do
         let(:access_token) { expired_access_token(email: current_user.email) }
-        let(:target_id) {  current_user.id }
+        let(:target_id) { current_user.id }
 
         it 'ユーザの削除に失敗し、ユーザのエラーメッセージと401を返して失敗する' do
           expect(subject).to be_unauthorized
