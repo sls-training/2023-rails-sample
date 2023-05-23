@@ -5,37 +5,37 @@ require 'rails_helper'
 RSpec.describe 'ApiUsers' do
   describe 'GET /api/users/:id' do
     subject do
-      get("/api/users/#{target.id}", headers:)
+      get("/api/users/#{target_user.id}", headers:)
       response
     end
 
-    let(:target) { create(:user, :noadmin) }
+    let(:current_user) { create(:user, :admin) }
+    let(:target_user) { create(:user, :noadmin) }
 
     context 'アクセストークンがある場合' do
-      let(:user) { create(:user, :admin) }
       let(:headers) { { 'Authorization' => "Bearer #{access_token}" } }
 
       context 'アクセストークンが有効期限内の場合' do
-        let(:access_token) { AccessToken.new(email: user.email).encode }
+        let(:access_token) { AccessToken.new(email: current_user.email).encode }
 
         it 'ターゲットのIDのユーザ情報をレスポンスとして取得できる' do
           expect(subject).to be_successful
           expect(subject.parsed_body.symbolize_keys).to include(
             {
-              id:           target.id,
-              name:         target.name,
-              admin:        target.admin,
-              activated:    target.activated,
-              activated_at: target.activated_at&.iso8601(2),
-              created_at:   target.created_at.iso8601(2),
-              updated_at:   target.updated_at.iso8601(2)
+              id:           target_user.id,
+              name:         target_user.name,
+              admin:        target_user.admin,
+              activated:    target_user.activated,
+              activated_at: target_user.activated_at&.iso8601(2),
+              created_at:   target_user.created_at.iso8601(2),
+              updated_at:   target_user.updated_at.iso8601(2)
             }
           )
         end
       end
 
       context 'アクセストークンが有効期限切れの場合' do
-        let(:access_token) { expired_access_token(email: user.email) }
+        let(:access_token) { expired_access_token(email: current_user.email) }
 
         it '401でエラーメッセージを出力して失敗する' do
           expect(subject).to be_unauthorized
