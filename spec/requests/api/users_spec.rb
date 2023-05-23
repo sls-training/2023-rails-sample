@@ -36,14 +36,14 @@ RSpec.describe 'ApiUsers' do
       let(:email) { 'hogehoge@example.com' }
       let(:headers) { { 'Authorization' => "Bearer #{expired_access_token(email:)}" } }
 
-      it '401でエラーメッセージを出力して失敗する' do
+      it 'ユーザの取得に失敗し、エラーメッセージと401を返して失敗する' do
         expect(subject).to be_unauthorized
         expect(subject.parsed_body).to have_key('errors')
       end
     end
 
     context 'アクセストークンがない場合' do
-      it '400でエラーメッセージを出力して失敗する' do
+      it 'ユーザの取得に失敗し、エラーメッセージと400を返して失敗する' do
         expect(subject).to be_bad_request
         expect(subject.parsed_body).to have_key('errors')
       end
@@ -62,7 +62,7 @@ RSpec.describe 'ApiUsers' do
         context 'ユーザが存在する場合' do
           let(:params) { { name: 'hogehgoe', email: user.email, password: 'foobar' } }
 
-          it '422が返って、エラーメッセージを返すこと' do
+          it 'ユーザの作成に失敗し、エラーメッセージと422を返す' do
             expect { subject }.not_to change(User, :count)
             expect(response).to have_http_status(:unprocessable_entity)
             expect(response.parsed_body).to have_key('errors')
@@ -72,7 +72,7 @@ RSpec.describe 'ApiUsers' do
         context 'ユーザが存在しない場合' do
           let(:params) { { name: 'hogehgoe', email: 'test@example.com', password: 'foobar' } }
 
-          it '201が返って、作成したユーザを返すこと' do
+          it 'ユーザの作成に成功し、作成したユーザの情報と201が返す' do
             expect { subject }.to change(User, :count).by(1)
             expect(response).to be_created
             expect(response.parsed_body).to include(
@@ -97,7 +97,7 @@ RSpec.describe 'ApiUsers' do
           ]
         end
 
-        it '400が返って、エラーメッセージを返すこと' do
+        it 'ユーザの削除に失敗し、エラーメッセージと400が返す' do
           wrong_cases.each do |wrong_case|
             expect { post '/api/users', headers:, params: wrong_case }.not_to change(User, :count)
             expect(response).to be_bad_request
@@ -112,7 +112,7 @@ RSpec.describe 'ApiUsers' do
       let(:headers) { { 'Authorization' => "Bearer #{expired_access_token(email:)}" } }
       let(:params) { { name: 'hogehgoe', email: 'test@example.com', password: 'foobar' } }
 
-      it '401でエラーメッセージを出力して失敗する' do
+      it 'ユーザの削除に失敗し、エラーメッセージと401が返す' do
         expect { subject }.not_to change(User, :count)
         expect(response).to be_unauthorized
         expect(response.parsed_body).to have_key('errors')
@@ -122,7 +122,7 @@ RSpec.describe 'ApiUsers' do
     context 'アクセストークンがない場合' do
       let(:params) { { name: 'hogehgoe', email: 'test@example.com', password: 'foobar' } }
 
-      it '400でエラーメッセージを出力して失敗する' do
+      it 'ユーザの削除に失敗し、失敗するエラーメッセージと400を返す' do
         expect { subject }.not_to change(User, :count)
         expect(response).to have_http_status(:bad_request)
         expect(response.parsed_body).to have_key('errors')
@@ -149,7 +149,7 @@ RSpec.describe 'ApiUsers' do
           context 'ユーザが存在する場合' do
             let(:target_id) { target_user.id }
 
-            it '204でユーザが削除される' do
+            it 'ユーザが削除され、204を返す' do
               expect { subject }.to change(User, :count).by(-1)
               expect(subject).to have_http_status :no_content
             end
@@ -158,7 +158,7 @@ RSpec.describe 'ApiUsers' do
           context 'ユーザが存在しない場合' do
             let(:target_id) { 1_000_000 }
 
-            it '404でユーザの削除に失敗しエラーメッセージを返す' do
+            it 'ユーザの削除に失敗し、エラーメッセージと404を返す' do
               expect(subject).to have_http_status :not_found
               expect(subject.parsed_body).to have_key('errors')
             end
@@ -168,7 +168,7 @@ RSpec.describe 'ApiUsers' do
         context '自分のユーザIDの場合' do
           let(:target_id) { current_user.id }
 
-          it '422でユーザの削除に失敗しメッセージを返す' do
+          it 'ユーザの削除に失敗し、エラーメッセージと422を返す' do
             expect(subject).to have_http_status :unprocessable_entity
             expect(subject.parsed_body).to have_key('errors')
           end
@@ -179,7 +179,7 @@ RSpec.describe 'ApiUsers' do
         let(:access_token) { expired_access_token(email: current_user.email) }
         let(:target_id) {  current_user.id }
 
-        it '401でエラーメッセージを出力して失敗する' do
+        it 'ユーザの削除に失敗し、ユーザのエラーメッセージと401を返して失敗する' do
           expect(subject).to be_unauthorized
           expect(subject.parsed_body).to have_key('errors')
         end
@@ -189,7 +189,7 @@ RSpec.describe 'ApiUsers' do
     context 'アクセストークンがない場合' do
       let(:target_id) { current_user.id }
 
-      it '400でエラーメッセージを出力して失敗する' do
+      it 'ユーザの削除に失敗し、エラーメッセージと400を返して失敗する' do
         expect(subject).to be_bad_request
         expect(subject.parsed_body).to have_key('errors')
       end
