@@ -4,6 +4,7 @@ module Api
   class UsersController < ApplicationController
     include AccessTokenVerifiable
     before_action :validate_user_id, only: %i[show destroy]
+
     # GET /api/users/:id
     def show
       render :show, status: :ok, locals: { user: }
