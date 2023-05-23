@@ -16,7 +16,7 @@ RSpec.describe 'Microposts' do
 
       it 'allow to access with login' do
         get microposts_path
-        assert_select 'div.pagination'
+        assert_select 'ul.pagination'
       end
 
       # ##ここら辺とは統合テストでsystem/users_system_spec.rbとかに書くべきなんじゃないかなあ。あとまとめていい
