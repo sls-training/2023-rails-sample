@@ -14,12 +14,9 @@ gem 'active_model_serializers' # レスポンスを綺麗にしてくれる
 gem 'active_storage_validations', '0.9.8'
 gem 'autoprefixer-rails'
 gem 'bcrypt', '3.1.18'
-gem 'bootstrap-sass', '~> 3.3.6'
-gem 'jquery-rails'
 gem 'jwt'
 gem 'rails-controller-testing'
 gem 'rexml', '~> 3.2', '>= 3.2.4'
-gem 'sass-rails', '>= 3.2'
 
 gem 'image_processing', '1.12.2'
 
@@ -114,3 +111,5 @@ group :production do
   gem 'aws-sdk-s3', '1.114.0', require: false
   gem 'pg', '>=1.1.4'
 end
+
+gem 'cssbundling-rails', '~> 1.1'
