@@ -1,6 +1,6 @@
 {
   "name": "rails-sample",
-  "description": "## How to install - homebrewをinstallする - rbenvのinstall     - 初期設定",
+  "description": "チュートリアルプロジェクト",
   "version": "1.0.0",
   "main": "index.js",
   "directories": {
@@ -8,7 +8,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +17,11 @@
     "prettier": "^2.8.8",
     "stylelint-config-prettier": "^9.0.5",
     "stylelint-prettier": "^3.0.0"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.7",
+    "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.5",
+    "sass": "^1.62.1"
   }
 }
