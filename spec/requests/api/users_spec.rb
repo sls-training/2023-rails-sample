@@ -102,13 +102,15 @@ RSpec.describe 'ApiUsers' do
               { name: '', email:, password: },
               { name:, email: '', password: },
               { name:, email:, password: '' },
-              * %w[user@example,com user_at_foo.org user.name@example. foo@bar_baz.com foo@bar+baz.com].map do |addr|
-                { name:, email: addr, password: }
+              * %w[
+                user@example,com user_at_foo.org user.name@example. foo@bar_baz.com
+                foo@bar+baz.com
+              ].map do |wrong_email|
+                { name:, email: wrong_email, password: }
               end,
               { name: 'a' * 51, email:, password: },
               {
-                name:, email: "#{'a' * 244}@example.com",
-password:
+                name:, email: "#{'a' * 244}@example.com", password:
               },
               { name:, email:, password: 'a' * 5 }
             ]
