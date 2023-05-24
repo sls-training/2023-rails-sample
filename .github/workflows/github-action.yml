@@ -19,5 +19,5 @@ jobs:
         uses: devcontainers/ci@v0.3
         with:
           runCmd: |
-            yarn build:css 
+            bundle exec rails assets:precompile
             bundle exec rspec
