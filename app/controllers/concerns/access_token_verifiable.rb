@@ -7,19 +7,23 @@ module AccessTokenVerifiable
     before_action :verify_access_token_in_header
   end
 
-  def token_user
-    @_token_user
+  def raw_access_token
+    @raw_access_token ||= request.headers['Authorization']&.match(/Bearer (?<token>.+)/)&.[](:token)
+  end
+
+  def access_token
+    @_access_token ||= AccessToken.from_token(raw_access_token) if raw_access_token.present?
+  end
+
+  def current_user
+    @_current_user ||= User.find_by(email: access_token.email)
   end
 
   def verify_access_token_in_header
-    authorization_header = request.headers['Authorization']
-    access_token = authorization_header&.match(/Bearer (?<token>.+)/)&.[](:token)
-
-    return render_missing_token if access_token.nil?
+    return render_missing_token if raw_access_token.nil?
 
     begin
-      email = AccessToken.from_token(access_token).email
-      @_token_user = User.find_by(email:)
+      access_token
     rescue JWT::DecodeError
       render_invalid_token
     end
