@@ -36,7 +36,7 @@ module Api
 
     def destroy
       ## ユーザが自分自身だった場合
-      if token_user == user
+      if current_user == user
         errors = [{ name: 'user_id', message: t('.destroy_self') }]
         return render 'api/errors', locals: { errors: }, status: :unprocessable_entity
       end
