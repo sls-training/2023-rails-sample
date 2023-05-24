@@ -72,7 +72,7 @@ RSpec.describe 'ApiUsers' do
         context 'ユーザが存在しない場合' do
           let(:params) { { name: 'hogehgoe', email: 'test@example.com', password: 'foobar' } }
 
-          it 'ユーザの作成に成功し、作成したユーザの情報と201が返す' do
+          it 'ユーザの作成に成功し、作成したユーザの情報と201を返す' do
             expect { subject }.to change(User, :count).by(1)
             expect(response).to be_created
             expect(response.parsed_body).to include(
@@ -97,7 +97,7 @@ RSpec.describe 'ApiUsers' do
           ]
         end
 
-        it 'ユーザの削除に失敗し、エラーメッセージと400が返す' do
+        it 'ユーザの削除に失敗し、エラーメッセージと400を返す' do
           wrong_cases.each do |wrong_case|
             expect { post '/api/users', headers:, params: wrong_case }.not_to change(User, :count)
             expect(response).to be_bad_request
@@ -112,7 +112,7 @@ RSpec.describe 'ApiUsers' do
       let(:headers) { { 'Authorization' => "Bearer #{expired_access_token(email:)}" } }
       let(:params) { { name: 'hogehgoe', email: 'test@example.com', password: 'foobar' } }
 
-      it 'ユーザの削除に失敗し、エラーメッセージと401が返す' do
+      it 'ユーザの削除に失敗し、エラーメッセージと401を返す' do
         expect { subject }.not_to change(User, :count)
         expect(response).to be_unauthorized
         expect(response.parsed_body).to have_key('errors')
@@ -179,7 +179,7 @@ RSpec.describe 'ApiUsers' do
         let(:access_token) { expired_access_token(email: current_user.email) }
         let(:target_id) { current_user.id }
 
-        it 'ユーザの削除に失敗し、ユーザのエラーメッセージと401を返して失敗する' do
+        it 'ユーザの削除に失敗し、ユーザのエラーメッセージと401を返す' do
           expect(subject).to be_unauthorized
           expect(subject.parsed_body).to have_key('errors')
         end
@@ -189,7 +189,7 @@ RSpec.describe 'ApiUsers' do
     context 'アクセストークンがない場合' do
       let(:target_id) { current_user.id }
 
-      it 'ユーザの削除に失敗し、エラーメッセージと400を返して失敗する' do
+      it 'ユーザの削除に失敗し、エラーメッセージと400を返す' do
         expect(subject).to be_bad_request
         expect(subject.parsed_body).to have_key('errors')
       end
