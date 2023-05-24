@@ -16,7 +16,8 @@
         "Shopify.ruby-lsp",
         "esbenp.prettier-vscode",
         "misogi.ruby-rubocop",
-        "KoichiSasada.vscode-rdbg"
+        "KoichiSasada.vscode-rdbg",
+        "aliariff.vscode-erb-beautify"
       ],
       "settings": {
         "files.insertFinalNewline": true,
@@ -42,7 +43,14 @@
         },
         "[css]": {
           "editor.defaultFormatter": "esbenp.prettier-vscode"
-        }
+        },
+        "[erb]": {
+          "editor.defaultFormatter": "aliariff.vscode-erb-beautify"
+        },
+        "files.associations": {
+          "*.html.erb": "erb"
+        },
+        "vscode-erb-beautify.useBundler": true
       }
     }
   },
