@@ -20,6 +20,9 @@ gem 'rexml', '~> 3.2', '>= 3.2.4'
 
 gem 'image_processing', '1.12.2'
 
+## css
+gem 'cssbundling-rails', '~> 1.1'
+
 ## 架空のユーザ名作ってくれる
 ## 今回は本番環境でも使うけど普通はしないから一応注意
 gem 'faker', '2.21.0'
@@ -110,5 +113,3 @@ group :production do
   gem 'aws-sdk-s3', '1.114.0', require: false
   gem 'pg', '>=1.1.4'
 end
-
-gem 'cssbundling-rails', '~> 1.1'
