@@ -16,11 +16,6 @@ RSpec/MultipleExpectations:
   Enabled: true
   Max: 5 # default: 1
 
-# ネストの個数
-RSpec/NestedGroups:
-  Enabled: true
-  Max: 5 # default: 3
-
 # RSpecでインスタンス変数を使えないようにするか
 RSpec/InstanceVariable:
   Enabled: false

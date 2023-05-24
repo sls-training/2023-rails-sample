@@ -20,7 +20,7 @@ module Api
       ## ユーザがすでに存在している時
       if User.exists?(email:)
         errors = [{ name: 'email', message: t('.exist_user') }]
-        return render 'api/errors', locals: { errors: }, status: :unprocessable_entity
+        render 'api/errors', locals: { errors: }, status: :unprocessable_entity and return
       end
 
       new_user = User.create(name:, email:, password:, password_confirmation:)
