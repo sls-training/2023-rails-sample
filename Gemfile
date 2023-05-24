@@ -14,22 +14,21 @@ gem 'active_model_serializers' # レスポンスを綺麗にしてくれる
 gem 'active_storage_validations', '0.9.8'
 gem 'autoprefixer-rails'
 gem 'bcrypt', '3.1.18'
-gem 'bootstrap-sass', '~> 3.3.6'
-gem 'jquery-rails'
 gem 'jwt'
 gem 'rails-controller-testing'
 gem 'rexml', '~> 3.2', '>= 3.2.4'
-gem 'sass-rails', '>= 3.2'
 
 gem 'image_processing', '1.12.2'
+
+## css
+gem 'cssbundling-rails', '~> 1.1'
 
 ## 架空のユーザ名作ってくれる
 ## 今回は本番環境でも使うけど普通はしないから一応注意
 gem 'faker', '2.21.0'
 
 ## ページネーション
-gem 'bootstrap-will_paginate', '1.0.0'
-gem 'will_paginate', '3.3.1'
+gem 'will_paginate-bootstrap-style'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
