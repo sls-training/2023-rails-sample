@@ -20,7 +20,7 @@ module AccessTokenVerifiable
   end
 
   def verify_access_token_in_header
-    return render_missing_token if raw_access_token.nil?
+    render_missing_token and return if raw_access_token.nil?
 
     begin
       access_token
