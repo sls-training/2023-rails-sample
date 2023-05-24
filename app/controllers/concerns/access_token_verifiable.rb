@@ -16,7 +16,7 @@ module AccessTokenVerifiable
   end
 
   def current_user
-    @_current_user ||= User.find_by(email: access_token.email)
+    @_current_user ||= User.find_by(email: access_token&.email)
   end
 
   def verify_access_token_in_header
