@@ -3,7 +3,7 @@
 module Api
   class UsersController < ApplicationController
     include AccessTokenVerifiable
-    before_action :validate_user_id, only: %i[show]
+    before_action :validate_user_id, only: %i[show destroy]
 
     # GET /api/users/:id
     def show
@@ -32,6 +32,17 @@ module Api
         # ユーザの作成に成功した場合
         render :create, locals: { user: new_user }, status: :created
       end
+    end
+
+    def destroy
+      ## ユーザが自分自身だった場合
+      if current_user == user
+        errors = [{ name: 'user_id', message: t('.destroy_self') }]
+        return render 'api/errors', locals: { errors: }, status: :unprocessable_entity
+      end
+
+      user.destroy
+      head :no_content
     end
 
     private
