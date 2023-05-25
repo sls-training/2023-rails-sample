@@ -2,8 +2,6 @@
 <h1>All users</h1>
 <ul class="users">
   <%= render @users %>
-  
-  
   <!--
   こっからコメント
   <% @users.each do | user | %>
@@ -11,7 +9,5 @@
     render 'user', user: user でも良い
   <% end %>
   -->
-   
 </ul>
-
- <%= will_paginate %>
+<%= will_paginate %>
