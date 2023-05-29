@@ -35,12 +35,12 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-          <i class="fas fa-gear fa-sm text-black-100"></i>&nbsp;設定
+          <i class="fas fa-gear fa-sm text-black-100"></i>&nbsp;アカウント
         </a>
         <div class="collapse" id="dashboard-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><%= link_to "Profile", current_user, { class: "nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"} %></li>
-            <li><%= link_to "Edit User", edit_user_path(current_user), { class: "nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"} %> </li>
+            <li><%= link_to "プロフィール", current_user, { class: "nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"} %></li>
+            <li><%= link_to "編集", edit_user_path(current_user), { class: "nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"} %> </li>
           </ul>
         </div>
       </li>
