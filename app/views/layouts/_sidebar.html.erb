@@ -1,0 +1,67 @@
+<div
+  class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark h-auto min-vh-100"
+  style="width: 280px"
+>
+  <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+    <span class="fs-4">tutorial app</span>
+  </div>
+  <hr />
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+      <%= link_to root_path, class:"nav-link #{'active' if current_page?(root_path)}" do %>
+        <i class="fas fa-home fa-sm text-black-100"></i>&nbsp;ホーム
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= link_to about_path, class:"nav-link #{'active' if current_page?(about_path)}" do%>
+        <i class="fas fa-question fa-sm text-black-100"></i>&nbsp;このサイトについて
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= link_to help_path, class:"nav-link #{'active' if current_page?(help_path)}" do%>
+        <i class="fas fa-question fa-sm text-black-100"></i>&nbsp;ヘルプ
+      <% end %>
+    </li>
+    <li class="nav-item">
+      <%= link_to contact_path, class:"nav-link #{'active' if current_page?(contact_path)}" do%>
+        <i class="fas fa-paper-plane fa-sm text-black-100"></i>&nbsp;お問い合わせ
+      <% end %>
+    </li>
+    <% if logged_in? %>
+      <li class="nav-item">
+        <%= link_to users_path, class:"nav-link #{'active' if current_page?(users_path)}" do %>
+          <i class="fas fa-users fa-sm text-black-100"></i>&nbsp;ユーザ一覧
+        <% end %>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link btn btn-toggle d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+          <i class="fas fa-gear fa-sm text-black-100"></i>&nbsp;アカウント
+        </a>
+        <div class="collapse" id="dashboard-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><%= link_to "プロフィール", current_user, { class: "nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"} %></li>
+            <li><%= link_to "編集", edit_user_path(current_user), { class: "nav-link link-body-emphasis d-inline-flex text-decoration-none rounded"} %> </li>
+          </ul>
+        </div>
+      </li>
+      <hr />
+      <li>
+        <%= link_to logout_path, class:"nav-link", data: { "turbo-method": :delete } do %>
+          <i class="icon-dashboard fas fa-sign-out-alt fa-sm text-black-100"></i>&nbsp;ログアウト
+        <% end %>
+      </li>
+    <% else %>
+      <hr />
+      <li>
+        <%= link_to login_path, class:"nav-link" do%>
+          <i class="icon-dashboard fas fa-sign-in-alt fa-sm text-black-100"></i>&nbsp;ログイン
+        <% end %>
+      </li>
+      <li>
+        <%= link_to signup_path, class:"nav-link" do%>
+          <i class="icon-dashboard fas fa-user-plus fa-sm text-black-100"></i>&nbsp;サインアップ
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
