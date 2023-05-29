@@ -39,6 +39,8 @@ en:
         exist_user: This email has already been taken
       show:
         no_user: User does not exist
+      destroy:
+        destroy_self: You can't delete yourself
   concerns:
     access_token_verifiable:
       invalid_token: Invalid token

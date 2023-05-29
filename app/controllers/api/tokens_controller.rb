@@ -3,6 +3,7 @@
 module Api
   class TokensController < ApplicationController
     before_action :authenticate_user!, only: [:create]
+
     # POST /api/token
     def create
       email = params[:email]
