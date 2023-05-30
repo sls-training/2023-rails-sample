@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   get 'password_resets/new'
   get 'password_resets/edit'
@@ -34,6 +35,9 @@ Rails.application.routes.draw do
     ##  get :followings, on: :member
     ## end
     member { get :following, :followers }
+  end
+  namespace :admin do
+    resources :users
   end
 
   resources :users # users/{id}のURLが有効になる
