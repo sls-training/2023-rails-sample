@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'net/https'
-require 'uri'
-
 module Admin
   class UsersController < ApplicationController
     before_action :require_admin_user
