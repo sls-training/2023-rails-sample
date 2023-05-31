@@ -1,4 +1,4 @@
-# GET /api/users/:id
+# GET /api/users
 
 指定 ID のユーザを返す API。
 
