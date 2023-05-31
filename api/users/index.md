@@ -1,6 +1,6 @@
 # GET /api/users
 
-指定 ID のユーザを返す API。
+ユーザ一覧を返す API。
 
 ## リソース URL
 
