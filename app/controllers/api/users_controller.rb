@@ -4,6 +4,9 @@ module Api
   class UsersController < ApplicationController
     include AccessTokenVerifiable
     before_action :validate_user_id, only: %i[show destroy]
+    def index
+      render :index, status: :ok, locals: { users: }
+    end
 
     # GET /api/users/:id
     def show
@@ -46,6 +49,10 @@ module Api
     end
 
     private
+
+    def users
+      @_users ||= User.limit([(params[:limit] || 50).to_i, 1000].min).offset(params[:offset])
+    end
 
     def user
       @_user ||= User.find_by(id: params[:id])
