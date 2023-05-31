@@ -12,8 +12,7 @@ module Admin
       return if logged_in? && current_user.admin?
 
       store_location
-      flash[:danger] = 'エラー : 管理者ユーザでログインしてください'
-      redirect_to login_url, status: :see_other
+      redirect_to login_url, status: :see_other, flash: { danger: 'エラー : 管理者ユーザでログインしてください' }
     end
   end
 end
