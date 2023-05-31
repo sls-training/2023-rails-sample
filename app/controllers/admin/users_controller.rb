@@ -5,10 +5,10 @@ require 'uri'
 
 module Admin
   class UsersController < ApplicationController
-    before_action :logged_in_admin_user
+    before_action :require_admin_user
     def index; end
 
-    def logged_in_admin_user
+    def require_admin_user
       return if logged_in? && current_user.admin?
 
       store_location
