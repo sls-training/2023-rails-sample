@@ -3,7 +3,7 @@
 require 'rails_helper'
 RSpec.describe 'AdminUsers' do
   let!(:admin_user) { create(:user, :admin) }
-  let!(:no_admin_user) { create(:user, :noadmin) }
+  let!(:non_admin_user) { create(:user, :noadmin) }
 
   describe 'GET /admin/users' do
     subject { get admin_users_path }
@@ -18,7 +18,7 @@ RSpec.describe 'AdminUsers' do
     end
 
     context 'ユーザが管理者ではない場合' do
-      before { log_in_as(no_admin_user) }
+      before { log_in_as(non_admin_user) }
 
       it 'ログインページにリダイレクトしてトーストメッセージを表示' do
         expect(subject).to redirect_to login_url
