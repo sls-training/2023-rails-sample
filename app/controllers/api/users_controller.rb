@@ -7,12 +7,12 @@ module Api
 
     # GET /api/users
     def index
-      render :index, status: :ok, locals: { users: }
+      render :index, locals: { users: }
     end
 
     # GET /api/users/:id
     def show
-      render :show, status: :ok, locals: { user: }
+      render :show, locals: { user: }
     end
 
     # POST /api/users
