@@ -3,7 +3,11 @@
 module Admin
   class UsersController < ApplicationController
     before_action :require_admin_user
+
+    # GET /admin/users
     def index; end
+
+    private
 
     def require_admin_user
       return if logged_in? && current_user.admin?
