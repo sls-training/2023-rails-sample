@@ -26,7 +26,7 @@ http://localhost:3000/api/users
 curl \
   -H "Accept: application/json" \
   -H "Authorization: Bearer <YOUR-TOKEN>"\
-  http://localhost:3000/api/users?limit=100&offset=50
+  "http://localhost:3000/api/users?limit=100&offset=50"
 ```
 
 ## Responses
