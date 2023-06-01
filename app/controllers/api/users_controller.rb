@@ -53,7 +53,9 @@ module Api
     private
 
     def users
-      @_users ||= User.limit([(params[:limit] || 50).to_i, 1000].min).offset(params[:offset])
+      limit = [params.fetch(:limit, 50).to_i, 1000].min
+      offset = params[:offset]
+      @_users ||= User.limit(limit).offset(offset)
     end
 
     def user
