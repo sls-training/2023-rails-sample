@@ -44,6 +44,15 @@
           </ul>
         </div>
       </li>
+      <% if current_user.admin? %>
+        <hr />
+        <li>管理者用</li>
+        <li>
+          <%= link_to admin_users_path, class:"nav-link #{'active' if current_page?(admin_users_path)}" do %>
+            <i class="icon-dashboard fas fa-user fa-sm text-black-100"></i>&nbsp;ユーザ管理
+          <% end %>
+        </li>
+      <%end%>
       <hr />
       <li>
         <%= link_to logout_path, class:"nav-link", data: { "turbo-method": :delete } do %>
