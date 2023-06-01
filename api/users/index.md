@@ -10,7 +10,7 @@ http://localhost:3000/api/users
 ## Header
 
 ```yml
-'Authorization': 'Bearer <YOUR-TOKEN>'
+Authorization: Bearer <YOUR-TOKEN>
 ```
 
 ## Parameters
