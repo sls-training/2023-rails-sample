@@ -43,12 +43,12 @@
                   <td><%= user[:name] %></td>
                   <td><%= user[:email] %></td>
                   <td>
-                    <% if user[:admin] then %>
+                    <% if user[:admin] %>
                       <i class="fa-solid fa-check"></i>
                     <%end%>
                   </td>
                   <td>
-                    <% if user[:activated_at] then %>
+                    <% if user[:activated_at] %>
                       <i class="fa-solid fa-check"></i>
                     <%end%>
                   </td>
