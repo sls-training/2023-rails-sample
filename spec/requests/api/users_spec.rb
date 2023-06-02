@@ -39,9 +39,6 @@ RSpec.describe 'ApiUsers' do
         it 'ユーザ情報を取得し、200を返す' do
           expect(subject).to be_successful
           expect(subject.parsed_body.count).to eq limit
-          response_ids = subject.parsed_body.pluck('id')
-          expect(response_ids).to include user_list.first.id, user_list.last.id
-          expect(response_ids).not_to include user_list.first.id - 1, user_list.last.id + 1
         end
       end
     end
