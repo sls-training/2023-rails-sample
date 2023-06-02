@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <div>
       <h3>ユーザ管理</h3>
-      <button class="btn btn-primary btn-sm d-none d-sm-inline-block" type="button" data-toggle="modal"
+      <button class="btn btn-primary btn-sm" type="button" data-toggle="modal"
         data-target="#createUserModal">
         <i class="fas fa-user fa-sm text-white-50"></i>&nbsp;ユーザ作成
       </button>
@@ -47,11 +47,11 @@
                 <td><%= user[:created_at].strftime("%Y/%m/%d %H:%M:%S") %></td>
                 <td><%= user[:updated_at].strftime("%Y/%m/%d %H:%M:%S") %></td>
                 <td class="d-flex flex-row justify-content-between">
-                  <button class="btn btn-success btn-sm d-none d-sm-inline-block" type="button" data-toggle="modal"
+                  <button class="btn btn-success btn-sm" type="button" data-toggle="modal"
                     data-target="#editUserModal">
                     編集
                   </button>
-                  <button class="btn btn-danger btn-sm d-none d-sm-inline-block" type="button" data-toggle="modal"
+                  <button class="btn btn-danger btn-sm" type="button" data-toggle="modal"
                     data-target="#deleteUserModal">
                     削除
                   </button>
