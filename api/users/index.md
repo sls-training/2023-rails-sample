@@ -19,7 +19,7 @@ Authorization: Bearer <YOUR-TOKEN>
 | ------- | ------- | ------ | ------------------------------------------------------------------------------------------- | ------------ |
 | limit   | Integer |        | 取得するデータの数の上限(最大値: 1000)                                                      | 50           |
 | offset  | Integer |        | どの位置からデータを取得するか                                                              | 0            |
-| sortBy  | String  |        | プロパティ名 id, name, email, activated_at, created_at, updated_at のいずれかでソートする。 | name         |
+| sortKey  | String  |        | プロパティ名 id, name, email, activated_at, created_at, updated_at のいずれかでソートする。 | name         |
 | orderBy | String  |        | 昇順か降順か('desc' &#124; 'asc')                                                           | 'asc'        |
 
 ## Request
