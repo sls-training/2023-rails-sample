@@ -3,12 +3,8 @@
   <div class="container-fluid">
     <div>
       <h3>ユーザ管理</h3>
-      <button
-        class="btn btn-primary btn-sm d-none d-sm-inline-block"
-        type="button"
-        data-toggle="modal"
-        data-target="#createUserModal"
-      >
+      <button class="btn btn-primary btn-sm d-none d-sm-inline-block" type="button" data-toggle="modal"
+        data-target="#createUserModal">
         <i class="fas fa-user fa-sm text-white-50"></i>&nbsp;ユーザ作成
       </button>
     </div>
@@ -16,12 +12,7 @@
   <div class="container-fluid">
     <div class="card shadow">
       <div class="card-body">
-        <div
-          class="table-responsive table mt-2"
-          id="dataTable"
-          role="grid"
-          aria-describedby="dataTable_info"
-        >
+        <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
           <table class="table table-striped" id="dataTable">
             <thead class="table-dark">
               <tr>
@@ -38,42 +29,34 @@
             </thead>
             <tbody>
               <% @users.each do | user | %>
-                <tr>
-                  <td scope="row"><%= user[:id] %></td>
-                  <td><%= user[:name] %></td>
-                  <td><%= user[:email] %></td>
-                  <td>
-                    <% if user[:admin] %>
-                      <i class="fa-solid fa-check"></i>
-                    <%end%>
-                  </td>
-                  <td>
-                    <% if user[:activated_at] %>
-                      <i class="fa-solid fa-check"></i>
-                    <%end%>
-                  </td>
-                  <td><%= user[:activated_at]&.strftime("%Y/%m/%d %H:%M:%S") %></td>
-                  <td><%= user[:created_at].strftime("%Y/%m/%d %H:%M:%S") %></td>
-                  <td ><%= user[:updated_at].strftime("%Y/%m/%d %H:%M:%S") %></td>
-                  <td class="d-flex flex-row justify-content-between">
-                    <button
-                        class="btn btn-success btn-sm d-none d-sm-inline-block"
-                        type="button"
-                        data-toggle="modal"
-                        data-target="#editUserModal"
-                      >
-                      編集
-                    </button>
-                    <button
-                        class="btn btn-danger btn-sm d-none d-sm-inline-block"
-                        type="button"
-                        data-toggle="modal"
-                        data-target="#deleteUserModal"
-                      >
-                      削除
-                    </button>
-                  </td>
-                </tr>
+              <tr>
+                <td scope="row"><%= user[:id] %></td>
+                <td><%= user[:name] %></td>
+                <td><%= user[:email] %></td>
+                <td>
+                  <% if user[:admin] %>
+                  <i class="fa-solid fa-check"></i>
+                  <% end %>
+                </td>
+                <td>
+                  <% if user[:activated_at] %>
+                  <i class="fa-solid fa-check"></i>
+                  <% end %>
+                </td>
+                <td><%= user[:activated_at]&.strftime("%Y/%m/%d %H:%M:%S") %></td>
+                <td><%= user[:created_at].strftime("%Y/%m/%d %H:%M:%S") %></td>
+                <td><%= user[:updated_at].strftime("%Y/%m/%d %H:%M:%S") %></td>
+                <td class="d-flex flex-row justify-content-between">
+                  <button class="btn btn-success btn-sm d-none d-sm-inline-block" type="button" data-toggle="modal"
+                    data-target="#editUserModal">
+                    編集
+                  </button>
+                  <button class="btn btn-danger btn-sm d-none d-sm-inline-block" type="button" data-toggle="modal"
+                    data-target="#deleteUserModal">
+                    削除
+                  </button>
+                </td>
+              </tr>
               <% end %>
             </tbody>
           </table>
@@ -82,13 +65,7 @@
     </div>
   </div>
 </div>
-<script
-  src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-  crossorigin="anonymous"
-></script>
-<script
-  src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-  integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-  crossorigin="anonymous"
-></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+  integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
