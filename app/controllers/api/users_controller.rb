@@ -5,9 +5,14 @@ module Api
     include AccessTokenVerifiable
     before_action :validate_user_id, only: %i[show destroy]
 
+    # GET /api/users
+    def index
+      render :index, locals: { users: }
+    end
+
     # GET /api/users/:id
     def show
-      render :show, status: :ok, locals: { user: }
+      render :show, locals: { user: }
     end
 
     # POST /api/users
@@ -46,6 +51,17 @@ module Api
     end
 
     private
+
+    def users
+      sort_key = params.fetch(:sort_key, 'name')
+      order_by = params.fetch(:order_by, 'asc')
+      limit = [params.fetch(:limit, 50).to_i, 1000].min
+      offset = params[:offset]
+      @_users ||= User
+                    .order(sort_key => order_by)
+                    .limit(limit)
+                    .offset(offset)
+    end
 
     def user
       @_user ||= User.find_by(id: params[:id])

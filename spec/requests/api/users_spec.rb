@@ -3,6 +3,47 @@
 require 'rails_helper'
 
 RSpec.describe 'ApiUsers' do
+  describe 'GET /api/users' do
+    subject do
+      get("/api/users?limit=#{limit}&offset=#{offset}", headers:)
+      response
+    end
+
+    let(:limit) { 50 }
+    let(:offset) { 1 }
+    let!(:current_user) { create(:user, :admin) }
+    let!(:user_list) { create_list(:user, limit, :noadmin) }
+
+    context 'アクセストークンがない場合' do
+      it 'エラーメッセージを出力して、404を返す' do
+        expect(subject).to be_bad_request
+        expect(subject.parsed_body).to have_key('errors')
+      end
+    end
+
+    context 'アクセストークンがある場合' do
+      let(:headers) { { 'Authorization' => "Bearer #{access_token}" } }
+
+      context 'アクセストークンが有効期限切れの場合' do
+        let(:access_token) { expired_access_token(email: current_user.email) }
+
+        it 'エラーメッセージを出力して、401を返す' do
+          expect(subject).to be_unauthorized
+          expect(subject.parsed_body).to have_key('errors')
+        end
+      end
+
+      context 'アクセストークンが有効期限内の場合' do
+        let(:access_token) { AccessToken.new(email: current_user.email).encode }
+
+        it 'ユーザ情報を取得し、200を返す' do
+          expect(subject).to be_successful
+          expect(subject.parsed_body.count).to eq limit
+        end
+      end
+    end
+  end
+
   describe 'GET /api/users/:id' do
     subject do
       get("/api/users/#{target_user.id}", headers:)
