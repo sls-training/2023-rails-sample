@@ -53,9 +53,14 @@ module Api
     private
 
     def users
+      sort_key = params.fetch(:sort_key, :name)
+      order_by = params.fetch(:order_by, :asc)
       limit = [params.fetch(:limit, 50).to_i, 1000].min
       offset = params[:offset]
-      @_users ||= User.limit(limit).offset(offset)
+      @_users ||= User
+                    .order(sort_key => order_by)
+                    .limit(limit)
+                    .offset(offset)
     end
 
     def user
