@@ -9,6 +9,8 @@ FactoryBot.define do
     activated { true }
     activated_at { Time.zone.now }
     admin { [true, false].sample }
+    created_at { Time.zone.now }
+    updated_at { Time.zone.now }
 
     trait :admin do
       admin { true }
