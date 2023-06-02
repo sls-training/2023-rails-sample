@@ -15,12 +15,12 @@ Authorization: Bearer <YOUR-TOKEN>
 
 ## Parameters
 
-| 名称    | 型      | 必須か | 　説明                                                                                      | デフォルト値 |
-| ------- | ------- | ------ | ------------------------------------------------------------------------------------------- | ------------ |
-| limit   | Integer |        | 取得するデータの数の上限(最大値: 1000)                                                      | 50           |
-| offset  | Integer |        | どの位置からデータを取得するか                                                              | 0            |
-| sortKey  | String  |        | プロパティ名 id, name, email, activated_at, created_at, updated_at のいずれかでソートする。 | name         |
-| orderBy | String  |        | 昇順か降順か('desc' &#124; 'asc')                                                           | 'asc'        |
+| 名称     | 型      | 必須か | 　説明                                                                                      | デフォルト値 |
+| -------- | ------- | ------ | ------------------------------------------------------------------------------------------- | ------------ |
+| limit    | Integer |        | 取得するデータの数の上限(最大値: 1000)                                                      | 50           |
+| offset   | Integer |        | どの位置からデータを取得するか                                                              | 0            |
+| sort_key | String  |        | プロパティ名 id, name, email, activated_at, created_at, updated_at のいずれかでソートする。 | name         |
+| order_by | String  |        | 昇順か降順か('desc' &#124; 'asc')                                                           | 'asc'        |
 
 ## Request
 
