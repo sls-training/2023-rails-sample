@@ -5,7 +5,10 @@ module Admin
     before_action :require_admin_user
 
     # GET /admin/users
-    def index; end
+    def index
+      # TODO: ユーザAPIを使ったものに後から置き換えること
+      @users = User.limit(100)
+    end
 
     private
 
