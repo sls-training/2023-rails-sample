@@ -2,6 +2,7 @@
 
 module Admin
   class UsersController < ApplicationController
+    include UsersApi
     before_action :require_admin_user
 
     # GET /admin/users
