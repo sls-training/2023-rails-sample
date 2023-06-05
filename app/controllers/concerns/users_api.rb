@@ -14,6 +14,13 @@ module UsersApi
     before_action :generate_access_token
   end
 
+  def get_users(sort_by: 'name', order_by: 'asc', limit: 50, offset: 0)
+    response = get('/users', params: { sort_by:, order_by:, limit:, offset: }, headers: headers_with_token)
+    redirect_to_login and return unless response.code == '200'
+
+    JSON.parse(response.body, symbolize_names: true)
+  end
+
   private
 
   def get(url_path, params: {}, headers: {})
@@ -32,6 +39,10 @@ module UsersApi
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = uri.scheme == 'https'
     http.post(uri.path, params.to_json, headers)
+  end
+
+  def headers_with_token
+    { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{raw_access_token}" }
   end
 
   def raw_access_token
