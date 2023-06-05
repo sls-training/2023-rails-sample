@@ -25,4 +25,9 @@ module UsersApi
     http.use_ssl = uri.scheme == 'https'
     http.post(uri.path, params.to_json, headers)
   end
+
+  def create_token(email, password)
+    response = post('/token', params: { email:, password: }, headers: { 'Content-Type' => 'application/json' })
+    JSON.parse(response.body, symbolize_names: true)[:access_token]
+  end
 end
