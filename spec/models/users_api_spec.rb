@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe UsersApi do
-  subject { UsersApi.create_token(email:, password:) }
-
   describe '#create_token' do
+    subject { UsersApi.create_token(email:, password:) }
+
     context '管理者ユーザの場合' do
       let(:email) { Rails.application.credentials.app.rails_sample_email }
 
