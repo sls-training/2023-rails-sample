@@ -117,11 +117,11 @@ RSpec.describe 'ApiUsers' do
         end
 
         context 'クエリにoffsetがある場合' do
-          # ? どういう場合のテストをするべきか迷っています
+          # TODO: offset件数飛ばしてユーザの配列をnameの昇順で取得し、200を返すテストを作成する
         end
 
         context 'クエリにoffsetがない場合' do
-          # TODO: offset0でユーザの配列を取得し、200を返すテストを作成する
+          # TODO: ユーザの配列をnameの昇順で取得し、200を返すテストを作成する
         end
       end
     end
