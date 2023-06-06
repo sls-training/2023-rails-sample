@@ -8,13 +8,10 @@ module HttpMethod
 
   def get(url_path, params: {}, headers: {})
     uri = URI("#{BASE_URL}#{url_path}")
+    uri.query = URI.encode_www_form(params)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = uri.scheme == 'https'
-
-    path_with_query = [uri.path, URI.encode_www_form(params)]
-                        .compact_blank
-                        .join('?')
-    http.get(path_with_query, headers)
+    http.get(uri.to_s, headers)
   end
 
   def post(url_path, params: {}, headers: {})
