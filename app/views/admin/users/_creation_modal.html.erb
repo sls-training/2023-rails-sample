@@ -8,8 +8,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <%= form_with model: User.new, url: {controller: 'admin/users', action: 'create' } do |f| %>
             <div class="modal-body">
-                <%= form_with model: User.new, url: {controller: 'admin/users', action: 'create' } do |f| %>
                 <%= f.label :name, "名前" %>
                 <%= f.text_field :name, class: 'form-control' %>
                 <%= f.label :email, "メール" %>
