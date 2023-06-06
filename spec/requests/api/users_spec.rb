@@ -83,6 +83,38 @@ RSpec.describe 'ApiUsers' do
         context 'クエリにsort_keyがない場合' do
           # TODO: nameの昇順でuserの配列を取得できて、200を返すテストを作成する
         end
+
+        context 'クエリにlimitがある場合' do
+          context 'limitが1000を超過する場合' do
+            context 'ユーザ数が1000未満の場合' do
+              # TODO: ユーザ情報を上限数取得し、200を返すテストを作成する
+            end
+
+            context 'ユーザ数が#1000以上の場合' do
+              # TODO: ユーザ情報を1000まで取得し、200を返すテストを作成する
+            end
+          end
+
+          context 'limitが1000以下の場合' do
+            context 'ユーザ数がlimit未満の場合' do
+              # TODO: ユーザ情報をlimit数分取得し、200を返すテストを作成する
+            end
+
+            context 'ユーザ数がlimit以上の場合' do
+              # TODO: ユーザ情報を上限数分取得し、200を返すテストを作成する
+            end
+          end
+        end
+
+        context 'クエリにlimitがない場合' do
+          context 'ユーザ数が50件未満の場合' do
+            # TODO: ユーザ情報を上限数取得し、200を返すテストを作成する
+          end
+
+          context 'ユーザ数が50件以上の場合' do
+            # TODO: ユーザ情報を50件分取得し、200を返すテストを作成する
+          end
+        end
       end
     end
   end
