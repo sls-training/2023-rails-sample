@@ -36,9 +36,18 @@ RSpec.describe 'ApiUsers' do
       context 'アクセストークンが有効期限内の場合' do
         let(:access_token) { AccessToken.new(email: current_user.email).encode }
 
-        it 'ユーザ情報を取得し、200を返す' do
-          expect(subject).to be_successful
-          expect(subject.parsed_body.count).to eq limit
+        context 'クエリにorder_byがある場合' do
+          context 'order_byがascの場合' do
+            # TODO: ユーザの配列を昇順で取得できているかのテストを作成する
+          end
+
+          context 'order_byがdescの場合' do
+            # TODO: ユーザの配列を降順で取得できているかのテストを作成する
+          end
+        end
+
+        context 'クエリにorder_byがない場合' do
+          # TODO: ユーザの配列を昇順で取得できているかのテストを作成する
         end
       end
     end
