@@ -115,6 +115,14 @@ RSpec.describe 'ApiUsers' do
             # TODO: ユーザ情報を50件分取得し、200を返すテストを作成する
           end
         end
+
+        context 'クエリにoffsetがある場合' do
+          # ? どういう場合のテストをするべきか迷っています
+        end
+
+        context 'クエリにoffsetがない場合' do
+          # TODO: offset0でユーザの配列を取得し、200を返すテストを作成する
+        end
       end
     end
   end
