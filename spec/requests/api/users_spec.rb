@@ -49,6 +49,40 @@ RSpec.describe 'ApiUsers' do
         context 'クエリにorder_byがない場合' do
           # TODO: ユーザの配列を昇順で取得できているかのテストを作成する
         end
+
+        context 'クエリにsort_keyがある場合' do
+          context 'sort_keyがidの場合' do
+            # TODO: idの昇順でuserの配列を取得できて、200を返すテストを作成する
+          end
+
+          context 'sort_keyがnameの場合' do
+            # TODO: nameの昇順でuserの配列を取得できて、200を返すテストを作成する
+          end
+
+          context 'sort_keyがemailの場合' do
+            # TODO: emailの昇順でuserの配列を取得できて、200を返すテストを作成する
+          end
+
+          context 'sort_keyがactivated_atの場合' do
+            # TODO: activated_atの昇順でuserの配列を取得できて、200を返すテストを作成する
+          end
+
+          context 'sort_keyがcreated_atの場合' do
+            # TODO: created_atの昇順でuserの配列を取得できて、200を返す'
+          end
+
+          context 'sort_keyがupdated_atの場合' do
+            # TODO: updated_atの昇順でuserの配列を取得できて、200を返す'
+          end
+
+          context 'sort_keyがid, name, email, activated_at, created_at, updated_at以外の場合' do
+            # TODO: nameの昇順でuserの配列を取得できて、200を返すテストを作成する
+          end
+        end
+
+        context 'クエリにsort_keyがない場合' do
+          # TODO: nameの昇順でuserの配列を取得できて、200を返すテストを作成する
+        end
       end
     end
   end
