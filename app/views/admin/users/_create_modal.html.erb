@@ -10,7 +10,6 @@
             </div>
             <div class="modal-body">
                 <%= form_with model: User.new, url: {controller: 'admin/users', action: 'create' } do |f| %>
-                <%= render 'shared/error_messages', object: f.object %>
                 <%= f.label :name, "名前" %>
                 <%= f.text_field :name, class: 'form-control' %>
                 <%= f.label :email, "メール" %>
