@@ -30,7 +30,7 @@ RSpec.describe UsersApi do
       let(:email) { 'example-1@railstutorial.org' }
 
       context 'emailとパスワードが正しい場合' do
-        let(:password) { password }
+        let(:password) { 'password' }
 
         it 'errorsが返る' do
           expect(subject).to have_key(:errors)
@@ -38,7 +38,7 @@ RSpec.describe UsersApi do
       end
 
       context 'パスワードが間違っている場合' do
-        let(:password) { wrong_password }
+        let(:password) { 'wrong_password' }
 
         it 'errorsが返る' do
           expect(subject).to have_key(:errors)
