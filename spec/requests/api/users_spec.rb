@@ -13,6 +13,8 @@ RSpec.describe 'ApiUsers' do
     let!(:user_list) { create_list(:user, 50, :noadmin) }
 
     context 'アクセストークンがない場合' do
+      let(:params) { {} }
+
       it 'エラーメッセージを出力して、404を返す' do
         expect(subject).to be_bad_request
         expect(subject.parsed_body).to have_key('errors')
@@ -24,6 +26,7 @@ RSpec.describe 'ApiUsers' do
 
       context 'アクセストークンが有効期限切れの場合' do
         let(:access_token) { expired_access_token(email: current_user.email) }
+        let(:params) { {} }
 
         it 'エラーメッセージを出力して、401を返す' do
           expect(subject).to be_unauthorized
