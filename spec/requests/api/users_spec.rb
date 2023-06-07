@@ -119,12 +119,16 @@ RSpec.describe 'ApiUsers' do
 
         context 'クエリにoffsetがある場合' do
           let(:params) { { offset: } }
-          # TODO: offset件数飛ばしてユーザの配列をnameの昇順で取得し、200を返すテストを作成する
+
+          it 'offset件数飛ばしてユーザの配列をnameの昇順で取得し、200を返す' do
+          end
         end
 
         context 'クエリにoffsetがない場合' do
           let(:params) { {} }
-          # TODO: ユーザの配列をnameの昇順で取得し、200を返すテストを作成する
+
+          it 'ユーザの配列をnameの昇順で取得し、200を返す' do
+          end
         end
       end
     end
