@@ -29,17 +29,19 @@ RSpec.describe UsersApi do
     context '管理者でないユーザの場合' do
       let(:email) { 'example-1@railstutorial.org' }
 
-      contexts = [
-        %w[emailとパスワードが正しい場合 password],
-        %w[パスワードが間違っている場合 wrong_password]
-      ]
-      contexts.each do |(title, password)|
-        context title do
-          let(:password) { password }
+      context 'emailとパスワードが正しい場合' do
+        let(:password) { password }
 
-          it 'errorsが返る' do
-            expect(subject).to have_key(:errors)
-          end
+        it 'errorsが返る' do
+          expect(subject).to have_key(:errors)
+        end
+      end
+
+      context 'パスワードが間違っている場合' do
+        let(:password) { wrong_password }
+
+        it 'errorsが返る' do
+          expect(subject).to have_key(:errors)
         end
       end
     end
