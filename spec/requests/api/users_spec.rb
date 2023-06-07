@@ -100,6 +100,7 @@ RSpec.describe 'ApiUsers' do
 
               it 'ユーザ情報を上限数取得し、200を返す' do
                 expect(subject).to be_successful
+                expect(subject.parsed_body.count).to eq User.count
               end
             end
 
@@ -108,6 +109,7 @@ RSpec.describe 'ApiUsers' do
 
               it 'ユーザ情報を1000まで取得し、200を返す' do
                 expect(subject).to be_successful
+                expect(subject.parsed_body.count).to eq 1000
               end
             end
           end
@@ -119,6 +121,8 @@ RSpec.describe 'ApiUsers' do
               before { create_user_list 50 }
 
               it 'ユーザ情報を上限数分取得し、200を返す' do
+                expect(subject).to be_successful
+                expect(subject.parsed_body.count).to eq User.count
               end
             end
 
@@ -126,6 +130,8 @@ RSpec.describe 'ApiUsers' do
               before { create_user_list 150 }
 
               it 'ユーザ情報をlimit数分取得し、200を返す' do
+                expect(subject).to be_successful
+                expect(subject.parsed_body.count).to eq limit
               end
             end
           end
@@ -139,6 +145,7 @@ RSpec.describe 'ApiUsers' do
 
             it 'ユーザ情報を上限数取得し、200を返す' do
               expect(subject).to be_successful
+              expect(subject.parsed_body.count).to eq User.count
             end
           end
 
@@ -147,6 +154,7 @@ RSpec.describe 'ApiUsers' do
 
             it 'ユーザ情報を50件分取得し、200を返す' do
               expect(subject).to be_successful
+              expect(subject.parsed_body.count).to eq 50
             end
           end
         end
