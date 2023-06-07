@@ -10,7 +10,11 @@ module Api
 
     # GET /api/users
     def index
-      render :index, locals: { users: }
+      @_users = User
+                  .order(sort_key => order_by)
+                  .limit(limit)
+                  .offset(offset)
+      render :index, locals: { users: @_users }
     end
 
     # GET /api/users/:id
@@ -54,13 +58,6 @@ module Api
     end
 
     private
-
-    def users
-      @_users ||= User
-                    .order(sort_key => order_by)
-                    .limit(limit)
-                    .offset(offset)
-    end
 
     def sort_key
       @_sort_key ||= SORTABLE_KEYS.include?(params[:sort_key]) ? params[:sort_key] : 'name'
