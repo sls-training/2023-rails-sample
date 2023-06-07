@@ -59,6 +59,7 @@ RSpec.describe 'ApiUsers' do
 
             it 'idの昇順でユーザの配列を取得できて、200を返す' do
               expect(subject).to be_successful
+              expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['id'] })
             end
           end
 
@@ -67,6 +68,7 @@ RSpec.describe 'ApiUsers' do
 
             it 'nameの昇順でユーザの配列を取得できて、200を返す' do
               expect(subject).to be_successful
+              expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['name'] })
             end
           end
 
@@ -75,6 +77,7 @@ RSpec.describe 'ApiUsers' do
 
             it 'emailの昇順でユーザの配列を取得できて、200を返す' do
               expect(subject).to be_successful
+              expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['email'] })
             end
           end
 
@@ -83,6 +86,7 @@ RSpec.describe 'ApiUsers' do
 
             it 'activated_atの昇順でユーザの配列を取得できて、200を返す' do
               expect(subject).to be_successful
+              expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['activated_at'] })
             end
           end
 
@@ -91,6 +95,7 @@ RSpec.describe 'ApiUsers' do
 
             it 'created_atの昇順でユーザの配列を取得できて、200を返す' do
               expect(subject).to be_successful
+              expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['created_at'] })
             end
           end
 
@@ -99,6 +104,7 @@ RSpec.describe 'ApiUsers' do
 
             it 'updated_atの昇順でユーザの配列を取得できて、200を返す' do
               expect(subject).to be_successful
+              expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['updated_at'] })
             end
           end
 
@@ -107,6 +113,7 @@ RSpec.describe 'ApiUsers' do
 
             it 'nameの昇順でユーザの配列を取得できて、200を返す' do
               expect(subject).to be_successful
+              expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['name'] })
             end
           end
         end
@@ -116,6 +123,7 @@ RSpec.describe 'ApiUsers' do
 
           it 'nameの昇順でuserの配列を取得できて、200を返す' do
             expect(subject).to be_successful
+            expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['name'] })
           end
         end
 
