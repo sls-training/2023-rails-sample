@@ -52,6 +52,8 @@ RSpec.describe 'ApiUsers' do
         end
 
         context 'クエリにsort_keyがある場合' do
+          let(:params) { { sort_key: } }
+
           context 'sort_keyがidの場合' do
             # TODO: idの昇順でuserの配列を取得できて、200を返すテストを作成する
           end
@@ -82,6 +84,7 @@ RSpec.describe 'ApiUsers' do
         end
 
         context 'クエリにsort_keyがない場合' do
+          let(:params) { {} }
           # TODO: nameの昇順でuserの配列を取得できて、200を返すテストを作成する
         end
 
