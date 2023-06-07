@@ -10,7 +10,7 @@ RSpec.describe 'ApiUsers' do
     end
 
     let!(:current_user) { create(:user, :admin) }
-    let!(:user_list) { create_list(:user, 50, :noadmin) }
+    let!(:user_list) { create_list(:user, 1500, :noadmin) }
 
     context 'アクセストークンがない場合' do
       let(:params) { {} }
@@ -89,6 +89,8 @@ RSpec.describe 'ApiUsers' do
           let(:params) { { limit: } }
 
           context 'limitが1000を超過する場合' do
+            let(:limit) { 1001 }
+
             context 'ユーザ数が1000未満の場合' do
               # TODO: ユーザ情報を上限数取得し、200を返すテストを作成する
             end
@@ -99,6 +101,8 @@ RSpec.describe 'ApiUsers' do
           end
 
           context 'limitが1000以下の場合' do
+            let(:limit) { 100 }
+
             context 'ユーザ数がlimit未満の場合' do
               # TODO: ユーザ情報をlimit数分取得し、200を返すテストを作成する
             end
