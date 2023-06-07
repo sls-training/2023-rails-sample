@@ -5,6 +5,9 @@ module Api
     include AccessTokenVerifiable
     before_action :validate_user_id, only: %i[show destroy]
 
+    SORTABLE_KEYS = %w[name id activated_at created_at updated_at].freeze
+    ORDERABLE_KEYS = %w[asc desc].freeze
+
     # GET /api/users
     def index
       render :index, locals: { users: }
@@ -60,13 +63,11 @@ module Api
     end
 
     def sort_key
-      sortable_keys = %w[name id activated_at created_at updated_at]
-      @_sort_key ||= sortable_keys.include?(params[:sort_key]) ? params[:sort_key] : 'name'
+      @_sort_key ||= SORTABLE_KEYS.include?(params[:sort_key]) ? params[:sort_key] : 'name'
     end
 
     def order_by
-      orderable_keys = %w[asc desc]
-      @_order_by ||= orderable_keys.include?(params[:order_by]) ? params[:order_by] : 'asc'
+      @_order_by ||= ORDERABLE_KEYS.include?(params[:order_by]) ? params[:order_by] : 'asc'
     end
 
     def limit
