@@ -5,14 +5,12 @@ require 'rails_helper'
 RSpec.describe 'ApiUsers' do
   describe 'GET /api/users' do
     subject do
-      get("/api/users?limit=#{limit}&offset=#{offset}", headers:)
+      get('/api/users', headers:, params:)
       response
     end
 
-    let(:limit) { 50 }
-    let(:offset) { 1 }
     let!(:current_user) { create(:user, :admin) }
-    let!(:user_list) { create_list(:user, limit, :noadmin) }
+    let!(:user_list) { create_list(:user, 50, :noadmin) }
 
     context 'アクセストークンがない場合' do
       it 'エラーメッセージを出力して、404を返す' do
