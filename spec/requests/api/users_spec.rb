@@ -86,6 +86,8 @@ RSpec.describe 'ApiUsers' do
         end
 
         context 'クエリにlimitがある場合' do
+          let(:params) { { limit: } }
+
           context 'limitが1000を超過する場合' do
             context 'ユーザ数が1000未満の場合' do
               # TODO: ユーザ情報を上限数取得し、200を返すテストを作成する
@@ -108,6 +110,8 @@ RSpec.describe 'ApiUsers' do
         end
 
         context 'クエリにlimitがない場合' do
+          let(:params) { {} }
+
           context 'ユーザ数が50件未満の場合' do
             # TODO: ユーザ情報を上限数取得し、200を返すテストを作成する
           end
