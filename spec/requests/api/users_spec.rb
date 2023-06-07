@@ -121,6 +121,7 @@ RSpec.describe 'ApiUsers' do
           let(:params) { { offset: } }
 
           it 'offset件数飛ばしてユーザの配列をnameの昇順で取得し、200を返す' do
+            expect(subject).to be_successful
           end
         end
 
@@ -128,6 +129,7 @@ RSpec.describe 'ApiUsers' do
           let(:params) { {} }
 
           it 'ユーザの配列をnameの昇順で取得し、200を返す' do
+            expect(subject).to be_successful
           end
         end
       end
