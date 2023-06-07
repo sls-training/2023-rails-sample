@@ -10,7 +10,11 @@ RSpec.describe 'ApiUsers' do
     end
 
     let!(:current_user) { create(:user, :admin) }
-    let!(:user_list) { create_list(:user, 50, :noadmin) }
+
+    before do
+      users = build_list(:user, 1500)
+      User.insert_all users.map(&:attributes)
+    end
 
     context 'アクセストークンがない場合' do
       let(:params) { {} }
