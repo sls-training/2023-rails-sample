@@ -36,9 +36,92 @@ RSpec.describe 'ApiUsers' do
       context 'アクセストークンが有効期限内の場合' do
         let(:access_token) { AccessToken.new(email: current_user.email).encode }
 
-        it 'ユーザ情報を取得し、200を返す' do
-          expect(subject).to be_successful
-          expect(subject.parsed_body.count).to eq limit
+        context 'クエリにorder_byがある場合' do
+          context 'order_byがascの場合' do
+            # TODO: ユーザの配列を昇順で取得できているかのテストを作成する
+          end
+
+          context 'order_byがdescの場合' do
+            # TODO: ユーザの配列を降順で取得できているかのテストを作成する
+          end
+        end
+
+        context 'クエリにorder_byがない場合' do
+          # TODO: ユーザの配列を昇順で取得できているかのテストを作成する
+        end
+
+        context 'クエリにsort_keyがある場合' do
+          context 'sort_keyがidの場合' do
+            # TODO: idの昇順でuserの配列を取得できて、200を返すテストを作成する
+          end
+
+          context 'sort_keyがnameの場合' do
+            # TODO: nameの昇順でuserの配列を取得できて、200を返すテストを作成する
+          end
+
+          context 'sort_keyがemailの場合' do
+            # TODO: emailの昇順でuserの配列を取得できて、200を返すテストを作成する
+          end
+
+          context 'sort_keyがactivated_atの場合' do
+            # TODO: activated_atの昇順でuserの配列を取得できて、200を返すテストを作成する
+          end
+
+          context 'sort_keyがcreated_atの場合' do
+            # TODO: created_atの昇順でuserの配列を取得できて、200を返す'
+          end
+
+          context 'sort_keyがupdated_atの場合' do
+            # TODO: updated_atの昇順でuserの配列を取得できて、200を返す'
+          end
+
+          context 'sort_keyがid, name, email, activated_at, created_at, updated_at以外の場合' do
+            # TODO: nameの昇順でuserの配列を取得できて、200を返すテストを作成する
+          end
+        end
+
+        context 'クエリにsort_keyがない場合' do
+          # TODO: nameの昇順でuserの配列を取得できて、200を返すテストを作成する
+        end
+
+        context 'クエリにlimitがある場合' do
+          context 'limitが1000を超過する場合' do
+            context 'ユーザ数が1000未満の場合' do
+              # TODO: ユーザ情報を上限数取得し、200を返すテストを作成する
+            end
+
+            context 'ユーザ数が#1000以上の場合' do
+              # TODO: ユーザ情報を1000まで取得し、200を返すテストを作成する
+            end
+          end
+
+          context 'limitが1000以下の場合' do
+            context 'ユーザ数がlimit未満の場合' do
+              # TODO: ユーザ情報をlimit数分取得し、200を返すテストを作成する
+            end
+
+            context 'ユーザ数がlimit以上の場合' do
+              # TODO: ユーザ情報を上限数分取得し、200を返すテストを作成する
+            end
+          end
+        end
+
+        context 'クエリにlimitがない場合' do
+          context 'ユーザ数が50件未満の場合' do
+            # TODO: ユーザ情報を上限数取得し、200を返すテストを作成する
+          end
+
+          context 'ユーザ数が50件以上の場合' do
+            # TODO: ユーザ情報を50件分取得し、200を返すテストを作成する
+          end
+        end
+
+        context 'クエリにoffsetがある場合' do
+          # TODO: offset件数飛ばしてユーザの配列をnameの昇順で取得し、200を返すテストを作成する
+        end
+
+        context 'クエリにoffsetがない場合' do
+          # TODO: ユーザの配列をnameの昇順で取得し、200を返すテストを作成する
         end
       end
     end
