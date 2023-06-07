@@ -38,17 +38,34 @@ RSpec.describe 'ApiUsers' do
         let(:access_token) { AccessToken.new(email: current_user.email).encode }
 
         context 'クエリにorder_byがある場合' do
+          let(:params) { { order_by: } }
+
           context 'order_byがascの場合' do
-            # TODO: ユーザの配列を昇順で取得できているかのテストを作成する
+            let(:order_by) { 'asc' }
+
+            it 'ユーザの配列を名前の昇順で取得できて、200を返す' do
+              expect(subject).to be_successful
+              expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['name'] })
+            end
           end
 
           context 'order_byがdescの場合' do
-            # TODO: ユーザの配列を降順で取得できているかのテストを作成する
+            let(:order_by) { 'desc' }
+
+            it 'ユーザの配列を名前の降順で取得できて、200を返す' do
+              expect(subject).to be_successful
+              expect(subject.parsed_body).to eq(subject.parsed_body.sort { |a, b| b['name'] <=> a['name'] })
+            end
           end
         end
 
         context 'クエリにorder_byがない場合' do
-          # TODO: ユーザの配列を昇順で取得できているかのテストを作成する
+          let(:params) { {} }
+
+          it 'ユーザの配列を名前の昇順で取得できて、200を返す' do
+            expect(subject).to be_successful
+            expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['name'] })
+          end
         end
 
         context 'クエリにsort_keyがある場合' do
