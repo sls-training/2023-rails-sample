@@ -62,13 +62,11 @@ module Api
     def sort_key
       sortable_keys = %w[name id activated_at created_at updated_at]
       @_sort_key ||= sortable_keys.include?(params[:sort_key]) ? params[:sort_key] : 'name'
-      @_sort_key
     end
 
     def order_by
       orderable_keys = %w[asc desc]
       @_order_by ||= orderable_keys.include?(params[:order_by]) ? params[:order_by] : 'asc'
-      @_order_by
     end
 
     def limit
