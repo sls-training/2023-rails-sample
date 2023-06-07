@@ -58,6 +58,7 @@ RSpec.describe 'ApiUsers' do
             let(:sort_key) { 'id' }
 
             it 'idの昇順でユーザの配列を取得できて、200を返す' do
+              expect(subject).to be_successful
             end
           end
 
@@ -65,6 +66,7 @@ RSpec.describe 'ApiUsers' do
             let(:sort_key) { 'name' }
 
             it 'nameの昇順でユーザの配列を取得できて、200を返す' do
+              expect(subject).to be_successful
             end
           end
 
@@ -72,6 +74,7 @@ RSpec.describe 'ApiUsers' do
             let(:sort_key) { 'email' }
 
             it 'emailの昇順でユーザの配列を取得できて、200を返す' do
+              expect(subject).to be_successful
             end
           end
 
@@ -79,6 +82,7 @@ RSpec.describe 'ApiUsers' do
             let(:sort_key) { 'activated_at' }
 
             it 'activated_atの昇順でユーザの配列を取得できて、200を返す' do
+              expect(subject).to be_successful
             end
           end
 
@@ -86,6 +90,7 @@ RSpec.describe 'ApiUsers' do
             let(:sort_key) { 'created_at' }
 
             it 'created_atの昇順でユーザの配列を取得できて、200を返す' do
+              expect(subject).to be_successful
             end
           end
 
@@ -93,6 +98,7 @@ RSpec.describe 'ApiUsers' do
             let(:sort_key) { 'updated_at' }
 
             it 'updated_atの昇順でユーザの配列を取得できて、200を返す' do
+              expect(subject).to be_successful
             end
           end
 
@@ -100,6 +106,7 @@ RSpec.describe 'ApiUsers' do
             let(:sort_key) { 'hogehoge' }
 
             it 'nameの昇順でユーザの配列を取得できて、200を返す' do
+              expect(subject).to be_successful
             end
           end
         end
@@ -108,6 +115,7 @@ RSpec.describe 'ApiUsers' do
           let(:params) { {} }
 
           it 'nameの昇順でuserの配列を取得できて、200を返す' do
+            expect(subject).to be_successful
           end
         end
 
