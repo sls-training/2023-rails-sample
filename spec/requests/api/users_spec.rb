@@ -4,13 +4,17 @@ require 'rails_helper'
 
 RSpec.describe 'ApiUsers' do
   describe 'GET /api/users' do
+    def create_user_list(count)
+      users = build_list(:user, count)
+      User.insert_all users.map(&:attributes)
+    end
+
     subject do
       get('/api/users', headers:, params:)
       response
     end
 
     let!(:current_user) { create(:user, :admin) }
-    let!(:user_list) { create_list(:user, 1500, :noadmin) }
 
     context 'アクセストークンがない場合' do
       let(:params) { {} }
@@ -92,11 +96,19 @@ RSpec.describe 'ApiUsers' do
             let(:limit) { 1001 }
 
             context 'ユーザ数が1000未満の場合' do
-              # TODO: ユーザ情報を上限数取得し、200を返すテストを作成する
+              before { create_user_list 150 }
+
+              it 'ユーザ情報を上限数取得し、200を返す' do
+                expect(subject).to be_successful
+              end
             end
 
-            context 'ユーザ数が#1000以上の場合' do
-              # TODO: ユーザ情報を1000まで取得し、200を返すテストを作成する
+            context 'ユーザ数が1000以上の場合' do
+              before { create_user_list 1500 }
+
+              it 'ユーザ情報を1000まで取得し、200を返す' do
+                expect(subject).to be_successful
+              end
             end
           end
 
@@ -104,11 +116,17 @@ RSpec.describe 'ApiUsers' do
             let(:limit) { 100 }
 
             context 'ユーザ数がlimit未満の場合' do
-              # TODO: ユーザ情報をlimit数分取得し、200を返すテストを作成する
+              before { create_user_list 50 }
+
+              it 'ユーザ情報を上限数分取得し、200を返す' do
+              end
             end
 
             context 'ユーザ数がlimit以上の場合' do
-              # TODO: ユーザ情報を上限数分取得し、200を返すテストを作成する
+              before { create_user_list 150 }
+
+              it 'ユーザ情報をlimit数分取得し、200を返す' do
+              end
             end
           end
         end
@@ -116,12 +134,20 @@ RSpec.describe 'ApiUsers' do
         context 'クエリにlimitがない場合' do
           let(:params) { {} }
 
-          context 'ユーザ数が50件未満の場合' do
-            # TODO: ユーザ情報を上限数取得し、200を返すテストを作成する
+          context 'ユーザ数が50未満の場合' do
+            before { create_user_list 10 }
+
+            it 'ユーザ情報を上限数取得し、200を返す' do
+              expect(subject).to be_successful
+            end
           end
 
-          context 'ユーザ数が50件以上の場合' do
-            # TODO: ユーザ情報を50件分取得し、200を返すテストを作成する
+          context 'ユーザ数が50以上の場合' do
+            before { create_user_list 100 }
+
+            it 'ユーザ情報を50件分取得し、200を返す' do
+              expect(subject).to be_successful
+            end
           end
         end
 
