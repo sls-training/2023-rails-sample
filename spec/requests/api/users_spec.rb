@@ -123,6 +123,12 @@ RSpec.describe 'ApiUsers' do
 
           it 'offset件数飛ばしてユーザの配列をnameの昇順で取得し、200を返す' do
             expect(subject).to be_successful
+            users = User
+                      .order(name: :asc)
+                      .offset(offset)
+                      .limit(50)
+                      .pluck('id')
+            expect(subject.parsed_body.pluck('id')).to eq users
           end
         end
 
@@ -131,6 +137,11 @@ RSpec.describe 'ApiUsers' do
 
           it 'ユーザの配列をnameの昇順で取得し、200を返す' do
             expect(subject).to be_successful
+            users = User
+                      .order(name: :asc)
+                      .limit(50)
+                      .pluck('id')
+            expect(subject.parsed_body.pluck('id')).to eq users
           end
         end
       end
