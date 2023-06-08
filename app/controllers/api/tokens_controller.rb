@@ -7,7 +7,7 @@ module Api
     # POST /api/token
     def create
       email = params[:email]
-      access_token = AccessToken.new(email:).encode
+      access_token = ::AccessToken.new(email:).encode
       render json: { access_token: }
     end
 
