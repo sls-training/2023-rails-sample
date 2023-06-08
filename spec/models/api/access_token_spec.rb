@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'AcessToken' do
   describe '#create' do
-    subject { Api::AccessToken.new(email:, password:) }
+    subject { Api::AccessToken.create(email:, password:) }
 
     context '管理者でないユーザの場合' do
       let(:email) { '' }
