@@ -5,16 +5,16 @@ require 'rails_helper'
 RSpec.describe 'ApiUsers' do
   describe 'GET /api/users' do
     subject do
-      get("/api/users?limit=#{limit}&offset=#{offset}", headers:)
+      get('/api/users', headers:, params:)
       response
     end
 
-    let(:limit) { 50 }
-    let(:offset) { 1 }
     let!(:current_user) { create(:user, :admin) }
-    let!(:user_list) { create_list(:user, limit, :noadmin) }
+    let!(:user_list) { create_list(:user, 50, :noadmin) }
 
     context 'アクセストークンがない場合' do
+      let(:params) { {} }
+
       it 'エラーメッセージを出力して、404を返す' do
         expect(subject).to be_bad_request
         expect(subject.parsed_body).to have_key('errors')
@@ -26,6 +26,7 @@ RSpec.describe 'ApiUsers' do
 
       context 'アクセストークンが有効期限切れの場合' do
         let(:access_token) { expired_access_token(email: current_user.email) }
+        let(:params) { {} }
 
         it 'エラーメッセージを出力して、401を返す' do
           expect(subject).to be_unauthorized
