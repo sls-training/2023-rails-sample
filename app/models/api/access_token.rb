@@ -15,11 +15,9 @@ module Api
       when Net::HTTPSuccess
         data = JSON.parse(response.body, symbolize_names: true)
         @value = data[:access_token]
-      when Net::HTTPUnauthorized || Net::HTTPForbidden
+      else
         data = JSON.parse(response.body, symbolize_names: true)
         @errors = data[:errors]
-      else
-        @errors = [name: 'access_token', message: response.value]
       end
     end
   end
