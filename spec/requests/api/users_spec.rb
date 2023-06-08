@@ -4,11 +4,6 @@ require 'rails_helper'
 
 RSpec.describe 'ApiUsers' do
   describe 'GET /api/users' do
-    def create_user_list(count)
-      users = build_list(:user, count)
-      User.insert_all users.map(&:attributes)
-    end
-
     subject do
       get('/api/users', headers:, params:)
       response
