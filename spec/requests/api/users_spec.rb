@@ -98,7 +98,7 @@ RSpec.describe 'ApiUsers' do
             context 'ユーザ数が1000未満の場合' do
               before { create_user_list 150 }
 
-              it 'ユーザ情報を上限数取得し、200を返す' do
+              it 'ユーザ情報を全件取得し、200を返す' do
                 expect(subject).to be_successful
                 expect(subject.parsed_body.count).to eq User.count
               end
@@ -120,7 +120,7 @@ RSpec.describe 'ApiUsers' do
             context 'ユーザ数がlimit未満の場合' do
               before { create_user_list 50 }
 
-              it 'ユーザ情報を上限数分取得し、200を返す' do
+              it 'ユーザ情報を全件取得し、200を返す' do
                 expect(subject).to be_successful
                 expect(subject.parsed_body.count).to eq User.count
               end
@@ -143,7 +143,7 @@ RSpec.describe 'ApiUsers' do
           context 'ユーザ数が50未満の場合' do
             before { create_user_list 10 }
 
-            it 'ユーザ情報を上限数取得し、200を返す' do
+            it 'ユーザ情報を全件取得し、200を返す' do
               expect(subject).to be_successful
               expect(subject.parsed_body.count).to eq User.count
             end
