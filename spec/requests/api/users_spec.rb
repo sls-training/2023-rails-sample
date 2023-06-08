@@ -141,7 +141,7 @@ RSpec.describe 'ApiUsers' do
           let(:params) { {} }
 
           context 'ユーザ数が50未満の場合' do
-            before { create_user_list 10 }
+            before { create_user_list 1 }
 
             it 'ユーザ情報を全件取得し、200を返す' do
               expect(subject).to be_successful
@@ -150,7 +150,7 @@ RSpec.describe 'ApiUsers' do
           end
 
           context 'ユーザ数が50以上の場合' do
-            before { create_user_list 100 }
+            before { create_user_list 51 }
 
             it 'ユーザ情報を50件分取得し、200を返す' do
               expect(subject).to be_successful
