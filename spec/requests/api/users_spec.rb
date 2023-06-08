@@ -96,7 +96,7 @@ RSpec.describe 'ApiUsers' do
             let(:limit) { 1001 }
 
             context 'ユーザ数が1000未満の場合' do
-              before { create_user_list 150 }
+              before { create_user_list 1 }
 
               it 'ユーザ情報を全件取得し、200を返す' do
                 expect(subject).to be_successful
@@ -118,7 +118,7 @@ RSpec.describe 'ApiUsers' do
             let(:limit) { 100 }
 
             context 'ユーザ数がlimit未満の場合' do
-              before { create_user_list 50 }
+              before { create_user_list 1 }
 
               it 'ユーザ情報を全件取得し、200を返す' do
                 expect(subject).to be_successful
@@ -127,7 +127,7 @@ RSpec.describe 'ApiUsers' do
             end
 
             context 'ユーザ数がlimit以上の場合' do
-              before { create_user_list 150 }
+              before { create_user_list 101 }
 
               it 'ユーザ情報をlimit数分取得し、200を返す' do
                 expect(subject).to be_successful
