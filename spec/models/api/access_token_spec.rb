@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'AcessToken' do
+RSpec.describe 'AccessToken' do
   describe '#create' do
     subject { Api::AccessToken.create(email:, password:) }
 
