@@ -2,9 +2,9 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Token' do
+RSpec.describe 'AcessToken' do
   describe '#create' do
-    subject { Api::Token.create(email:, password:) }
+    subject { Api::AccessToken.new(email:, password:) }
 
     context '管理者でないユーザの場合' do
       let(:email) { '' }
@@ -12,7 +12,7 @@ RSpec.describe 'Token' do
 
       context 'emailがない場合' do
         it 'errorsが返る' do
-          expect(subject).to have_key(:errors)
+          expect(subject.errors).not_to be_empty
         end
       end
 
@@ -23,7 +23,7 @@ RSpec.describe 'Token' do
           let(:password) { 'wrong_password' }
 
           it 'errorsが返る' do
-            expect(subject).to have_key(:errors)
+            expect(subject.errors).not_to be_empty
           end
         end
 
@@ -31,7 +31,7 @@ RSpec.describe 'Token' do
           let(:password) { 'password' }
 
           it 'errorsが返る' do
-            expect(subject).to have_key(:errors)
+            expect(subject.errors).not_to be_empty
           end
         end
       end
@@ -43,7 +43,7 @@ RSpec.describe 'Token' do
         let(:password) { 'wrong_password' }
 
         it 'errorsが返る' do
-          expect(subject).to have_key(:errors)
+          expect(subject.errors).not_to be_empty
         end
       end
 
@@ -54,7 +54,7 @@ RSpec.describe 'Token' do
           let(:password) { 'wrong_password' }
 
           it 'errorsが返る' do
-            expect(subject).to have_key(:errors)
+            expect(subject.errors).not_to be_empty
           end
         end
 
@@ -62,7 +62,7 @@ RSpec.describe 'Token' do
           let(:password) { Rails.application.credentials.app.rails_sample_password }
 
           it 'アクセストークンが返る' do
-            expect(subject).to have_key(:access_token)
+            expect(subject.value).not_to be_nil
           end
         end
       end
