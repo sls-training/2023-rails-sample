@@ -105,7 +105,7 @@ RSpec.describe 'ApiUsers' do
             end
 
             context 'ユーザ数が1000以上の場合' do
-              before { create_user_list 1500 }
+              before { create_user_list limit }
 
               it 'ユーザ情報を1000まで取得し、200を返す' do
                 expect(subject).to be_successful
