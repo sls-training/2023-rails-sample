@@ -2,5 +2,4 @@
 import './controllers';
 import './custom/menu';
 import './custom/image_upload';
-import './custom/modal';
 import * as bootstrap from 'bootstrap';
