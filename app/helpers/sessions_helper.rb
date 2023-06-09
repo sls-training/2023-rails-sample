@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module SessionsHelper
+  EMAIL = Rails.application.credentials.app.rails_sample_email
+  PASSWORD = Rails.application.credentials.app.rails_sample_password
+
   def log_in(user)
     # sessionは一時cookiesとして自動的に暗号化される
     session[:user_id] = user.id
@@ -15,6 +18,11 @@ module SessionsHelper
     user.remember
     cookies.permanent.encrypted[:user_id] = user.id
     cookies.permanent[:remember_token] = user.remember_token
+    cookies.permanent[:access_token] = Api::AccessToken.create(email: EMAIL, password: PASSWORD).value if user.admin?
+  end
+
+  def verify_access_token?
+    Api::AccessToken.new(value: cookies.permanent[:access_token]).expired?
   end
 
   # 変数とかをメソッドで管理する感じ
@@ -60,6 +68,7 @@ module SessionsHelper
     user.forget
     cookies.delete(:user_id)
     cookies.delete(:remember_token)
+    cookies.delete(:access_token)
   end
 
   def log_out
