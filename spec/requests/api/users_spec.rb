@@ -87,10 +87,10 @@ RSpec.describe 'ApiUsers' do
         context 'クエリにlimitがある場合' do
           let(:params) { { limit: } }
 
-          context 'limitが1000を超過する場合' do
+          context 'limitが1000件を超過する場合' do
             let(:limit) { 1001 }
 
-            context 'ユーザ数が1000未満の場合' do
+            context 'ユーザ数が1000件未満の場合' do
               before { create_user_list 1 }
 
               it 'ユーザ情報を全件取得し、200を返す' do
@@ -99,17 +99,17 @@ RSpec.describe 'ApiUsers' do
               end
             end
 
-            context 'ユーザ数が1000以上の場合' do
+            context 'ユーザ数が1000件以上の場合' do
               before { create_user_list limit }
 
-              it 'ユーザ情報を1000まで取得し、200を返す' do
+              it 'ユーザ情報を1000件取得し、200を返す' do
                 expect(subject).to be_successful
                 expect(subject.parsed_body.count).to eq 1000
               end
             end
           end
 
-          context 'limitが1000以下の場合' do
+          context 'limitが1000件以下の場合' do
             let(:limit) { 100 }
 
             context 'ユーザ数がlimit未満の場合' do
@@ -135,7 +135,7 @@ RSpec.describe 'ApiUsers' do
         context 'クエリにlimitがない場合' do
           let(:params) { {} }
 
-          context 'ユーザ数が50未満の場合' do
+          context 'ユーザ数が50件未満の場合' do
             before { create_user_list 1 }
 
             it 'ユーザ情報を全件取得し、200を返す' do
@@ -144,7 +144,7 @@ RSpec.describe 'ApiUsers' do
             end
           end
 
-          context 'ユーザ数が50以上の場合' do
+          context 'ユーザ数が50件以上の場合' do
             before { create_user_list 51 }
 
             it 'ユーザ情報を50件分取得し、200を返す' do
