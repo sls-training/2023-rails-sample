@@ -20,6 +20,9 @@ gem 'rexml', '~> 3.2', '>= 3.2.4'
 
 gem 'image_processing', '1.12.2'
 
+# js
+gem "jsbundling-rails"
+
 ## css
 gem 'cssbundling-rails', '~> 1.1'
 
