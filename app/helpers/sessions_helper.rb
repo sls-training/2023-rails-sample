@@ -22,7 +22,7 @@ module SessionsHelper
   end
 
   def verify_access_token?
-    Api::AccessToken.new(value: cookies.permanent[:access_token]).expired?
+    !Api::AccessToken.new(value: cookies[:access_token]).expired?
   end
 
   # 変数とかをメソッドで管理する感じ
