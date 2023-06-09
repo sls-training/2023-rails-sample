@@ -10,7 +10,6 @@ RSpec.describe 'ApiUsers' do
     end
 
     let!(:current_user) { create(:user, :admin) }
-    let!(:user_list) { create_list(:user, 50, :noadmin) }
 
     context 'アクセストークンがない場合' do
       let(:params) { {} }
@@ -103,34 +102,72 @@ RSpec.describe 'ApiUsers' do
         end
 
         context 'クエリにlimitがある場合' do
-          context 'limitが1000を超過する場合' do
-            context 'ユーザ数が1000未満の場合' do
-              # TODO: ユーザ情報を上限数取得し、200を返すテストを作成する
+          let(:params) { { limit: } }
+
+          context 'limitが1000件を超過する場合' do
+            let(:limit) { 1001 }
+
+            context 'ユーザ数が1000件未満の場合' do
+              before { create_user_list 1 }
+
+              it 'ユーザ情報を全件取得し、200を返す' do
+                expect(subject).to be_successful
+                expect(subject.parsed_body.count).to eq User.count
+              end
             end
 
-            context 'ユーザ数が#1000以上の場合' do
-              # TODO: ユーザ情報を1000まで取得し、200を返すテストを作成する
+            context 'ユーザ数が1000件以上の場合' do
+              before { create_user_list limit }
+
+              it 'ユーザ情報を1000件取得し、200を返す' do
+                expect(subject).to be_successful
+                expect(subject.parsed_body.count).to eq 1000
+              end
             end
           end
 
-          context 'limitが1000以下の場合' do
+          context 'limitが1000件以下の場合' do
+            let(:limit) { 100 }
+
             context 'ユーザ数がlimit未満の場合' do
-              # TODO: ユーザ情報をlimit数分取得し、200を返すテストを作成する
+              before { create_user_list 1 }
+
+              it 'ユーザ情報を全件取得し、200を返す' do
+                expect(subject).to be_successful
+                expect(subject.parsed_body.count).to eq User.count
+              end
             end
 
             context 'ユーザ数がlimit以上の場合' do
-              # TODO: ユーザ情報を上限数分取得し、200を返すテストを作成する
+              before { create_user_list 101 }
+
+              it 'ユーザ情報をlimit数分取得し、200を返す' do
+                expect(subject).to be_successful
+                expect(subject.parsed_body.count).to eq limit
+              end
             end
           end
         end
 
         context 'クエリにlimitがない場合' do
+          let(:params) { {} }
+
           context 'ユーザ数が50件未満の場合' do
-            # TODO: ユーザ情報を上限数取得し、200を返すテストを作成する
+            before { create_user_list 1 }
+
+            it 'ユーザ情報を全件取得し、200を返す' do
+              expect(subject).to be_successful
+              expect(subject.parsed_body.count).to eq User.count
+            end
           end
 
           context 'ユーザ数が50件以上の場合' do
-            # TODO: ユーザ情報を50件分取得し、200を返すテストを作成する
+            before { create_user_list 51 }
+
+            it 'ユーザ情報を50件分取得し、200を返す' do
+              expect(subject).to be_successful
+              expect(subject.parsed_body.count).to eq 50
+            end
           end
         end
 
