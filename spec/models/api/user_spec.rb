@@ -9,8 +9,8 @@ RSpec.describe 'User' do
     let(:user) { create(:user, :admin) }
     let(:access_token) { AccessToken.new(email: user.email).encode }
 
-    it 'jsonのレスポンスを取得する' do
-      expect { JSON.parse(subject) }.not_to raise_error(JSON::ParserError)
+    it '配列のオブジェクトをレスポンスとして取得する' do
+      expect(subject.instance_of?(Array)).to be true
     end
   end
 end
