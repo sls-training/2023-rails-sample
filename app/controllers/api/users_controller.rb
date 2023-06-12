@@ -5,9 +5,16 @@ module Api
     include AccessTokenVerifiable
     before_action :validate_user_id, only: %i[show destroy]
 
+    SORTABLE_KEYS = %w[name id activated_at created_at updated_at].freeze
+    ORDERABLE_KEYS = %w[asc desc].freeze
+
     # GET /api/users
     def index
-      render :index, locals: { users: }
+      @_users = User
+                  .order(sort_key => order_by)
+                  .limit(limit)
+                  .offset(offset)
+      render :index, locals: { users: @_users }
     end
 
     # GET /api/users/:id
@@ -52,15 +59,20 @@ module Api
 
     private
 
-    def users
-      sort_key = params.fetch(:sort_key, 'name')
-      order_by = params.fetch(:order_by, 'asc')
-      limit = [params.fetch(:limit, 50).to_i, 1000].min
-      offset = params[:offset]
-      @_users ||= User
-                    .order(sort_key => order_by)
-                    .limit(limit)
-                    .offset(offset)
+    def sort_key
+      @_sort_key ||= SORTABLE_KEYS.include?(params[:sort_key]) ? params[:sort_key] : 'name'
+    end
+
+    def order_by
+      @_order_by ||= ORDERABLE_KEYS.include?(params[:order_by]) ? params[:order_by] : 'asc'
+    end
+
+    def limit
+      @_limit ||= [params.fetch(:limit, 50).to_i, 1000].min
+    end
+
+    def offset
+      @_offset ||= params[:offset]
     end
 
     def user
