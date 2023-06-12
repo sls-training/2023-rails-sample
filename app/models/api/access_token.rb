@@ -36,5 +36,9 @@ module Api
       end
       false
     end
+
+    def valid?
+      !expired?
+    end
   end
 end
