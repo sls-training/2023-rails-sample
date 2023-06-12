@@ -19,4 +19,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const editUserButtons = document.querySelectorAll<HTMLElement>('#edit-user-button');
   const deleteUserButtons = document.querySelectorAll<HTMLElement>('#delete-user-button');
   const modal = document.getElementById('modal-component');
+
+  const root = createRoot(modal);
+
+  createUserButton?.addEventListener('click', () => {
+    root.render(<CreationModal />);
+  });
+
+  editUserButtons.forEach((editUserButton: HTMLElement) => {
+    editUserButton.addEventListener('click', function () {
+      if (!editUserButton.dataset.user) return;
+      const user = JSON.parse(editUserButton.dataset.user) as User;
+      root.render(<EditationModal user={user} />);
+    });
+  });
+
+  deleteUserButtons.forEach((deleteUserButton: HTMLElement) => {
+    deleteUserButton.addEventListener('click', function () {
+      if (!deleteUserButton.dataset.user) return;
+      const user = JSON.parse(deleteUserButton.dataset.user) as User;
+      root.render(<DeletionModal user={user} />);
+    });
+  });
 });
