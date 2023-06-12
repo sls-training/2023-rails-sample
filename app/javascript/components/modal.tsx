@@ -13,3 +13,10 @@ const EditationModal = ({ user }: { user: User }) => {
 const DeletionModal = ({ user }: { user: User }) => {
   return <div className="modal-content">{/* TDDO:ここにユーザ削除用のモーダルの中身を作成する */}</div>;
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+  const createUserButton = document.querySelector<HTMLElement>('#create-user-button');
+  const editUserButtons = document.querySelectorAll<HTMLElement>('#edit-user-button');
+  const deleteUserButtons = document.querySelectorAll<HTMLElement>('#delete-user-button');
+  const modal = document.getElementById('modal-component');
+});
