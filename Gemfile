@@ -20,6 +20,9 @@ gem 'rexml', '~> 3.2', '>= 3.2.4'
 
 gem 'image_processing', '1.12.2'
 
+# js
+gem "jsbundling-rails"
+
 ## css
 gem 'cssbundling-rails', '~> 1.1'
 
@@ -38,9 +41,6 @@ gem 'sqlite3', '~> 1.4'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem 'puma', '~> 5.0'
-
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem 'importmap-rails'
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem 'turbo-rails'
