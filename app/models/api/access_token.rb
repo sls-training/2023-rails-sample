@@ -28,13 +28,11 @@ module Api
     end
 
     def expired?
-      begin
-        JWT.decode value, Rails.application.credentials.app.secret_access_key, true,
-                   { algorithm: 'HS256' }
-      rescue JWT::DecodeError
-        return true
-      end
+      JWT.decode value, Rails.application.credentials.app.secret_access_key, true,
+                 { algorithm: 'HS256' }
       false
+    rescue JWT::DecodeError
+      true
     end
 
     def valid?
