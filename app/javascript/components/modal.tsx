@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import User from '../types/user';
 
 export const CreationModal = () => {
-  const [password, setPassword] = useState<string>('');
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  function onChangeConfirmPassword(e: React.ChangeEventHandler<HTMLInputElement>) {
+  function onChangeConfirmPassword(e) {
     const changedValue = e.target.value;
     const validateText = password != changedValue ? 'パスワードが上の入力と違います' : '';
     e.target.setCustomValidity(validateText);
