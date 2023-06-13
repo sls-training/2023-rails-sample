@@ -29,7 +29,7 @@ export const EditationModal = ({ user }: { user: User }) => {
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form method="post" action={`/admin/users`}>
+      <form method="post" action={`/admin/users/${user.id}`}>
         <div className="modal-body">
           <label htmlFor="name">名前</label>
           <input
