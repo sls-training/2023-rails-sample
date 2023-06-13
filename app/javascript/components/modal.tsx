@@ -4,7 +4,7 @@ import User from '../types/user';
 export const CreationModal = () => {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
-  useEffect(() => {});
+
   function onChangeConfirmPassword(e: React.ChangeEventHandler<HTMLInputElement>) {
     const changedValue = e.target.value;
     const validateText = password != changedValue ? 'パスワードが上の入力と違います' : '';
