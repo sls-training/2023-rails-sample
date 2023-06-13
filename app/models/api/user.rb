@@ -5,8 +5,6 @@ module Api
     extend HttpMethod
     attr_reader :id, :name, :email, :admin, :activated, :activated_at, :created_at, :updated_at
 
-    attr
-
     def initialize(id:, name:, email:, admin:, activated:, activated_at:, created_at:, updated_at:)
       @id = id
       @name = name
