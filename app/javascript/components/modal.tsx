@@ -14,13 +14,29 @@ export const CreationModal = () => (
     <form method="post" action={`/admin/users`}>
       <div className="modal-body">
         <label htmlFor="name">名前</label>
-        <input className="form-control" type="text" id="name" name="name" required />
+        <input className="form-control" type="text" id="name" name="name" autoComplete="name" required />
         <label htmlFor="email">メール</label>
-        <input className="form-control" type="text" id="email" name="email" required />
+        <input
+          className="form-control"
+          type="text"
+          id="email"
+          name="email"
+          pattern="[\w\-\._]+@[\w\-\._]+\.[A-Za-z]+"
+          title="***@*.*の形で入力してください"
+          autoComplete="email"
+          required
+        />
         <label htmlFor="password">パスワード</label>
-        <input className="form-control" type="text" id="password" name="password" required />
+        <input className="form-control" type="text" id="password" name="password" minLength={6} required />
         <label htmlFor="password_confirmation">パスワードをもう一度入力</label>
-        <input className="form-control" type="text" id="password_confirmation" name="password_confirmation" required />
+        <input
+          className="form-control"
+          type="text"
+          id="password_confirmation"
+          name="password_confirmation"
+          minLength={6}
+          required
+        />
       </div>
       <div className="modal-footer">
         <input type="button" className="btn btn-secondary" data-dismiss="modal" value="いいえ" />
