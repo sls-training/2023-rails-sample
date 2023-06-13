@@ -10,6 +10,10 @@ module Admin
       @users = User.limit(100)
     end
 
+    def update
+      # TODO: ユーザ編集するAPIを叩く
+    end
+
     private
 
     def require_admin_user
