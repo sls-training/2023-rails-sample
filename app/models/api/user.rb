@@ -22,36 +22,33 @@ module Api
       def get_list(access_token:, sort_by: 'name', order_by: 'asc', limit: 50, offset: 0)
         headers = { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{access_token}" }
         response = get('/users', params: { sort_by:, order_by:, limit:, offset: }, headers:)
-        data = JSON.parse(response.body, symbolize_names: true)
+        users = JSON.parse(response.body, symbolize_names: true)
         case response
         when Net::HTTPSuccess
-          to_users data
+          users.map do |user|
+            from_json user
+          end
+
         else
-          to_errors data
+          users[:errors].map do |error|
+            Api::Error.from_json(error)
+          end
         end
       end
 
       private
 
-      def to_users(data)
-        data.map do |x|
-          new(
-            id:           x[:id],
-            name:         x[:email],
-            email:        x[:email],
-            admin:        x[:admin],
-            activated:    x[:activated],
-            activated_at: x[:activated_at],
-            created_at:   x[:created_at],
-            updated_at:   x[:updated_at]
-          )
-        end
-      end
-
-      def to_errors(data)
-        data[:errors].map do |x|
-          Api::Error.new(name: x[:name], message: x[:message])
-        end
+      def from_json(json)
+        new(
+          id:           json[:id],
+          name:         json[:email],
+          email:        json[:email],
+          admin:        json[:admin],
+          activated:    json[:activated],
+          activated_at: json[:activated_at],
+          created_at:   json[:created_at],
+          updated_at:   json[:updated_at]
+        )
       end
     end
   end
