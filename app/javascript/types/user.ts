@@ -3,6 +3,7 @@ type User = {
   name: string;
   email: string;
   admin: boolean;
+  activated: boolean;
   activated_at: Date | null;
   created_at: Date;
   updated_at: Date;
