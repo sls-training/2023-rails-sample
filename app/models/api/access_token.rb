@@ -17,8 +17,8 @@ module Api
         new(value:)
       else
         errors = data[:errors]
-        errors.map do |x|
-          Api::Error.new(name: x[:name], message: x[:message])
+        errors.map do |error|
+          Api::Error.from_json error
         end
       end
     end

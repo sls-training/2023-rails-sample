@@ -26,12 +26,12 @@ module Api
         case response
         when Net::HTTPSuccess
           users.map do |user|
-            from_json user
+            Api::User.from_json user
           end
 
         else
           users[:errors].map do |error|
-            Api::Error.from_json(error)
+            Api::Error.from_json error
           end
         end
       end
