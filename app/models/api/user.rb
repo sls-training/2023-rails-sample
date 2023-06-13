@@ -26,7 +26,7 @@ module Api
         case response
         when Net::HTTPSuccess
           users.map do |user|
-            Api::User.from_json user
+            from_json user
           end
 
         else
@@ -35,8 +35,6 @@ module Api
           end
         end
       end
-
-      private
 
       def from_json(json)
         new(
