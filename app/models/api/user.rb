@@ -35,16 +35,11 @@ module Api
       end
 
       def from_json(json)
-        new(
-          id:           json[:id],
-          name:         json[:email],
-          email:        json[:email],
-          admin:        json[:admin],
-          activated:    json[:activated],
-          activated_at: json[:activated_at],
-          created_at:   json[:created_at],
-          updated_at:   json[:updated_at]
+        id, name, email, admin, activated, activated_at, created_at, updated_at = json.values_at(
+          :id, :name, :email, :admin,
+          :activated, :activated_at, :created_at, :updated_at
         )
+        new(id:, name:, email:, admin:, activated:, activated_at:, created_at:, updated_at:)
       end
     end
   end
