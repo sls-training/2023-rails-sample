@@ -1,5 +1,5 @@
 import './controllers';
 import './custom/menu';
 import './custom/image_upload';
-import './components/modal';
+import './entrypoints/admin/users';
 import * as bootstrap from 'bootstrap';
