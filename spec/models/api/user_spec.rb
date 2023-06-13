@@ -10,7 +10,7 @@ RSpec.describe 'User' do
       let(:access_token) { nil }
 
       it 'errorsが返る' do
-        expect(subject).to have_key(:errors)
+        expect(subject).to include Api::Error
       end
     end
 
@@ -21,7 +21,7 @@ RSpec.describe 'User' do
         let(:access_token) { expired_access_token(email: current_user.email) }
 
         it 'errorsが返る' do
-          expect(subject).to have_key(:errors)
+          expect(subject).to include Api::Error
         end
       end
 
@@ -29,7 +29,7 @@ RSpec.describe 'User' do
         let(:access_token) { AccessToken.new(email: current_user.email).encode }
 
         it 'ユーザの配列が返る' do
-          expect(subject.instance_of?(Array)).to be true
+          expect(subject).to include Api::User
         end
       end
     end
