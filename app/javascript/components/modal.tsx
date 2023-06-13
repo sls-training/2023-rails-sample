@@ -80,6 +80,7 @@ export const EditationModal = ({ user }: { user: User }) => {
           <input type="button" className="btn btn-secondary" data-dismiss="modal" value="いいえ" />
           <input className="btn btn-primary" type="submit" value="はい" />
           <input name="authenticity_token" type="hidden" value={getCsrfToken()} />
+          <input name="_method" type="hidden" value="PATCH" />
         </div>
       </form>
     </div>
