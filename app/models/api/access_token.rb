@@ -16,8 +16,7 @@ module Api
         value = data[:access_token]
         new(value:)
       else
-        errors = data[:errors]
-        errors.map do |error|
+        data[:errors].map do |error|
           Api::Error.from_json error
         end
       end
