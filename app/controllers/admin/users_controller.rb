@@ -10,6 +10,10 @@ module Admin
       @users = User.limit(100)
     end
 
+    def create
+      # TODO: ユーザ作成のAPIを呼ぶ
+    end
+
     private
 
     def require_admin_user
