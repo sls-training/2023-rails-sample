@@ -7,10 +7,10 @@ export const CreationModal = () => {
 };
 
 export const EditationModal = ({ user }: { user: User }) => {
-  const [name, setName] = useState<string>(user.name);
-  const [email, setEmail] = useState<string>(user.email);
-  const [admin, setAdmin] = useState<boolean>(user.admin);
-  const [activated, setActivated] = useState<boolean>(user.activated_at);
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [admin, setAdmin] = useState(user.admin);
+  const [activated, setActivated] = useState(user.activated_at);
 
   useEffect(() => {
     setName(user.name);
