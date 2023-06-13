@@ -41,7 +41,7 @@ export const CreationModal = () => {
           <label htmlFor="password">パスワード</label>
           <input
             className="form-control"
-            type="text"
+            type="password"
             id="password"
             name="password"
             minLength={6}
@@ -52,7 +52,7 @@ export const CreationModal = () => {
           <label htmlFor="password_confirmation">パスワードをもう一度入力</label>
           <input
             className="form-control"
-            type="text"
+            type="password"
             id="password_confirmation"
             name="password_confirmation"
             minLength={6}
