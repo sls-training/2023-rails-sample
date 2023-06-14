@@ -29,7 +29,7 @@ curl -X PATCH\
 
 ## Response
 
-### 201 Created
+### 200 OK
 
 successful operation<br>
 Content-Type: `application/json`
