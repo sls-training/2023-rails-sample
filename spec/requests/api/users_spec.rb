@@ -459,4 +459,94 @@ RSpec.describe 'ApiUsers' do
       end
     end
   end
+
+  describe 'PATCH /api/users/:id' do
+    subject do
+      patch("/api/users/#{target_user.id}", headers:, params:)
+      response
+    end
+
+    let!(:target_user) { create(:user) }
+
+    context 'アクセストークンがない場合' do
+      let(:params) do
+        { name: Faker::Name.name, email: Faker::Internet.email }
+      end
+
+      it '400でエラーメッセージを出力して失敗する' do
+        expect(subject).to be_bad_request
+        expect(subject.parsed_body).to have_key('errors')
+      end
+    end
+
+    context 'アクセストークンがある場合' do
+      let(:headers) { { 'Authorization' => "Bearer #{access_token}" } }
+      let!(:user) { create(:user, :admin) }
+
+      context 'アクセストークンが有効期限切れの場合' do
+        let(:access_token) { expired_access_token(email: user.email) }
+        let(:params) do
+          { name: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password(min_length: 6) }
+        end
+
+        it '401でエラーメッセージを出力して失敗する' do
+          expect(subject).to be_unauthorized
+          expect(subject.parsed_body).to have_key('errors')
+        end
+      end
+
+      context 'アクセストークンが有効期限内の場合' do
+        let(:access_token) { AccessToken.new(email: user.email).encode }
+
+        context 'パラメータが適切でない場合' do
+          let(:name) { Faker::Name.name }
+          let(:email) { Faker::Internet.email }
+          let(:wrong_cases) do
+            [
+              { name: '', email: },
+              { name:, email: '' },
+              * %w[
+                user@example,com user_at_foo.org user.name@example. foo@bar_baz.com
+                foo@bar+baz.com
+              ].map { |wrong_email| { name:, email: wrong_email } },
+              { name: 'a' * 51, email: },
+              { name:, email: "#{'a' * 244}@example.com" }
+            ]
+          end
+
+          it '400が返って、エラーメッセージを返すこと' do
+            wrong_cases.each do |wrong_case|
+              patch("/api/users/#{target_user.id}", headers:, params: wrong_case)
+              expect(response).to be_bad_request
+              expect(response.parsed_body).to have_key('errors')
+            end
+          end
+        end
+
+        context 'パラメータが適切な場合' do
+          context 'ユーザが存在する場合' do
+            let(:params) do
+              { name: Faker::Name.name, email: user.email }
+            end
+
+            it '422が返って、エラーメッセージを返すこと' do
+              expect(subject).to have_http_status :unprocessable_entity
+              expect(subject.parsed_body).to have_key('errors')
+            end
+          end
+
+          context 'ユーザが存在しない場合' do
+            let(:params) { { name: Faker::Name.name, email: Faker::Internet.email } }
+
+            it '200が返って、作成したユーザを返すこと' do
+              expect(subject).to be_successful
+              expect(subject.parsed_body).to include(
+                *%w[id name admin activated activated_at created_at updated_at]
+              )
+            end
+          end
+        end
+      end
+    end
+  end
 end
