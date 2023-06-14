@@ -67,6 +67,11 @@ module Api
       [name, email, admin, activated]
     end
 
+    def render_user_existing
+      errors = [{ name: 'email', message: t('.exist_user') }]
+      render 'api/errors', locals: { errors: }, status: :unprocessable_entity
+    end
+
     def sort_key
       @_sort_key ||= SORTABLE_KEYS.include?(params[:sort_key]) ? params[:sort_key] : 'name'
     end
