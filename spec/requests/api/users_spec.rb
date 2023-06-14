@@ -466,11 +466,13 @@ RSpec.describe 'ApiUsers' do
       response
     end
 
+    let(:admin) { [true, false].sample }
+    let(:activated) { [true, false].sample }
     let!(:target_user) { create(:user) }
 
     context 'アクセストークンがない場合' do
       let(:params) do
-        { name: Faker::Name.name, email: Faker::Internet.email }
+        { name: Faker::Name.name, email: Faker::Internet.email, admin:, activated: }
       end
 
       it '400でエラーメッセージを出力して失敗する' do
@@ -486,7 +488,7 @@ RSpec.describe 'ApiUsers' do
       context 'アクセストークンが有効期限切れの場合' do
         let(:access_token) { expired_access_token(email: user.email) }
         let(:params) do
-          { name: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password(min_length: 6) }
+          { name: Faker::Name.name, email: Faker::Internet.email, admin:, activated: }
         end
 
         it '401でエラーメッセージを出力して失敗する' do
@@ -526,7 +528,7 @@ RSpec.describe 'ApiUsers' do
         context 'パラメータが適切な場合' do
           context 'ユーザが存在する場合' do
             let(:params) do
-              { name: Faker::Name.name, email: user.email }
+              { name: Faker::Name.name, email: user.email, admin:, activated: }
             end
 
             it '422が返って、エラーメッセージを返すこと' do
@@ -536,7 +538,9 @@ RSpec.describe 'ApiUsers' do
           end
 
           context 'ユーザが存在しない場合' do
-            let(:params) { { name: Faker::Name.name, email: Faker::Internet.email } }
+            let(:params) do
+              { name: Faker::Name.name, email: Faker::Internet.email, admin:, activated: }
+            end
 
             it '200が返って、作成したユーザを返すこと' do
               expect(subject).to be_successful
