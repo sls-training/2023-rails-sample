@@ -46,6 +46,22 @@ module Api
       end
     end
 
+    def update
+      name, email, admin, activated = update_params
+
+      ## ユーザがすでに存在している時
+      render_user_existing and return if User.exists?(email:)
+
+      if user.update(name:, email:, admin:, activated:)
+        # ユーザの更新に成功した場合
+        render :update, locals: { user: }, status: :ok
+      else
+        ## パラメータに不備があった場合
+        errors = user.errors.map { |x| { name: x.attribute, message: x.message } }
+        render 'api/errors', locals: { errors: }, status: :bad_request
+      end
+    end
+
     def destroy
       ## ユーザが自分自身だった場合
       if current_user == user
