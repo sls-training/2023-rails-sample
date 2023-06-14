@@ -59,6 +59,14 @@ module Api
 
     private
 
+    def update_params
+      name = params.fetch(:name, user.name)
+      email = params.fetch(:email, user.email)
+      admin = params.fetch(:admin, user.admin)
+      activated = params.fetch(:activated, user.activated)
+      [name, email, admin, activated]
+    end
+
     def sort_key
       @_sort_key ||= SORTABLE_KEYS.include?(params[:sort_key]) ? params[:sort_key] : 'name'
     end
