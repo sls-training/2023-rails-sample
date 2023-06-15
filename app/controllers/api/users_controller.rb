@@ -50,7 +50,7 @@ module Api
       name, email, admin, activated = update_params
 
       ## ユーザがすでに存在している時
-      render_user_existing and return if User.exists?(email:)
+      render_user_existing and return if ::User.exists?(email:)
 
       if user.update(name:, email:, admin:, activated:)
         # ユーザの更新に成功した場合
