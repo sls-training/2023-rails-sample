@@ -1,13 +1,37 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'webmock/rspec'
 
 RSpec.describe 'User' do
   describe '#get_list' do
     subject { Api::User.get_list(access_token:) }
 
+    before { WebMock.enable! }
+
     context 'アクセストークンがない場合' do
       let(:access_token) { nil }
+
+      before do
+        WebMock
+          .stub_request(:post, 'http://localhost:3000/api/users')
+          .with(
+            query:   { limit: 50, offset: 0, order_by: 'asc', sort_by: 'name' },
+            headers: { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{access_token}" }
+          )
+          .to_return(
+            body:    {
+              errors: [
+                {
+                  name:    'access_token',
+                  message: 'Authentication token is missing'
+                }
+              ]
+            },
+            status:  400,
+            headers: { 'Content-Type' => 'application/json' }
+          )
+      end
 
       it 'errorsが返る' do
         expect(subject).to include Api::Error
