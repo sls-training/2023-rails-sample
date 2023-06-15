@@ -7,8 +7,6 @@ RSpec.describe 'AccessToken' do
   describe '#create' do
     subject { Api::AccessToken.create(email:, password:) }
 
-    before { WebMock.enable! }
-
     context '管理者でないユーザの場合' do
       let(:email) { '' }
       let(:password) { 'password' }

@@ -7,8 +7,6 @@ RSpec.describe 'User' do
   describe '#get_list' do
     subject { Api::User.get_list(access_token:) }
 
-    before { WebMock.enable! }
-
     let(:limit) { 50 }
     let(:sort_key) { 'name' }
     let(:order_by) { 'asc' }
