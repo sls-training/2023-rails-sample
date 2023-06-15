@@ -11,8 +11,8 @@ RSpec.describe 'AccessToken' do
       let(:password) { 'password' }
 
       context 'emailがない場合' do
-        it 'errorsが返る' do
-          expect(subject.errors).not_to be_empty
+        it 'errorが返る' do
+          expect(subject).to include Api::Error
         end
       end
 
@@ -22,16 +22,16 @@ RSpec.describe 'AccessToken' do
         context 'パスワードが間違っている場合' do
           let(:password) { 'wrong_password' }
 
-          it 'errorsが返る' do
-            expect(subject.errors).not_to be_empty
+          it 'errorが返る' do
+            expect(subject).to include Api::Error
           end
         end
 
         context 'emailとパスワードが正しい場合' do
           let(:password) { 'password' }
 
-          it 'errorsが返る' do
-            expect(subject.errors).not_to be_empty
+          it 'errorが返る' do
+            expect(subject).to include Api::Error
           end
         end
       end
@@ -42,8 +42,8 @@ RSpec.describe 'AccessToken' do
         let(:email) { '' }
         let(:password) { 'wrong_password' }
 
-        it 'errorsが返る' do
-          expect(subject.errors).not_to be_empty
+        it 'errorが返る' do
+          expect(subject).to include Api::Error
         end
       end
 
@@ -53,8 +53,8 @@ RSpec.describe 'AccessToken' do
         context 'パスワードが間違っている場合' do
           let(:password) { 'wrong_password' }
 
-          it 'errorsが返る' do
-            expect(subject.errors).not_to be_empty
+          it 'errorが返る' do
+            expect(subject).to include Api::Error
           end
         end
 
