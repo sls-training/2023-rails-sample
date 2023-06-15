@@ -10,7 +10,7 @@ module Api
 
     # GET /api/users
     def index
-      @_users = User
+      @_users = ::User
                   .order(sort_key => order_by)
                   .limit(limit)
                   .offset(offset)
