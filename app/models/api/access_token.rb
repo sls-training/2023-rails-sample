@@ -26,5 +26,17 @@ module Api
       @value = value
       @errors = errors
     end
+
+    def expired?
+      JWT.decode value, Rails.application.credentials.app.secret_access_key, true,
+                 { algorithm: 'HS256' }
+      false
+    rescue JWT::DecodeError
+      true
+    end
+
+    def valid?
+      !expired?
+    end
   end
 end
