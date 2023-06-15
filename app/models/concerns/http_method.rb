@@ -20,4 +20,12 @@ module HttpMethod
     http.use_ssl = uri.scheme == 'https'
     http.post(uri.path, params.to_json, headers)
   end
+
+  def delete(url_path, params: {}, headers: {})
+    uri = URI(File.join(BASE_URL, url_path))
+    uri.query = URI.encode_www_form(params)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = uri.scheme == 'https'
+    http.delete(uri.to_s, headers)
+  end
 end
