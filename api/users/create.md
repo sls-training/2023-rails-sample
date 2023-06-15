@@ -107,6 +107,21 @@ Content-Type: `application/json`
   }
   ```
 
+### 404 Not Found
+
+- 存在しない ID を指定した場合
+
+```json
+{
+  "errors": [
+    {
+      "name": "user_id",
+      "message": "User does not exist"
+    }
+  ]
+}
+```
+
 ### 422 Unprocessable Entity
 
 - ユーザが既に存在している場合
