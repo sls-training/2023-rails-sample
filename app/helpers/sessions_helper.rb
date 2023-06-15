@@ -67,11 +67,11 @@ module SessionsHelper
     user.forget
     cookies.delete(:user_id)
     cookies.delete(:remember_token)
-    cookies.delete(:access_token)
   end
 
   def log_out
     forget(current_user)
+    cookies.delete(:access_token)
     reset_session
   end
 
