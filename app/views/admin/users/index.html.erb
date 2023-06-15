@@ -3,11 +3,40 @@
   <div class="container-fluid">
     <div>
       <h3>ユーザ管理</h3>
-      <button class="btn btn-primary btn-sm" type="button" data-toggle="modal"
-        data-target="#createUserModal">
+      <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#createUserModal">
         <i class="fas fa-user fa-sm text-white-50"></i>&nbsp;ユーザ作成
       </button>
-      <%= render 'creation_modal' %>
+      <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createUserModalTitle"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="createUserModalTitle">ユーザを作成</h5>
+              <button type="button" class="btn btn-secondary" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <%= form_with model: User.new, url: {controller: 'admin/users', action: 'create' } do |f| %>
+            <div class="modal-body">
+              <%= f.label :name, "名前" %>
+              <%= f.text_field :name, class: 'form-control' %>
+              <%= f.label :email, "メール" %>
+              <%= f.email_field :email, class: 'form-control' %>
+              <%= f.label :password, "パスワード" %>
+              <%= f.password_field :password, class: 'form-control' %>
+              <%= f.label :password_confirmation, "パスワードをもう一度入力" %>
+              <%= f.password_field :password_confirmation, class: 'form-control' %>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                戻る
+              </button>
+              <%= f.submit "作成", class: "btn btn-primary" %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="container-fluid">
@@ -48,8 +77,7 @@
                 <td><%= user[:created_at].strftime("%Y/%m/%d %H:%M:%S") %></td>
                 <td><%= user[:updated_at].strftime("%Y/%m/%d %H:%M:%S") %></td>
                 <td class="d-flex flex-row justify-content-between">
-                  <button class="btn btn-success btn-sm" type="button" data-toggle="modal"
-                    data-target="#editUserModal">
+                  <button class="btn btn-success btn-sm" type="button" data-toggle="modal" data-target="#editUserModal">
                     編集
                   </button>
                   <button class="btn btn-danger btn-sm" type="button" data-toggle="modal"

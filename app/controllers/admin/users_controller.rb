@@ -19,7 +19,7 @@ module Admin
       store_location
       redirect_to login_url, status: :see_other, flash: { danger: 'エラー : 管理者ユーザでログインしてください' }
     end
-    
+
     def require_access_token
       return if verify_access_token?
 
