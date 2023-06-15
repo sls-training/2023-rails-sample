@@ -38,9 +38,10 @@ class SessionsController < ApplicationController
     email = params[:session][:email].downcase
     password = params[:session][:password]
     @user = User.find_by(email:)
-    if @user&.authenticate(password) ## = user && user.authenticate(params[:session][:password])
+    logger.debug(cookies[:access_token])
+    if @user&.authenticate(password)
       if @user.activated?
-        cookies[:access_token] = Api::AccessToken.create(email:, password:).value if @user.admin?
+        cookies.permanent[:access_token] = Api::AccessToken.create(email:, password:).value if @user.admin?
         account_active(@user)
       else
         account_not_acitve
