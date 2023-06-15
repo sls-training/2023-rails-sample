@@ -14,6 +14,7 @@ http://localhost:3000/api/users/:id
 | --------- | ------- | ------ | ---------------------- | ------------------ |
 | name      | String  |        | ユーザ名               | "uouo chan"        |
 | email     | String  |        | メール                 | "test@example.com" |
+| password  | String  |        | パスワード             | "hogehoge"         |
 | admin     | Boolean |        | 管理者かどうか         | true               |
 | activated | Boolean |        | メール認証済みかどうか | true               |
 
