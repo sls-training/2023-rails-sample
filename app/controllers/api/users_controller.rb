@@ -30,12 +30,12 @@ module Api
       password_confirmation = password
 
       ## ユーザがすでに存在している時
-      if User.exists?(email:)
+      if ::User.exists?(email:)
         errors = [{ name: 'email', message: t('.exist_user') }]
         render 'api/errors', locals: { errors: }, status: :unprocessable_entity and return
       end
 
-      new_user = User.create(name:, email:, password:, password_confirmation:)
+      new_user = ::User.create(name:, email:, password:, password_confirmation:)
       if new_user.invalid?
         ## パラメータに不備があった場合
         errors = new_user.errors.map { |x| { name: x.attribute, message: x.message } }
@@ -76,7 +76,7 @@ module Api
     end
 
     def user
-      @_user ||= User.find_by(id: params[:id])
+      @_user ||= ::User.find_by(id: params[:id])
     end
 
     def validate_user_id

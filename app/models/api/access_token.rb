@@ -4,7 +4,6 @@ module Api
   class AccessToken
     extend HttpMethod
     attr_reader :value
-    attr_reader :errors
 
     def self.create(email:, password:)
       response = post(
@@ -17,14 +16,14 @@ module Api
         value = data[:access_token]
         new(value:)
       else
-        errors = data[:errors]
-        new(errors:)
+        data[:errors].map do |error|
+          Api::Error.from_json error
+        end
       end
     end
 
-    def initialize(value: nil, errors: nil)
+    def initialize(value: nil)
       @value = value
-      @errors = errors
     end
 
     def expired?
