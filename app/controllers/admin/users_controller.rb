@@ -14,7 +14,11 @@ module Admin
     def create
       # TODO: ユーザ作成のAPIを呼ぶ
     end
-    
+
+    def update
+      # TODO: ユーザ編集するAPIを叩く
+    end
+
     def destroy
       # TODO: ユーザ削除のAPIを呼ぶ
     end
