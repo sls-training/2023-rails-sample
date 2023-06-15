@@ -9,12 +9,26 @@ export const CreationModal = () => {
 export const EditationModal = ({ user }: { user: User }) => {
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
+  const [isCheckedPassword, setIsCheckedPasword] = useState(false);
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [admin, setAdmin] = useState(user.admin);
   const [activated, setActivated] = useState(user.activated_at);
+
+  function onChangeConfirmPassword(e) {
+    const changedValue = e.target.value;
+    const validateText = password != changedValue ? 'パスワードが上の入力と違います' : '';
+    e.target.setCustomValidity(validateText);
+
+    setConfirmPassword(changedValue);
+  }
 
   useEffect(() => {
     setName(user.name);
     setEmail(user.email);
+    setPassword('');
+    setConfirmPassword('');
+    setIsCheckedPasword(false);
     setAdmin(user.admin);
     setActivated(user.activated);
   }, [user]);
@@ -55,26 +69,67 @@ export const EditationModal = ({ user }: { user: User }) => {
             autoComplete="email"
             required
           />
-          <label htmlFor="admin">管理者</label>
-          <input
-            className="form-check-input"
-            checked={admin}
-            onChange={(e) => setAdmin(e.target.value)}
-            type="checkbox"
-            id="admin"
-            name="admin"
-            required
-          />
-          <label htmlFor="activated">認証ずみ</label>
-          <input
-            className="form-check-input"
-            checked={activated}
-            onChange={(e) => setActivated(e.target.value)}
-            type="checkbox"
-            id="activated"
-            name="activated"
-            required
-          />
+
+          <div className="form-check">
+            <label htmlFor="password_change">パスワードを変更するか</label>
+            <input
+              className="form-check-input"
+              checked={isCheckedPassword}
+              onChange={(_) => setIsCheckedPasword(!isCheckedPassword)}
+              type="checkbox"
+              id="password_change"
+              name="password_change"
+            />
+          </div>
+          {isCheckedPassword && (
+            <div>
+              {isCheckedPassword}
+              <label htmlFor="password">パスワード</label>
+              <input
+                className="form-control"
+                type="password"
+                id="password"
+                name="password"
+                minLength={6}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <label htmlFor="password_confirmation">パスワードをもう一度入力</label>
+              <input
+                className="form-control"
+                type="password"
+                id="password_confirmation"
+                name="password_confirmation"
+                minLength={6}
+                value={confirmPassword}
+                onChange={onChangeConfirmPassword}
+                required
+              />
+            </div>
+          )}
+          <div class="form-check-inline">
+            <label htmlFor="admin">管理者</label>
+            <input
+              className="form-check-input"
+              checked={admin}
+              onChange={(_) => setAdmin(!admin)}
+              type="checkbox"
+              id="admin"
+              name="admin"
+            />
+          </div>
+          <div class="form-check-inline">
+            <label htmlFor="activated">認証ずみ</label>
+            <input
+              className="form-check-input"
+              checked={activated}
+              onChange={(_) => setActivated(!activated)}
+              type="checkbox"
+              id="activated"
+              name="activated"
+            />
+          </div>
         </div>
         <div className="modal-footer">
           <input type="button" className="btn btn-secondary" data-dismiss="modal" value="いいえ" />
