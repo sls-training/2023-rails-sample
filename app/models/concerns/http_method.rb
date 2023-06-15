@@ -28,4 +28,11 @@ module HttpMethod
     http.use_ssl = uri.scheme == 'https'
     http.delete(uri.to_s, headers)
   end
+
+  def patch(url_path, params: {}, headers: {})
+    uri = URI(File.join(BASE_URL, url_path))
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = uri.scheme == 'https'
+    http.patch(uri.path, params.to_json, headers)
+  end
 end
