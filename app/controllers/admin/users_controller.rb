@@ -2,7 +2,8 @@
 
 module Admin
   class UsersController < ApplicationController
-    before_action :require_admin_user
+    before_action :require_logged_in
+    before_action :require_access_token
 
     # GET /admin/users
     def index
@@ -13,11 +14,22 @@ module Admin
     def create
       # TODO: ユーザ作成のAPIを呼ぶ
     end
+    
+    def destroy
+      # TODO: ユーザ削除のAPIを呼ぶ
+    end
 
     private
 
-    def require_admin_user
-      return if logged_in? && current_user.admin?
+    def require_logged_in
+      return if logged_in?
+
+      store_location
+      redirect_to login_url, status: :see_other, flash: { danger: 'エラー : 管理者ユーザでログインしてください' }
+    end
+
+    def require_access_token
+      return if verify_access_token?
 
       store_location
       redirect_to login_url, status: :see_other, flash: { danger: 'エラー : 管理者ユーザでログインしてください' }
