@@ -18,7 +18,6 @@ module SessionsHelper
     user.remember
     cookies.permanent.encrypted[:user_id] = user.id
     cookies.permanent[:remember_token] = user.remember_token
-    cookies.permanent[:access_token] = Api::AccessToken.create(email: EMAIL, password: PASSWORD).value if user.admin?
   end
 
   def verify_access_token?

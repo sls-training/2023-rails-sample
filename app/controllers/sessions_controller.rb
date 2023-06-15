@@ -16,6 +16,7 @@ class SessionsController < ApplicationController
     # rails security guide
     reset_session
     params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+    cookies[:access_token] = Api::AccessToken.create(email: EMAIL, password: PASSWORD).value if user.admin?
 
     ## ユーザページに遷移
     log_in user
