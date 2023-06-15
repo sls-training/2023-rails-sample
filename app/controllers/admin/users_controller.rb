@@ -11,6 +11,10 @@ module Admin
       @users = User.limit(100)
     end
 
+    def create
+      # TODO: ユーザ作成のAPIを呼ぶ
+    end
+    
     def destroy
       # TODO: ユーザ削除のAPIを呼ぶ
     end
