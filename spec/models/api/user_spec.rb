@@ -67,6 +67,7 @@ RSpec.describe 'User' do
 
       it 'エラーの入った配列が返る' do
         expect(subject).to include Api::Error
+        expect(WebMock).to have_requested(:delete, "http://localhost:3000/api/users/#{id}")
       end
     end
 
@@ -96,6 +97,8 @@ RSpec.describe 'User' do
 
         it 'エラーの入った配列が返る' do
           expect(subject).to include Api::Error
+          expect(WebMock).to have_requested(:delete, "http://localhost:3000/api/users/#{id}")
+                               .with(headers: { Authorization: "Bearer #{access_token}" })
         end
       end
 
@@ -124,6 +127,8 @@ RSpec.describe 'User' do
 
           it 'エラーの入った配列が返る' do
             expect(subject).to include Api::Error
+            expect(WebMock).to have_requested(:delete, "http://localhost:3000/api/users/#{id}")
+                                 .with(headers: { Authorization: "Bearer #{access_token}" })
           end
         end
 
@@ -141,6 +146,8 @@ RSpec.describe 'User' do
 
           it 'trueが返る' do
             expect(subject).to be_truthy
+            expect(WebMock).to have_requested(:delete, "http://localhost:3000/api/users/#{id}")
+                                 .with(headers: { Authorization: "Bearer #{access_token}" })
           end
         end
       end
