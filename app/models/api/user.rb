@@ -34,6 +34,17 @@ module Api
         end
       end
 
+      def destroy(access_token:, id:)
+        headers = { 'Authorization' => "Bearer #{access_token}" }
+        response = delete("/users/#{id}", headers:)
+        return true if response.is_a?(Net::HTTPNoContent)
+
+        errors = JSON.parse(response.body, symbolize_names: true)[:errors]
+        errors.map do |error|
+          Api::Error.from_json error
+        end
+      end
+
       def from_json(json)
         id, name, email, admin, activated, activated_at, created_at, updated_at = json.values_at(
           :id, :name, :email, :admin,
