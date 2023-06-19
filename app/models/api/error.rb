@@ -8,5 +8,9 @@ module Api
       end
       Api::Error.new(msg:)
     end
+
+    def initialize(msg:)
+      super msg
+    end
   end
 end
