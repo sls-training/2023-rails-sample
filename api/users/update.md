@@ -1,33 +1,36 @@
-# POST /api/users
+# PATCH /api/users/:id
 
-ユーザを作成する API。
+ユーザを編集する API。
 
 ## リソース URL
 
-http://localhost:3000/api/users
+http://localhost:3000/api/users/:id
 
 ## Parameters
 
-| 名称     | 型      | 必須か   | 　説明                             | 例                 |
-| -------- | ------- | -------- | ---------------------------------- | ------------------ |
-| name     | String  | required | ユーザ名                           | "uouo chan"        |
-| email    | String  | required | メール                             | "test@example.com" |
-| password | String  | required | パスワード                         | "hogehoge"         |
-| admin    | Boolean |          | 管理者かどうか(デフォルトで false) | true               |
+※どれか一つは必須とする
+
+| 名称      | 型      | 必須か | 　説明                 | 例                 |
+| --------- | ------- | ------ | ---------------------- | ------------------ |
+| name      | String  |        | ユーザ名               | "uouo chan"        |
+| email     | String  |        | メール                 | "test@example.com" |
+| password  | String  |        | パスワード             | "hogehoge"         |
+| admin     | Boolean |        | 管理者かどうか         | true               |
+| activated | Boolean |        | メール認証済みかどうか | true               |
 
 ## Request
 
 ```bash
-curl -X POST\
+curl -X PATCH\
  -H "Content-Type: application/json" \
  -H "Authorization: Bearer <YOUR-TOKEN>"\
- -d '{"name":"testuser", "email":"hoge@example.com", "password":"hogehoge"}'
-  http://localhost:3000/api/users
+ -d '{"name":"testuser", "email":"hoge@example.com" }'
+  http://localhost:3000/api/users/1
 ```
 
 ## Response
 
-### 201 Created
+### 200 OK
 
 successful operation<br>
 Content-Type: `application/json`
@@ -46,8 +49,8 @@ Content-Type: `application/json`
 ```json
 {
   "id": 1,
-  "name": "Example User",
-  "email": "example@railstutorial.org",
+  "name": "testuser",
+  "email": "hoge@example.com",
   "admin": true,
   "activated": false,
   "activated_at": null,
@@ -106,21 +109,6 @@ Content-Type: `application/json`
     ]
   }
   ```
-
-### 404 Not Found
-
-- 存在しない ID を指定した場合
-
-```json
-{
-  "errors": [
-    {
-      "name": "user_id",
-      "message": "User does not exist"
-    }
-  ]
-}
-```
 
 ### 422 Unprocessable Entity
 
