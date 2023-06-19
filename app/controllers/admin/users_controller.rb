@@ -7,7 +7,7 @@ module Admin
 
     # GET /admin/users
     def index
-      # TODO: 後からアクセストークンをcookieの記録してるものに置き換えること
+      # TODO: ユーザAPIを使ったものに後から置き換えること
       @users = User.limit(100).page(params[:page]).per(30)
     end
 
