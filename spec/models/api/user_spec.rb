@@ -9,8 +9,8 @@ RSpec.describe 'User' do
     context 'アクセストークンがない場合' do
       let(:access_token) { nil }
 
-      it 'errorsが返る' do
-        expect(subject).to include Api::Error
+      it '例外を投げる' do
+        expect { subject }.to raise_error Api::Error
       end
     end
 
@@ -20,8 +20,8 @@ RSpec.describe 'User' do
       context 'アクセストークンが有効期限切れの場合' do
         let(:access_token) { expired_access_token(email: current_user.email) }
 
-        it 'errorsが返る' do
-          expect(subject).to include Api::Error
+        it '例外を投げる' do
+          expect { subject }.to raise_error Api::Error
         end
       end
 
