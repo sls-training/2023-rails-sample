@@ -68,37 +68,79 @@ RSpec.describe 'ApiUsers' do
         end
 
         context 'クエリにsort_keyがある場合' do
+          let(:params) { { sort_key: } }
+
           context 'sort_keyがidの場合' do
-            # TODO: idの昇順でuserの配列を取得できて、200を返すテストを作成する
+            let(:sort_key) { 'id' }
+
+            it 'idの昇順でユーザの配列を取得できて、200を返す' do
+              expect(subject).to be_successful
+              expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['id'] })
+            end
           end
 
           context 'sort_keyがnameの場合' do
-            # TODO: nameの昇順でuserの配列を取得できて、200を返すテストを作成する
+            let(:sort_key) { 'name' }
+
+            it 'nameの昇順でユーザの配列を取得できて、200を返す' do
+              expect(subject).to be_successful
+              expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['name'] })
+            end
           end
 
           context 'sort_keyがemailの場合' do
-            # TODO: emailの昇順でuserの配列を取得できて、200を返すテストを作成する
+            let(:sort_key) { 'email' }
+
+            it 'emailの昇順でユーザの配列を取得できて、200を返す' do
+              expect(subject).to be_successful
+              expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['email'] })
+            end
           end
 
           context 'sort_keyがactivated_atの場合' do
-            # TODO: activated_atの昇順でuserの配列を取得できて、200を返すテストを作成する
+            let(:sort_key) { 'activated_at' }
+
+            it 'activated_atの昇順でユーザの配列を取得できて、200を返す' do
+              expect(subject).to be_successful
+              expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['activated_at'] })
+            end
           end
 
           context 'sort_keyがcreated_atの場合' do
-            # TODO: created_atの昇順でuserの配列を取得できて、200を返す'
+            let(:sort_key) { 'created_at' }
+
+            it 'created_atの昇順でユーザの配列を取得できて、200を返す' do
+              expect(subject).to be_successful
+              expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['created_at'] })
+            end
           end
 
           context 'sort_keyがupdated_atの場合' do
-            # TODO: updated_atの昇順でuserの配列を取得できて、200を返す'
+            let(:sort_key) { 'updated_at' }
+
+            it 'updated_atの昇順でユーザの配列を取得できて、200を返す' do
+              expect(subject).to be_successful
+              expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['updated_at'] })
+            end
           end
 
           context 'sort_keyがid, name, email, activated_at, created_at, updated_at以外の場合' do
-            # TODO: nameの昇順でuserの配列を取得できて、200を返すテストを作成する
+            let(:sort_key) { 'hogehoge' }
+
+            it 'nameの昇順でユーザの配列を取得できて、200を返す' do
+              expect(subject).to be_successful
+              expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['name'] })
+            end
           end
         end
 
         context 'クエリにsort_keyがない場合' do
-          # TODO: nameの昇順でuserの配列を取得できて、200を返すテストを作成する
+          let(:params) { {} }
+
+          it 'nameの昇順でuserの配列を取得できて、200を返す' do
+            expect(subject).to be_successful
+            expect(subject.parsed_body).to eq(subject.parsed_body.sort_by { |a| a['name'] })
+          end
         end
 
         context 'クエリにlimitがある場合' do
