@@ -48,7 +48,8 @@ module Api
 
     def update
       ## ユーザがすでに存在している時
-      if user_params[:email] && ::User.exists?(email:)
+      email = user_params[:email]
+      if email && ::User.exists?(email:)
         errors = [{ name: 'email', message: t('.exist_user') }]
         render 'api/errors', locals: { errors: }, status: :unprocessable_entity and return
       end
@@ -77,7 +78,7 @@ module Api
     private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :admin, :activated)
+      params.permit(:name, :email, :password, :admin, :activated)
     end
 
     def sort_key
