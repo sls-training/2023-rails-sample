@@ -47,15 +47,13 @@ module Api
     end
 
     def update
-      name, email, admin, activated = update_params
-
       ## ユーザがすでに存在している時
-      if ::User.exists?(email:)
+      if user_params[:email] && ::User.exists?(email:)
         errors = [{ name: 'email', message: t('.exist_user') }]
         render 'api/errors', locals: { errors: }, status: :unprocessable_entity and return
       end
 
-      if user.update(name:, email:, admin:, activated:)
+      if user.update(user_params)
         # ユーザの更新に成功した場合
         render :update, locals: { user: }, status: :ok
       else
@@ -63,6 +61,11 @@ module Api
         errors = user.errors.map { |x| { name: x.attribute, message: x.message } }
         render 'api/errors', locals: { errors: }, status: :bad_request
       end
+    end
+
+    def user_params
+      # パラメータの一部を除外
+      params.require(:user).permit(:name, :email, :password, :admin, :activated)
     end
 
     def destroy
@@ -77,14 +80,6 @@ module Api
     end
 
     private
-
-    def update_params
-      name = params.fetch(:name, user.name)
-      email = params.fetch(:email, user.email)
-      admin = params.fetch(:admin, user.admin)
-      activated = params.fetch(:activated, user.activated)
-      [name, email, admin, activated]
-    end
 
     def sort_key
       @_sort_key ||= SORTABLE_KEYS.include?(params[:sort_key]) ? params[:sort_key] : 'name'
