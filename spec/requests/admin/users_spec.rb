@@ -6,6 +6,8 @@ RSpec.describe 'AdminUsers' do
   let!(:non_admin_user) { create(:user, :noadmin) }
 
   describe 'GET /admin/users' do
+    subject { get admin_users_path }
+
     context 'ユーザが管理者の場合' do
       context 'パスワードがあっている場合' do
         context 'pageが0の場合' do
