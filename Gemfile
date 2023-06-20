@@ -31,7 +31,8 @@ gem 'cssbundling-rails', '~> 1.1'
 gem 'faker', '2.21.0'
 
 ## ページネーション
-gem 'will_paginate-bootstrap-style'
+gem 'kaminari'
+gem 'bootstrap5-kaminari-views'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'

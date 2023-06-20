@@ -8,7 +8,7 @@ module Admin
     # GET /admin/users
     def index
       # TODO: ユーザAPIを使ったものに後から置き換えること
-      @users = User.limit(100)
+      @users = User.page(params[:page]).per(30)
     end
 
     def create

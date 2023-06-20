@@ -30,8 +30,11 @@ RSpec.describe 'AccessToken' do
             )
         end
 
-        it 'errorが返る' do
-          expect(subject).to include Api::Error
+        it '例外を投げる' do
+          expect { subject }.to raise_error Api::Error
+
+          expect(WebMock).to have_requested(:post, 'http://localhost:3000/api/token')
+                               .with(body: { email:, password: })
         end
       end
 
@@ -58,8 +61,10 @@ RSpec.describe 'AccessToken' do
               )
           end
 
-          it 'errorが返る' do
-            expect(subject).to include Api::Error
+          it '例外を投げる' do
+            expect { subject }.to raise_error Api::Error
+            expect(WebMock).to have_requested(:post, 'http://localhost:3000/api/token')
+                                 .with(body: { email:, password: })
           end
         end
 
@@ -83,8 +88,10 @@ RSpec.describe 'AccessToken' do
               )
           end
 
-          it 'errorが返る' do
-            expect(subject).to include Api::Error
+          it '例外を投げる' do
+            expect { subject }.to raise_error Api::Error
+            expect(WebMock).to have_requested(:post, 'http://localhost:3000/api/token')
+                                 .with(body: { email:, password: })
           end
         end
       end
@@ -114,8 +121,10 @@ RSpec.describe 'AccessToken' do
             )
         end
 
-        it 'errorが返る' do
-          expect(subject).to include Api::Error
+        it '例外を投げる' do
+          expect { subject }.to raise_error Api::Error
+          expect(WebMock).to have_requested(:post, 'http://localhost:3000/api/token')
+                               .with(body: { email:, password: })
         end
       end
 
@@ -142,8 +151,10 @@ RSpec.describe 'AccessToken' do
               )
           end
 
-          it 'errorが返る' do
-            expect(subject).to include Api::Error
+          it '例外を投げる' do
+            expect { subject }.to raise_error Api::Error
+            expect(WebMock).to have_requested(:post, 'http://localhost:3000/api/token')
+                                 .with(body: { email:, password: })
           end
         end
 
@@ -164,6 +175,8 @@ RSpec.describe 'AccessToken' do
 
           it 'アクセストークンが返る' do
             expect(subject.value).not_to be_nil
+            expect(WebMock).to have_requested(:post, 'http://localhost:3000/api/token')
+                                 .with(body: { email:, password: })
           end
         end
       end

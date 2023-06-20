@@ -114,6 +114,9 @@ GEM
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
+    bootstrap5-kaminari-views (0.0.1)
+      kaminari (>= 0.13)
+      rails (>= 3.1)
     builder (3.2.4)
     capybara (3.39.0)
       addressable
@@ -185,6 +188,18 @@ GEM
     json (2.6.3)
     jsonapi-renderer (0.2.2)
     jwt (2.7.0)
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     kramdown (2.4.0)
       rexml
     kramdown-parser-gfm (1.1.0)
@@ -400,9 +415,6 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    will_paginate (3.3.1)
-    will_paginate-bootstrap-style (0.2.4)
-      will_paginate (~> 3.0, >= 3.0.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yard (0.9.34)
@@ -419,6 +431,7 @@ DEPENDENCIES
   aws-sdk-s3 (= 1.114.0)
   bcrypt (= 3.1.18)
   bootsnap
+  bootstrap5-kaminari-views
   capybara
   cssbundling-rails (~> 1.1)
   debug
@@ -429,6 +442,7 @@ DEPENDENCIES
   jbuilder
   jsbundling-rails
   jwt
+  kaminari
   pg (>= 1.1.4)
   prettier
   prettier_print
@@ -451,7 +465,6 @@ DEPENDENCIES
   web-console
   webdrivers
   webmock
-  will_paginate-bootstrap-style
 
 RUBY VERSION
    ruby 3.2.2p53
