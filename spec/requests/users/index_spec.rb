@@ -29,7 +29,7 @@ RSpec.describe 'Index' do
         assert_select 'h1>img.gravatar'
         assert_match user.microposts.count.to_s, response.body
         assert_select 'ul.pagination'
-        user.microposts.paginate(page: 1).each { |micropost| assert_match micropost.content, response.body }
+        user.microposts.page(1).each { |micropost| assert_match micropost.content, response.body }
       end
     end
 
@@ -60,7 +60,7 @@ RSpec.describe 'Index' do
       ## 削除用のリンクがある
 
       it 'has delete links' do
-        first_page_of_users = User.where(activated: true).paginate(page: 1)
+        first_page_of_users = User.where(activated: true).page(1)
         first_page_of_users.each do |u|
           assert_select 'a[href=?]', user_path(u), text: u.name
           assert_select 'a[href=?]', user_path(u), text: 'delete' unless u == user
@@ -79,7 +79,7 @@ RSpec.describe 'Index' do
       it 'displays only activated users' do
         ## ページにいる最初のユーザーを無効化する。
         ## toggle : インスタンスに保存されているbooleanの値を反転させて保存、成功すればtrue
-        User.paginate(page: 1).first.toggle! :activated
+        User.page(1).first.toggle! :activated
         # /usersを再度取得して、無効化済みのユーザーが表示されていないことを確かめる
         get users_path
         # 表示されているすべてのユーザーが有効化済みであることを確かめる

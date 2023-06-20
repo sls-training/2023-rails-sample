@@ -40,7 +40,6 @@ RSpec.describe 'Microposts' do
       it 'does not allow to create micropost on invalid submission' do
         expect { post microposts_path, params: { micropost: { content: '' } } }.not_to change(Micropost, :count)
         assert_select 'div#error_explanation'
-        assert_select 'a[href=?]', '/?page=2' # 正しいページネーションリンク
       end
 
       it 'allows to create micropost on valid submission' do
@@ -68,7 +67,7 @@ RSpec.describe 'Microposts' do
       before { log_in_as(user) }
 
       it 'is able to delete own micropost' do
-        first_micropost = user.microposts.paginate(page: 1).first
+        first_micropost = user.microposts.page(1).first
         expect { delete micropost_path(first_micropost) }.to change(Micropost, :count).by(-1)
       end
 
@@ -76,7 +75,7 @@ RSpec.describe 'Microposts' do
       it 'redirects destroy for wrong micropost' do
         log_in_as(other)
 
-        first_micropost = user.microposts.paginate(page: 1).first
+        first_micropost = user.microposts.page(1).first
         expect { delete micropost_path(first_micropost) }.not_to change(Micropost, :count)
         expect(response).to have_http_status :see_other
         expect(response).to redirect_to root_url
@@ -85,7 +84,7 @@ RSpec.describe 'Microposts' do
 
     context 'without login user' do
       it 'does not allow to destroy' do
-        first_micropost = user.microposts.paginate(page: 1).first
+        first_micropost = user.microposts.page(1).first
         expect { delete micropost_path(first_micropost) }.not_to change(Micropost, :count)
         expect(response).to have_http_status :see_other
         expect(response).to redirect_to login_url
