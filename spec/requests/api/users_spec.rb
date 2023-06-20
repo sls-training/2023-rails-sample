@@ -468,7 +468,7 @@ RSpec.describe 'ApiUsers' do
 
     let(:admin) { [true, false].sample }
     let(:activated) { [true, false].sample }
-    let!(:target_user) { create(:user) }
+    let(:target_user) { create(:user) }
 
     context 'アクセストークンがない場合' do
       let(:params) do
