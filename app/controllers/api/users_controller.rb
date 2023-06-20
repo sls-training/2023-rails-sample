@@ -63,11 +63,6 @@ module Api
       end
     end
 
-    def user_params
-      # パラメータの一部を除外
-      params.require(:user).permit(:name, :email, :password, :admin, :activated)
-    end
-
     def destroy
       ## ユーザが自分自身だった場合
       if current_user == user
@@ -80,6 +75,11 @@ module Api
     end
 
     private
+
+    def user_params
+      # パラメータの一部を除外
+      params.require(:user).permit(:name, :email, :password, :admin, :activated)
+    end
 
     def sort_key
       @_sort_key ||= SORTABLE_KEYS.include?(params[:sort_key]) ? params[:sort_key] : 'name'
