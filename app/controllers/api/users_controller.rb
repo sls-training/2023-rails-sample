@@ -77,7 +77,6 @@ module Api
     private
 
     def user_params
-      # パラメータの一部を除外
       params.require(:user).permit(:name, :email, :password, :admin, :activated)
     end
 
