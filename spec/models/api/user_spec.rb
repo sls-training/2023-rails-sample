@@ -34,6 +34,8 @@ RSpec.describe 'User' do
 
       it '例外を投げる' do
         expect { subject }.to raise_error Api::Error
+        expect(WebMock).to have_requested(:get, 'http://localhost:3000/api/users')
+                             .with(query: { limit:, offset:, order_by:, sort_key: })
       end
     end
 
@@ -65,24 +67,27 @@ RSpec.describe 'User' do
 
         it '例外を投げる' do
           expect { subject }.to raise_error Api::Error
+          expect(WebMock).to have_requested(:get, 'http://localhost:3000/api/users')
+                               .with(
+                                 query:   { limit:, offset:, order_by:, sort_key: },
+                                 headers: { Authorization: "Bearer #{access_token}" }
+                               )
         end
       end
 
       context 'アクセストークンが有効期限内の場合' do
         before do
-          def users_to_json(users)
-            users.map do |user|
-              {
-                id:           user.id,
-                name:         user.name,
-                email:        user.email,
-                admin:        user.admin,
-                activated:    user.activated,
-                activated_at: user.activated_at&.iso8601(2),
-                created_at:   user.created_at.iso8601(2),
-                updated_at:   user.updated_at.iso8601(2)
-              }
-            end.to_json
+          def user_to_api_user(user)
+            {
+              id:           user.id,
+              name:         user.name,
+              email:        user.email,
+              admin:        user.admin,
+              activated:    user.activated,
+              activated_at: user.activated_at&.iso8601(2),
+              created_at:   user.created_at.iso8601(2),
+              updated_at:   user.updated_at.iso8601(2)
+            }
           end
           WebMock
             .stub_request(:get, 'http://localhost:3000/api/users')
@@ -91,12 +96,11 @@ RSpec.describe 'User' do
               headers: { Authorization: "Bearer #{access_token}" }
             )
             .to_return(
-              body:    users_to_json(
-                User
-                  .order(sort_key => order_by)
-                  .limit(limit)
-                  .offset(offset)
-              ),
+              body:    User
+                       .order(sort_key => order_by)
+                       .limit(limit)
+                       .offset(offset).map { |user| user_to_api_user(user) }
+                       .to_json,
               status:  200,
               headers: { 'Content-Type' => 'application/json' }
             )
@@ -106,6 +110,11 @@ RSpec.describe 'User' do
 
         it 'ユーザの配列が返る' do
           expect(subject).to include Api::User
+          expect(WebMock).to have_requested(:get, 'http://localhost:3000/api/users')
+                               .with(
+                                 query:   { limit:, offset:, order_by:, sort_key: },
+                                 headers: { Authorization: "Bearer #{access_token}" }
+                               )
         end
       end
     end

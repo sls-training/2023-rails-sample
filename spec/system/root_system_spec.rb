@@ -7,7 +7,7 @@ RSpec.describe 'RootSystem' do
 
   it 'feeds on Home page' do
     visit root_path
-    user.feed.paginate(page: 1).each do |micropost|
+    user.feed.page(1).each do |micropost|
       # 得られるHTMLのソースコードと一致しないマイクロポストのコンテンツ
       assert_match CGI.escapeHTML(micropost.content), response.body
     end

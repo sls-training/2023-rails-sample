@@ -10,7 +10,7 @@ class MicropostsController < ApplicationController
 
   def on_failed
     # 投稿失敗した時のためにfeedを与えておく
-    @feed_items = current_user.feed.paginate(page: params[:page])
+    @feed_items = current_user.feed.page(params[:page])
     render 'static_pages/home', status: :unprocessable_entity
   end
 

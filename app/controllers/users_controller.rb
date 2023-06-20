@@ -11,13 +11,13 @@ class UsersController < ApplicationController
 
   def index
     # 有効なユーザだけ
-    @users = User.where(activated: true).paginate(page: params[:page])
+    @users = User.where(activated: true).page(params[:page])
     # @users = User.paginate(page: params[:page])
   end
 
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(page: params[:page])
+    @microposts = @user.microposts.page(params[:page])
     redirect_to(root_url, status: :see_other) and return unless @user.activated
     # debugger #差し込んでdebug止めたりできるっぽい
   end
@@ -77,14 +77,14 @@ class UsersController < ApplicationController
   def following
     @title = 'Following'
     @user = User.find(params[:id])
-    @users = @user.following.paginate(page: params[:page])
+    @users = @user.following.page(params[:page])
     render 'show_follow', status: :unprocessable_entity
   end
 
   def followers
     @title = 'Followers'
     @user = User.find(params[:id])
-    @users = @user.followers.paginate(page: params[:page])
+    @users = @user.followers.page(params[:page])
     render 'show_follow', status: :unprocessable_entity
   end
 
