@@ -150,8 +150,8 @@ RSpec.describe 'User' do
       let(:access_token) { nil }
       let(:id) { target_user.id }
 
-      it 'エラーの入った配列が返る' do
-        expect(subject).to include Api::Error
+      it '例外が返る' do
+        expect { subject }.to raise_error Api::Error
         expect(WebMock).to have_requested(:delete, "http://localhost:3000/api/users/#{id}")
       end
     end
@@ -180,8 +180,8 @@ RSpec.describe 'User' do
         let(:access_token) { expired_access_token(email: current_user.email) }
         let(:id) { target_user.id }
 
-        it 'エラーの入った配列が返る' do
-          expect(subject).to include Api::Error
+        it '例外が返る' do
+          expect { subject }.to raise_error Api::Error
           expect(WebMock).to have_requested(:delete, "http://localhost:3000/api/users/#{id}")
                                .with(headers: { Authorization: "Bearer #{access_token}" })
         end
@@ -210,8 +210,8 @@ RSpec.describe 'User' do
               )
           end
 
-          it 'エラーの入った配列が返る' do
-            expect(subject).to include Api::Error
+          it '例外が返る' do
+            expect { subject }.to raise_error Api::Error
             expect(WebMock).to have_requested(:delete, "http://localhost:3000/api/users/#{id}")
                                  .with(headers: { Authorization: "Bearer #{access_token}" })
           end
