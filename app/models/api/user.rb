@@ -37,10 +37,7 @@ module Api
         response = delete("/users/#{id}", headers:)
         return true if response.is_a?(Net::HTTPNoContent)
 
-        errors = JSON.parse(response.body, symbolize_names: true)[:errors]
-        errors.map do |error|
-          Api::Error.from_json error
-        end
+        raise Api::Error.from_json(JSON.parse(response.body, symbolize_names: true)[:errors])
       end
 
       def from_json(json)
