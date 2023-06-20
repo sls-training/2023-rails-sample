@@ -6,6 +6,12 @@ RSpec.describe 'Microposts' do
   let!(:user) { create(:user) }
   # include SessionsSupport
 
+  before do
+    WebMock.stub_request(:post, 'http://localhost:3000/api/token')
+      .with(body: { email: user.email, password: user.password })
+      .to_return(body: { access_token: AccessToken.new(email: user.email).encode }.to_json, status: 200, headers: { 'Content-Type' => 'application/json' })
+  end
+
   it 'user creates a new micropost' do
     visit root_path
     click_link 'ログイン'

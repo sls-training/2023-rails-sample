@@ -17,9 +17,9 @@ module Api
     end
 
     class << self
-      def get_list(access_token:, sort_by: 'name', order_by: 'asc', limit: 50, offset: 0)
+      def get_list(access_token:, sort_key: 'name', order_by: 'asc', limit: 50, offset: 0)
         headers = { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{access_token}" }
-        response = get('/users', params: { sort_by:, order_by:, limit:, offset: }, headers:)
+        response = get('/users', params: { sort_key:, order_by:, limit:, offset: }, headers:)
         users = JSON.parse(response.body, symbolize_names: true)
         case response
         when Net::HTTPSuccess

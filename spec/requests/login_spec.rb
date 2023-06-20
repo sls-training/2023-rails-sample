@@ -14,11 +14,10 @@ RSpec.describe 'Login' do
 
     ## 成功する場合
     context 'with valid info' do
-      before { post login_path, params: { session: { email: user.email, password: 'password' } } }
+      before { log_in_as(user) }
 
       # ログインの許可
       it 'allows to login' do
-        log_in_as(user)
         expect(is_logged_in?).to be_truthy
         expect(response).to redirect_to user_path(user)
       end
