@@ -50,7 +50,10 @@ module Api
       name, email, admin, activated = update_params
 
       ## ユーザがすでに存在している時
-      render_user_existing and return if ::User.exists?(email:)
+      if ::User.exists?(email:)
+        errors = [{ name: 'email', message: t('.exist_user') }]
+        render 'api/errors', locals: { errors: }, status: :unprocessable_entity and return
+      end
 
       if user.update(name:, email:, admin:, activated:)
         # ユーザの更新に成功した場合
@@ -81,11 +84,6 @@ module Api
       admin = params.fetch(:admin, user.admin)
       activated = params.fetch(:activated, user.activated)
       [name, email, admin, activated]
-    end
-
-    def render_user_existing
-      errors = [{ name: 'email', message: t('.exist_user') }]
-      render 'api/errors', locals: { errors: }, status: :unprocessable_entity
     end
 
     def sort_key
