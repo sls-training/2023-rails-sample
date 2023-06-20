@@ -77,18 +77,6 @@ RSpec.describe 'User' do
 
       context 'アクセストークンが有効期限内の場合' do
         before do
-          def user_to_api_user(user)
-            {
-              id:           user.id,
-              name:         user.name,
-              email:        user.email,
-              admin:        user.admin,
-              activated:    user.activated,
-              activated_at: user.activated_at&.iso8601(2),
-              created_at:   user.created_at.iso8601(2),
-              updated_at:   user.updated_at.iso8601(2)
-            }
-          end
           WebMock
             .stub_request(:get, 'http://localhost:3000/api/users')
             .with(
