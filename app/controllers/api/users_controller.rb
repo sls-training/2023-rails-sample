@@ -3,7 +3,7 @@
 module Api
   class UsersController < ApplicationController
     include AccessTokenVerifiable
-    before_action :validate_user_id, only: %i[show destroy]
+    before_action :validate_user_id, only: %i[show destroy update]
 
     SORTABLE_KEYS = %w[name id activated_at created_at updated_at].freeze
     ORDERABLE_KEYS = %w[asc desc].freeze
