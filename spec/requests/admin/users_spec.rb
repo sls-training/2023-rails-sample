@@ -61,8 +61,10 @@ RSpec.describe 'AdminUsers' do
             expect(response).to be_successful
           end
 
-          xit 'ユーザの表示数は10' do
-            # TODO: ユーザの表示数は10のspecを作成する
+          it 'ユーザの表示数は10' do
+            subject
+            @user = controller.instance_variable_get(:@user)
+            expect(@user.count).to eq 10
           end
         end
 
@@ -75,8 +77,10 @@ RSpec.describe 'AdminUsers' do
             expect(response).to be_successful
           end
 
-          xit 'ユーザの表示数は10' do
-            # TODO: ユーザの表示数は10のspecを作成する
+          it 'ユーザの表示数は10' do
+            subject
+            @user = controller.instance_variable_get(:@user)
+            expect(@user.count).to eq 10
           end
         end
 
@@ -89,8 +93,10 @@ RSpec.describe 'AdminUsers' do
             expect(response).to be_successful
           end
 
-          xit 'ユーザの表示数は10' do
-            # TODO: ユーザの表示数は10のspecを作成する
+          it 'ユーザの表示数は10' do
+            subject
+            @user = controller.instance_variable_get(:@user)
+            expect(@user.count).to eq 10
           end
         end
       end
