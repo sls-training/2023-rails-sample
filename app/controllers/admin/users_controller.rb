@@ -4,11 +4,20 @@ module Admin
   class UsersController < ApplicationController
     before_action :require_logged_in
     before_action :require_access_token
-
+    DISPLAY_AMOUNT = 10 # 表示数
     # GET /admin/users
     def index
-      # TODO: ユーザAPIを使ったものに後から置き換えること
-      @users = User.page(params[:page]).per(30)
+      # TODO: ユーザのcountをAPIから取得できるようにすること
+      user_count = User.count
+
+      user_list = Api::User.get_list(
+        access_token:,
+        limit:        DISPLAY_AMOUNT,
+        offset:       DISPLAY_AMOUNT * [(params[:page].to_i - 1), 0].max
+      )
+
+      total_count = user_count.div(DISPLAY_AMOUNT) * DISPLAY_AMOUNT
+      @users = Kaminari.paginate_array(user_list, total_count:).page(params[:page]).per(DISPLAY_AMOUNT)
     end
 
     def create
