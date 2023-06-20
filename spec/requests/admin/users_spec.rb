@@ -2,6 +2,9 @@
 
 require 'rails_helper'
 RSpec.describe 'AdminUsers' do
+  let!(:admin_user) { create(:user, :admin) }
+  let!(:non_admin_user) { create(:user, :noadmin) }
+
   describe 'GET /admin/users' do
     context 'ユーザが管理者の場合' do
       context 'パスワードがあっている場合' do
