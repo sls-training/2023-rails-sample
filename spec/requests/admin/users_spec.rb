@@ -61,7 +61,7 @@ RSpec.describe 'AdminUsers' do
           end
         end
 
-        context '正しいなユーザーデータが指定された場合' do
+        context '正当なユーザーデータが指定された場合' do
           xit '作成に成功した旨をトーストメッセージで表示して、200を返す' do
             # TODO: specの内容を作成する
           end
