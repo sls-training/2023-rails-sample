@@ -35,4 +35,38 @@ RSpec.describe 'AdminUsers' do
       end
     end
   end
+
+  describe 'POST /admin/users' do
+    context 'ログインしていない場合' do
+      xit 'ログインページにリダイレクトしてトーストメッセージを表示' do
+        # TODO: specの内容を作成する
+      end
+    end
+
+    context 'ログインしている場合' do
+      context 'ユーザが管理者ではない場合' do
+        xit 'ログインページにリダイレクトしてトーストメッセージを表示' do
+          # TODO: specの内容を作成する
+        end
+      end
+
+      context 'ユーザが管理者の場合' do
+        xit 'ユーザ作成用のAPIを呼んでいること' do
+          # TODO: specの内容を作成する
+        end
+
+        context '不正なユーザーデータが指定された場合' do
+          xit '作成に失敗した旨をトーストメッセージで表示して、422を返す' do
+            # TODO: specの内容を作成する
+          end
+        end
+
+        context '正しいなユーザーデータが指定された場合' do
+          xit '作成に成功した旨をトーストメッセージで表示して、200を返す' do
+            # TODO: specの内容を作成する
+          end
+        end
+      end
+    end
+  end
 end
