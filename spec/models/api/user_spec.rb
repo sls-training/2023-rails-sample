@@ -32,8 +32,8 @@ RSpec.describe 'User' do
           )
       end
 
-      it 'errorsが返る' do
-        expect(subject).to include Api::Error
+      it '例外を投げる' do
+        expect { subject }.to raise_error Api::Error
         expect(WebMock).to have_requested(:get, 'http://localhost:3000/api/users')
                              .with(query: { limit:, offset:, order_by:, sort_key: })
       end
@@ -65,8 +65,8 @@ RSpec.describe 'User' do
 
         let(:access_token) { expired_access_token(email: current_user.email) }
 
-        it 'errorsが返る' do
-          expect(subject).to include Api::Error
+        it '例外を投げる' do
+          expect { subject }.to raise_error Api::Error
           expect(WebMock).to have_requested(:get, 'http://localhost:3000/api/users')
                                .with(
                                  query:   { limit:, offset:, order_by:, sort_key: },
