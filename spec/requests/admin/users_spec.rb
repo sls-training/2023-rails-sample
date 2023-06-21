@@ -11,7 +11,7 @@ RSpec.describe 'AdminUsers' do
     context 'ログインしている場合' do
       context 'ユーザが管理者の場合' do
         context 'クエリパラメータにpageがない場合' do
-          xit 'ユーザ取得の関数Api::Userのget_listを引数(limit: 10, offset:0)を設定して呼ぶ' do
+          xit 'ユーザ取得の関数Api::Userのget_listに引数(limit: 10, offset:0)を設定して呼ぶ' do
             # TODO: specの内容を作成する
           end
 
@@ -22,7 +22,7 @@ RSpec.describe 'AdminUsers' do
 
         context 'クエリパラメータにpageがある場合' do
           context 'pageの値が0の場合' do
-            xit 'ユーザ取得の関数Api::Userのget_listを引数(limit: 10, offset:0)を設定して呼ぶ' do
+            xit 'ユーザ取得の関数Api::Userのget_listに引数(limit: 10, offset:0)を設定して呼ぶ' do
               # TODO: specの内容を作成する
             end
 
@@ -32,7 +32,7 @@ RSpec.describe 'AdminUsers' do
           end
 
           context 'pageの値が1の場合' do
-            xit 'ユーザ取得の関数Api::Userのget_listを引数(limit: 10, offset:0)を設定して呼ぶ' do
+            xit 'ユーザ取得の関数Api::Userのget_listに引数(limit: 10, offset:0)を設定して呼ぶ' do
               # TODO: specの内容を作成する
             end
 
@@ -42,7 +42,7 @@ RSpec.describe 'AdminUsers' do
           end
 
           context 'pageの値が2の場合' do
-            xit 'ユーザ取得の関数Api::Userのget_listを引数(limit: 10, offset:10)を設定して呼ぶ' do
+            xit 'ユーザ取得の関数Api::Userのget_listに引数(limit: 10, offset:10)を設定して呼ぶ' do
               # TODO: specの内容を作成する
             end
 
