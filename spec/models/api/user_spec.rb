@@ -121,7 +121,14 @@ RSpec.describe 'User' do
       end
 
       context 'アクセストークンが有効期限内の場合' do
-        xit 'ユーザ作成のAPIを呼び、作成されたユーザを返す' do
+        context '不正なユーザーデータが指定された場合' do
+          xit 'ユーザ作成のAPIを呼び、例外を返す' do
+          end
+        end
+
+        context '正当なユーザーデータが指定された場合' do
+          xit 'ユーザ作成のAPIを呼び、作成されたユーザを返す' do
+          end
         end
       end
     end
