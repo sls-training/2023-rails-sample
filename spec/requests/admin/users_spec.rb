@@ -20,7 +20,7 @@ RSpec.describe 'AdminUsers' do
       end
 
       context 'クエリパラメータにpageがある場合' do
-        context 'pageが0の場合' do
+        context 'pageの値が0の場合' do
           xit 'ユーザ取得時にoffsetを0個かけて取得し、200が返る' do
             # TODO: ユーザ取得時にoffsetを0個かけて取得し、200が返るspecを作成する
           end
@@ -30,7 +30,7 @@ RSpec.describe 'AdminUsers' do
           end
         end
 
-        context 'pageが1の場合' do
+        context 'pageの値が1の場合' do
           xit 'ユーザ取得時にoffsetを0個かけて取得し、200が返る' do
             # TODO: ユーザ取得時にoffsetを0個かけて取得し、200が返るspecを作成する
           end
@@ -40,7 +40,7 @@ RSpec.describe 'AdminUsers' do
           end
         end
 
-        context 'pageが2の場合' do
+        context 'pageの値が2の場合' do
           xit 'ユーザ取得時にoffsetを10個かけて取得し、200が返る' do
             # TODO: ユーザ取得時にoffsetを10個かけて取得し、200が返るspecを作成する
           end
