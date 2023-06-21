@@ -9,10 +9,20 @@ RSpec.describe 'AdminUsers' do
     subject { get admin_users_path }
 
     context 'ユーザが管理者の場合' do
-      context 'パスワードがあっている場合' do
+      context 'クエリパラメータにpageがない場合' do
+        xit 'ユーザ取得時にoffsetを0個かけて取得し、200が返る' do
+          # TODO: ユーザ取得時にoffsetを0個かけて取得し、200が返るspecを作成する
+        end
+
+        xit 'ユーザの表示数は10' do
+          # TODO: ユーザの表示数は10のspecを作成する
+        end
+      end
+
+      context 'クエリパラメータにpageがある場合' do
         context 'pageが0の場合' do
-          xit 'ユーザ取得時のoffsetが0で200が返る' do
-            # TODO: offsetが0で200が返るspecを作成する
+          xit 'ユーザ取得時にoffsetを0個かけて取得し、200が返る' do
+            # TODO: ユーザ取得時にoffsetを0個かけて取得し、200が返るspecを作成する
           end
 
           xit 'ユーザの表示数は10' do
@@ -21,8 +31,8 @@ RSpec.describe 'AdminUsers' do
         end
 
         context 'pageが1の場合' do
-          xit 'ユーザ取得時のoffsetが0で200が返る' do
-            # TODO: offsetが0で200が返るspecを作成する
+          xit 'ユーザ取得時にoffsetを0個かけて取得し、200が返る' do
+            # TODO: ユーザ取得時にoffsetを0個かけて取得し、200が返るspecを作成する
           end
 
           xit 'ユーザの表示数は10' do
@@ -31,8 +41,8 @@ RSpec.describe 'AdminUsers' do
         end
 
         context 'pageが2の場合' do
-          xit 'ユーザ取得時のoffsetが10で200が返る' do
-            # TODO: offsetが10で200が返るspecを作成する
+          xit 'ユーザ取得時にoffsetを10個かけて取得し、200が返る' do
+            # TODO: ユーザ取得時にoffsetを10個かけて取得し、200が返るspecを作成する
           end
 
           xit 'ユーザの表示数は10' do
