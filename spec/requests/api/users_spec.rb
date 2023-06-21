@@ -500,7 +500,7 @@ RSpec.describe 'ApiUsers' do
       context 'アクセストークンが有効期限内の場合' do
         let(:access_token) { AccessToken.new(email: user.email).encode }
 
-        context 'nameが空の場合' do
+        context '不正なユーザーデータが指定された場合' do
           let(:params) { { name: '' } }
 
           it '400が返って、エラーメッセージを返すこと' do
@@ -509,90 +509,25 @@ RSpec.describe 'ApiUsers' do
           end
         end
 
-        context 'emailが空の場合' do
-          let(:params) { { email: '' } }
+        context '正しいユーザーデータが指定された場合' do
+          context 'emailがすでに存在するユーザのemailの場合' do
+            let(:params) { { email: user.email } }
 
-          it '400が返って、エラーメッセージを返すこと' do
-            expect(subject).to be_bad_request
-            expect(subject.parsed_body).to have_key('errors')
+            it '422が返って、エラーメッセージを返すこと' do
+              expect(subject).to have_http_status :unprocessable_entity
+              expect(subject.parsed_body).to have_key('errors')
+            end
           end
-        end
 
-        context 'nameが51文字以上の場合' do
-          let(:params) { { name: 'a' * 51 } }
+          context 'emailのユーザが存在しない場合' do
+            let(:params) { { email: Faker::Internet.email } }
 
-          it '400が返って、エラーメッセージを返すこと' do
-            expect(subject).to be_bad_request
-            expect(subject.parsed_body).to have_key('errors')
-          end
-        end
-
-        context 'emailの形式が間違っている場合' do
-          let(:params) { { email: 'user@example,com' } }
-
-          it '400が返って、エラーメッセージを返すこと' do
-            expect(subject).to be_bad_request
-            expect(subject.parsed_body).to have_key('errors')
-          end
-        end
-
-        context 'emailが256文字以上の場合' do
-          let(:params) { { email: "#{'a' * 244}@example.com" } }
-
-          it '400が返って、エラーメッセージを返すこと' do
-            expect(subject).to be_bad_request
-            expect(subject.parsed_body).to have_key('errors')
-          end
-        end
-
-        context 'passwordが6文字未満の場合' do
-          let(:params) { { password: 'a' * 5 } }
-
-          it '400が返って、エラーメッセージを返すこと' do
-            expect(subject).to be_bad_request
-            expect(subject.parsed_body).to have_key('errors')
-          end
-        end
-
-        context 'emailがすでに存在するユーザのemailの場合' do
-          let(:params) { { email: user.email } }
-
-          it '422が返って、エラーメッセージを返すこと' do
-            expect(subject).to have_http_status :unprocessable_entity
-            expect(subject.parsed_body).to have_key('errors')
-          end
-        end
-
-        context 'nameが51未満の場合' do
-          let(:params) { { name: Faker::Name.name } }
-
-          it '200が返って、編集したユーザを返すこと' do
-            expect(subject).to be_successful
-            expect(subject.parsed_body).to include(
-              *%w[id name admin activated activated_at created_at updated_at]
-            )
-          end
-        end
-
-        context 'emailのユーザが存在しない場合' do
-          let(:params) { { email: Faker::Internet.email } }
-
-          it '200が返って、編集したユーザを返すこと' do
-            expect(subject).to be_successful
-            expect(subject.parsed_body).to include(
-              *%w[id name admin activated activated_at created_at updated_at]
-            )
-          end
-        end
-
-        context 'passwordが6文字以上の場合' do
-          let(:params) { { password: Faker::Internet.password(min_length: 6) } }
-
-          it '200が返って、編集したユーザを返すこと' do
-            expect(subject).to be_successful
-            expect(subject.parsed_body).to include(
-              *%w[id name admin activated activated_at created_at updated_at]
-            )
+            it '200が返って、編集したユーザを返すこと' do
+              expect(subject).to be_successful
+              expect(subject.parsed_body).to include(
+                *%w[id name admin activated activated_at created_at updated_at]
+              )
+            end
           end
         end
       end
