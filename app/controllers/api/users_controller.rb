@@ -38,7 +38,7 @@ module Api
       new_user = ::User.create(name:, email:, password:, password_confirmation:)
       if new_user.invalid?
         ## パラメータに不備があった場合
-        errors = new_user.errors.map { |x| { name: x.attribute, message: x.message } }
+        errors = new_user.errors.map { |error| { name: error.attribute, message: error.message } }
         render 'api/errors', locals: { errors: }, status: :bad_request
       else
         # ユーザの作成に成功した場合
@@ -59,7 +59,7 @@ module Api
         render :update, locals: { user: }, status: :ok
       else
         ## パラメータに不備があった場合
-        errors = user.errors.map { |x| { name: x.attribute, message: x.message } }
+        errors = user.errors.map { |error| { name: error.attribute, message: error.message } }
         render 'api/errors', locals: { errors: }, status: :bad_request
       end
     end
