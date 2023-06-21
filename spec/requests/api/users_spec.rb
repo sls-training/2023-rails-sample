@@ -566,7 +566,7 @@ RSpec.describe 'ApiUsers' do
         context 'nameが51未満の場合' do
           let(:params) { { name: Faker::Name.name } }
 
-          it '200が返って、作成したユーザを返すこと' do
+          it '200が返って、編集したユーザを返すこと' do
             expect(subject).to be_successful
             expect(subject.parsed_body).to include(
               *%w[id name admin activated activated_at created_at updated_at]
@@ -577,7 +577,7 @@ RSpec.describe 'ApiUsers' do
         context 'emailのユーザが存在しない場合' do
           let(:params) { { email: Faker::Internet.email } }
 
-          it '200が返って、作成したユーザを返すこと' do
+          it '200が返って、編集したユーザを返すこと' do
             expect(subject).to be_successful
             expect(subject.parsed_body).to include(
               *%w[id name admin activated activated_at created_at updated_at]
@@ -588,7 +588,7 @@ RSpec.describe 'ApiUsers' do
         context 'passwordが6文字以上の場合' do
           let(:params) { { password: Faker::Internet.password(min_length: 6) } }
 
-          it '200が返って、作成したユーザを返すこと' do
+          it '200が返って、編集したユーザを返すこと' do
             expect(subject).to be_successful
             expect(subject.parsed_body).to include(
               *%w[id name admin activated activated_at created_at updated_at]
