@@ -92,13 +92,13 @@ RSpec.describe 'AdminUsers' do
           # TODO: specの内容を作成する
         end
 
-        context '不正なユーザーデータが指定された場合' do
+        context 'APIサーバからエラーが返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、作成に失敗した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
         end
 
-        context '正当なユーザーデータが指定された場合' do
+        context 'APIサーバから成功が返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、作成に成功した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
@@ -126,13 +126,13 @@ RSpec.describe 'AdminUsers' do
           # TODO: specの内容を作成する
         end
 
-        context '不正なユーザーデータが指定された場合' do
+        context 'APIサーバからエラーが返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、編集に失敗した旨をトーストメッセージで表示' do
             # TODO: specの内容を作成する
           end
         end
 
-        context '正当なユーザーデータが指定された場合' do
+        context 'APIサーバから成功が返ってきた場合' do
           context '更新するパラメータにpasswordがない場合' do
             xit '編集に成功した旨をトーストメッセージで表示して、200を返す' do
               # TODO: specの内容を作成する
