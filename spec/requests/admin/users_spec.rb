@@ -23,7 +23,7 @@ RSpec.describe 'AdminUsers' do
       it 'ログインページにリダイレクトしてトーストメッセージを表示' do
         expect(subject).to redirect_to login_url
         expect(response).to have_http_status :see_other
-        expect(flash[:danger]).not_to be_nil
+        expect(flash[:danger]).to be_present
       end
     end
 
@@ -31,7 +31,7 @@ RSpec.describe 'AdminUsers' do
       it 'ログインページにリダイレクトしてトーストメッセージを表示' do
         expect(subject).to redirect_to login_url
         expect(response).to have_http_status :see_other
-        expect(flash[:danger]).not_to be_nil
+        expect(flash[:danger]).to be_present
       end
     end
   end
