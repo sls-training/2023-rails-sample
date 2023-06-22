@@ -138,28 +138,6 @@ RSpec.describe 'AdminUsers' do
               # TODO: specの内容を作成する
             end
           end
-
-          context '更新するパラメータにpasswordがある場合' do
-            context 'パラメータにpassword_confirmationがない場合' do
-              xit 'ユーザ管理画面にリダイレクトして、編集に失敗した旨をトーストメッセージで表示' do
-                # TODO: specの内容を作成する
-              end
-            end
-
-            context 'パラメータにpassword_confirmationがある場合' do
-              context 'passwordとpassword_confirmationの値が違う場合' do
-                xit 'ユーザ管理画面にリダイレクトして、編集に失敗した旨をトーストメッセージで表示' do
-                  # TODO: specの内容を作成する
-                end
-              end
-
-              context 'passwordとpassword_confirmationの値が同じ場合' do
-                xit '編集に成功した旨をトーストメッセージで表示して、200を返す' do
-                  # TODO: specの内容を作成する
-                end
-              end
-            end
-          end
         end
       end
     end
