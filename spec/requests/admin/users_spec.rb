@@ -46,7 +46,7 @@ RSpec.describe 'AdminUsers' do
               # TODO: specの内容を作成する
             end
 
-            xit 'ステータスコード200とともに、offsetされた10件分を除いて先頭から10件分のユーザーを返すこと' do
+            xit 'ステータスコード200とともに、先頭から11件目〜20件目のユーザーを返すこと' do
               # TODO: specの内容を作成する
             end
           end
