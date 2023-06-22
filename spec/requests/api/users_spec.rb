@@ -519,7 +519,7 @@ RSpec.describe 'ApiUsers' do
             end
           end
 
-          context 'emailのユーザが存在しない場合' do
+          context 'emailのユーザが存在しない、もしくは自分のメールアドレスの場合' do
             let(:params) { { email: Faker::Internet.email } }
 
             it '200が返って、編集したユーザを返すこと' do
