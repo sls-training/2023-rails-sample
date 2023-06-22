@@ -510,7 +510,7 @@ RSpec.describe 'ApiUsers' do
         end
 
         context '正しいユーザーデータが指定された場合' do
-          context 'emailがすでに存在するユーザのemailの場合' do
+          context 'emailが自分以外のメールアドレスとしてすでに登録されている場合' do
             let(:params) { { email: user.email } }
 
             it '422が返って、エラーメッセージを返すこと' do
