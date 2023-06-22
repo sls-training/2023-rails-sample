@@ -126,8 +126,8 @@ RSpec.describe 'User' do
           end
         end
 
-        context '正当なユーザーIdが指定された場合' do
-          xit 'ユーザ作成のAPIを呼び、trueを返す' do
+        context '正当なユーザーidが指定された場合' do
+          xit 'ユーザ削除のAPIを呼び、trueを返す' do
           end
         end
       end
