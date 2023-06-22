@@ -459,4 +459,78 @@ RSpec.describe 'ApiUsers' do
       end
     end
   end
+
+  describe 'PATCH /api/users/:id' do
+    subject do
+      patch("/api/users/#{target_user.id}", headers:, params:)
+      response
+    end
+
+    let(:admin) { [true, false].sample }
+    let(:activated) { [true, false].sample }
+    let(:target_user) { create(:user) }
+
+    context 'アクセストークンがない場合' do
+      let(:params) do
+        { name: Faker::Name.name, email: Faker::Internet.email, admin:, activated: }
+      end
+
+      it '400でエラーメッセージを出力して失敗する' do
+        expect(subject).to be_bad_request
+        expect(subject.parsed_body).to have_key('errors')
+      end
+    end
+
+    context 'アクセストークンがある場合' do
+      let(:headers) { { 'Authorization' => "Bearer #{access_token}" } }
+      let!(:user) { create(:user, :admin) }
+
+      context 'アクセストークンが有効期限切れの場合' do
+        let(:access_token) { expired_access_token(email: user.email) }
+        let(:params) do
+          { name: Faker::Name.name, email: Faker::Internet.email, admin:, activated: }
+        end
+
+        it '401でエラーメッセージを出力して失敗する' do
+          expect(subject).to be_unauthorized
+          expect(subject.parsed_body).to have_key('errors')
+        end
+      end
+
+      context 'アクセストークンが有効期限内の場合' do
+        let(:access_token) { AccessToken.new(email: user.email).encode }
+
+        context '不正なユーザーデータが指定された場合' do
+          let(:params) { { name: '' } }
+
+          it '400が返って、エラーメッセージを返すこと' do
+            expect(subject).to be_bad_request
+            expect(subject.parsed_body).to have_key('errors')
+          end
+        end
+
+        context '正しいユーザーデータが指定された場合' do
+          context 'emailがすでに存在するユーザのemailの場合' do
+            let(:params) { { email: user.email } }
+
+            it '422が返って、エラーメッセージを返すこと' do
+              expect(subject).to have_http_status :unprocessable_entity
+              expect(subject.parsed_body).to have_key('errors')
+            end
+          end
+
+          context 'emailのユーザが存在しない場合' do
+            let(:params) { { email: Faker::Internet.email } }
+
+            it '200が返って、編集したユーザを返すこと' do
+              expect(subject).to be_successful
+              expect(subject.parsed_body).to include(
+                *%w[id name admin activated activated_at created_at updated_at]
+              )
+            end
+          end
+        end
+      end
+    end
+  end
 end

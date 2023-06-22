@@ -3,7 +3,7 @@
 module Api
   class UsersController < ApplicationController
     include AccessTokenVerifiable
-    before_action :validate_user_id, only: %i[show destroy]
+    before_action :validate_user_id, only: %i[show destroy update]
 
     SORTABLE_KEYS = %w[name id activated_at created_at updated_at].freeze
     ORDERABLE_KEYS = %w[asc desc].freeze
@@ -38,11 +38,29 @@ module Api
       new_user = ::User.create(name:, email:, password:, password_confirmation:)
       if new_user.invalid?
         ## パラメータに不備があった場合
-        errors = new_user.errors.map { |x| { name: x.attribute, message: x.message } }
+        errors = new_user.errors.map { |error| { name: error.attribute, message: error.message } }
         render 'api/errors', locals: { errors: }, status: :bad_request
       else
         # ユーザの作成に成功した場合
         render :create, locals: { user: new_user }, status: :created
+      end
+    end
+
+    def update
+      ## ユーザがすでに存在している時
+      email = user_params[:email]
+      if email && ::User.exists?(email:)
+        errors = [{ name: 'email', message: t('.exist_user') }]
+        render 'api/errors', locals: { errors: }, status: :unprocessable_entity and return
+      end
+
+      if user.update(user_params)
+        # ユーザの更新に成功した場合
+        render :update, locals: { user: }, status: :ok
+      else
+        ## パラメータに不備があった場合
+        errors = user.errors.map { |error| { name: error.attribute, message: error.message } }
+        render 'api/errors', locals: { errors: }, status: :bad_request
       end
     end
 
@@ -58,6 +76,10 @@ module Api
     end
 
     private
+
+    def user_params
+      params.permit(:name, :email, :password, :admin, :activated)
+    end
 
     def sort_key
       @_sort_key ||= SORTABLE_KEYS.include?(params[:sort_key]) ? params[:sort_key] : 'name'
