@@ -109,12 +109,12 @@ RSpec.describe 'User' do
   end
 
   describe '#create' do
-    context '通信エラーが発生した場合' do
+    context 'APIサーバーにアクセスできない場合' do
       xit 'ユーザ作成のAPIを呼ぶことに失敗し、例外を返す' do
       end
     end
 
-    context '通信が正常な場合' do
+    context 'APIサーバーにアクセスできる場合' do
       context '不正なユーザーデータ、アクセストークンが指定された場合' do
         xit 'ユーザ作成のAPIを呼び、例外を返す' do
         end
