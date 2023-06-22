@@ -2,8 +2,6 @@
 
 require 'rails_helper'
 RSpec.describe 'AdminUsers' do
-  let!(:non_admin_user) { create(:user, :noadmin) }
-
   describe 'GET /admin/users' do
     context 'ログインしている場合' do
       context 'ユーザが管理者の場合' do
@@ -68,9 +66,11 @@ RSpec.describe 'AdminUsers' do
           it 'ステータスコード200とともに、先頭から10件分のユーザーを返すこと' do
             subject
             expect(response).to be_successful
-            # TODO: 先頭からの部分が検証できていないですね
             users = controller.instance_variable_get(:@users)
-            expect(users.count).to eq 10
+            expect(users.map(&:id)).to eq User
+                                            .order(name: :asc)
+                                            .limit(10)
+                                            .pluck('id')
           end
         end
 
@@ -112,9 +112,11 @@ RSpec.describe 'AdminUsers' do
             it 'ステータスコード200とともに、先頭から10件分のユーザーを返すこと' do
               subject
               expect(response).to be_successful
-              # TODO: 先頭からの部分が検証できていないですね
               users = controller.instance_variable_get(:@users)
-              expect(users.count).to eq 10
+              expect(users.map(&:id)).to eq User
+                                              .order(name: :asc)
+                                              .limit(10)
+                                              .pluck('id')
             end
           end
 
@@ -134,9 +136,11 @@ RSpec.describe 'AdminUsers' do
             it 'ステータスコード200とともに、先頭から10件分のユーザーを返すこと' do
               subject
               expect(response).to be_successful
-              # TODO: 先頭からの部分が検証できていないですね
               users = controller.instance_variable_get(:@users)
-              expect(users.count).to eq 10
+              expect(users.map(&:id)).to eq User
+                                              .order(name: :asc)
+                                              .limit(10)
+                                              .pluck('id')
             end
           end
 
@@ -156,9 +160,12 @@ RSpec.describe 'AdminUsers' do
             it 'ステータスコード200とともに、先頭から11件目〜20件目のユーザーを返すこと' do
               subject
               expect(response).to be_successful
-              # TODO: 11件目〜20件目からの部分が検証できていないですね
               users = controller.instance_variable_get(:@users)
-              expect(users.count).to eq 10
+              expect(users.map(&:id)).to eq User
+                                              .order(name: :asc)
+                                              .offset(10)
+                                              .limit(10)
+                                              .pluck('id')
             end
           end
         end
@@ -166,6 +173,8 @@ RSpec.describe 'AdminUsers' do
 
       context 'ユーザが管理者ではない場合' do
         subject { get admin_users_path }
+
+        let(:non_admin_user) { create(:user, :noadmin) }
 
         before { log_in_as(non_admin_user) }
 
