@@ -8,30 +8,101 @@ RSpec.describe 'AdminUsers' do
   describe 'GET /admin/users' do
     subject { get admin_users_path }
 
-    context 'ユーザが管理者の場合' do
-      before { log_in_as(admin_user) }
+    context 'ログインしている場合' do
+      context 'ユーザが管理者の場合' do
+        context 'クエリパラメータにpageがない場合' do
+          xit 'ユーザー取得APIにoffset=0パラメータをつけて呼び出すこと' do
+            # TODO: specの内容を作成する
+          end
 
-      it '200が返って、アクセスできる' do
-        subject
-        expect(response).to be_successful
+          xit 'ステータスコード200とともに、先頭から10件分のユーザーを返すこと' do
+            # TODO: specの内容を作成する
+          end
+        end
+
+        context 'クエリパラメータにpageがある場合' do
+          context 'pageの値が0の場合' do
+            xit 'ユーザー取得APIにoffset=0パラメータをつけて呼び出すこと' do
+              # TODO: specの内容を作成する
+            end
+
+            xit 'ステータスコード200とともに、先頭から10件分のユーザーを返すこと' do
+              # TODO: specの内容を作成する
+            end
+          end
+
+          context 'pageの値が1の場合' do
+            xit 'ユーザー取得APIにoffset=0パラメータをつけて呼び出すこと' do
+              # TODO: specの内容を作成する
+            end
+
+            xit 'ステータスコード200とともに、先頭から10件分のユーザーを返すこと' do
+              # TODO: specの内容を作成する
+            end
+          end
+
+          context 'pageの値が2の場合' do
+            xit 'ユーザー取得APIにoffset=10パラメータをつけて呼び出すこと' do
+              # TODO: specの内容を作成する
+            end
+
+            xit 'ステータスコード200とともに、先頭から11件目〜20件目のユーザーを返すこと' do
+              # TODO: specの内容を作成する
+            end
+          end
+        end
+      end
+
+      context 'ユーザが管理者ではない場合' do
+        before { log_in_as(non_admin_user) }
+
+        it 'ログインページにリダイレクトしてトーストメッセージを表示' do
+          expect(subject).to redirect_to login_url
+          expect(response).to have_http_status :see_other
+          expect(flash[:danger]).to be_present
+        end
+      end
+
+      context 'ログインしていない場合' do
+        it 'ログインページにリダイレクトしてトーストメッセージを表示する' do
+          expect(subject).to redirect_to login_url
+          expect(response).to have_http_status :see_other
+          expect(flash[:danger]).to be_present
+        end
       end
     end
+  end
 
-    context 'ユーザが管理者ではない場合' do
-      before { log_in_as(non_admin_user) }
-
-      it 'ログインページにリダイレクトしてトーストメッセージを表示' do
-        expect(subject).to redirect_to login_url
-        expect(response).to have_http_status :see_other
-        expect(flash[:danger]).to be_present
-      end
-    end
-
+  describe 'POST /admin/users' do
     context 'ログインしていない場合' do
-      it 'ログインページにリダイレクトしてトーストメッセージを表示' do
-        expect(subject).to redirect_to login_url
-        expect(response).to have_http_status :see_other
-        expect(flash[:danger]).to be_present
+      xit 'ログインページにリダイレクトしてトーストメッセージを表示' do
+        # TODO: specの内容を作成する
+      end
+    end
+
+    context 'ログインしている場合' do
+      context 'ユーザが管理者ではない場合' do
+        xit 'ログインページにリダイレクトしてトーストメッセージを表示' do
+          # TODO: specの内容を作成する
+        end
+      end
+
+      context 'ユーザが管理者の場合' do
+        xit 'ユーザ作成用のAPIを呼んでいること' do
+          # TODO: specの内容を作成する
+        end
+
+        context '不正なユーザーデータが指定された場合' do
+          xit 'ユーザ管理画面にリダイレクトして、作成に失敗した旨をトーストメッセージで表示する' do
+            # TODO: specの内容を作成する
+          end
+        end
+
+        context '正当なユーザーデータが指定された場合' do
+          xit 'ユーザ管理画面にリダイレクトして、作成に成功した旨をトーストメッセージで表示する' do
+            # TODO: specの内容を作成する
+          end
+        end
       end
     end
   end
