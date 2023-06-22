@@ -107,4 +107,34 @@ RSpec.describe 'User' do
       end
     end
   end
+
+  describe 'edit' do
+    context 'アクセストークンがない場合' do
+      xit 'ユーザ編集のAPIを呼び、例外を返す' do
+        # TODO: specの内容を作成する
+      end
+    end
+
+    context 'アクセストークンがある場合' do
+      context 'アクセストークンが有効期限切れの場合' do
+        xit 'ユーザ編集のAPIを呼び、例外を返す' do
+          # TODO: specの内容を作成する
+        end
+      end
+
+      context 'アクセストークンが有効期限内の場合' do
+        context '不正なユーザーデータが指定された場合' do
+          xit 'ユーザ編集のAPIを呼び、例外を返す' do
+            # TODO: specの内容を作成する
+          end
+        end
+
+        context '正当なユーザーデータが指定された場合' do
+          xit 'ユーザ編集のAPIを呼び、編集されたユーザを返す' do
+            # TODO: specの内容を作成する
+          end
+        end
+      end
+    end
+  end
 end
