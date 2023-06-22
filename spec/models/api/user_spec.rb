@@ -109,29 +109,120 @@ RSpec.describe 'User' do
   end
 
   describe 'edit' do
+    subject { Api::User.edit(access_token:, id:, name:, email:) }
+
+    let(:target_user) { create(:user) }
+    let(:name) { Faker::Name.name }
+    let(:id) { target_user.id }
+
     context 'アクセストークンがない場合' do
-      xit 'ユーザ編集のAPIを呼び、例外を返す' do
-        # TODO: specの内容を作成する
+      let(:email) { Faker::Internet.email }
+      let(:access_token) { nil }
+
+      before do
+        WebMock
+          .stub_request(:patch, "http://localhost:3000/api/users/#{id}")
+          .with(body: { name:, email: })
+          .to_return(
+            body:    {
+              errors: [
+                {
+                  name:    'access_token',
+                  message: 'Authentication token is missing'
+                }
+              ]
+            }.to_json,
+            status:  400,
+            headers: { 'Content-Type' => 'application/json' }
+          )
+      end
+
+      it 'ユーザ編集のAPIを呼び、例外を返す' do
+        expect { subject }.to raise_error Api::Error
+        expect(WebMock).to have_requested(:patch, "http://localhost:3000/api/users/#{id}")
+                             .with(body: { name:, email: })
       end
     end
 
     context 'アクセストークンがある場合' do
+      let(:current_user) { create(:user, :admin) }
+
       context 'アクセストークンが有効期限切れの場合' do
-        xit 'ユーザ編集のAPIを呼び、例外を返す' do
-          # TODO: specの内容を作成する
+        let(:email) { Faker::Internet.email }
+        let(:access_token) { expired_access_token(email: current_user.email) }
+
+        before do
+          WebMock
+            .stub_request(:patch, "http://localhost:3000/api/users/#{id}")
+            .with(body: { name:, email: }, headers: { Authorization: "Bearer #{access_token}" })
+            .to_return(
+              body:    {
+                errors: [
+                  {
+                    name:    'access_token',
+                    message: 'Invalid token'
+                  }
+                ]
+              }.to_json,
+              status:  401,
+              headers: { 'Content-Type' => 'application/json' }
+            )
+        end
+
+        it 'ユーザ編集のAPIを呼び、例外を返す' do
+          expect { subject }.to raise_error Api::Error
+          expect(WebMock).to have_requested(:patch, "http://localhost:3000/api/users/#{id}")
+                               .with(body: { name:, email: })
         end
       end
 
       context 'アクセストークンが有効期限内の場合' do
+        let(:access_token) { AccessToken.new(email: current_user.email) }
+
         context '不正なユーザーデータが指定された場合' do
-          xit 'ユーザ編集のAPIを呼び、例外を返す' do
-            # TODO: specの内容を作成する
+          let(:email) { 'wrong_email' }
+
+          before do
+            WebMock
+              .stub_request(:patch, "http://localhost:3000/api/users/#{id}")
+              .with(body: { name:, email: }, headers: { Authorization: "Bearer #{access_token}" })
+              .to_return(
+                body:    {
+                  errors: [
+                    {
+                      name:    'access_token',
+                      message: 'Invalid token'
+                    }
+                  ]
+                }.to_json,
+                status:  400,
+                headers: { 'Content-Type' => 'application/json' }
+              )
+          end
+
+          it 'ユーザ編集のAPIを呼び、例外を返す' do
+            expect { subject }.to raise_error Api::Error
+            expect(WebMock).to have_requested(:patch, "http://localhost:3000/api/users/#{id}")
+                                 .with(body: { name:, email: })
           end
         end
 
         context '正当なユーザーデータが指定された場合' do
-          xit 'ユーザ編集のAPIを呼び、編集されたユーザを返す' do
-            # TODO: specの内容を作成する
+          let(:email) { Faker::Internet.email }
+
+          before do
+            WebMock
+              .stub_request(:patch, "http://localhost:3000/api/users/#{id}")
+              .with(body: { name:, email: }, headers: { Authorization: "Bearer #{access_token}" })
+              .to_return(body:    user_to_api_user(User.first).to_json,
+                         status:  200,
+                         headers: { 'Content-Type' => 'application/json' })
+          end
+
+          it 'ユーザ編集のAPIを呼び、例外を返す' do
+            expect(subject).to be_instance_of Api::User
+            expect(WebMock).to have_requested(:patch, "http://localhost:3000/api/users/#{id}")
+                                 .with(body: { name:, email: })
           end
         end
       end

@@ -17,6 +17,18 @@ module Api
     end
 
     class << self
+      def edit(access_token:, id:, **params)
+        headers = { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{access_token}" }
+        response = patch("/users/#{id}", params:, headers:)
+        user = JSON.parse(response.body, symbolize_names: true)
+        case response
+        when Net::HTTPSuccess
+          from_json user
+        else
+          raise Api::Error.from_json(user[:errors])
+        end
+      end
+
       def get_list(access_token:, sort_key: 'name', order_by: 'asc', limit: 50, offset: 0)
         headers = { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{access_token}" }
         response = get('/users', params: { sort_key:, order_by:, limit:, offset: }, headers:)
