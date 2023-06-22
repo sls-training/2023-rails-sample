@@ -109,26 +109,19 @@ RSpec.describe 'User' do
   end
 
   describe '#destroy' do
-    context 'アクセストークンがない場合' do
-      xit 'ユーザ削除のAPIを呼び、例外を返す' do
+    context 'APIサーバーにアクセスできない場合' do
+      xit 'ユーザ削除のAPIを呼ぶことに失敗し、例外を返す' do
       end
     end
 
-    context 'アクセストークンがある場合' do
-      context 'アクセストークンが有効期限切れの場合' do
+    context 'APIサーバーにアクセスできる場合' do
+      context '不正なユーザーid、アクセストークンが指定された場合' do
         xit 'ユーザ削除のAPIを呼び、例外を返す' do
         end
       end
 
-      context 'アクセストークンが有効期限内の場合' do
-        context '不正なユーザーidが指定された場合' do
-          xit 'ユーザ削除のAPIを呼び、例外を返す' do
-          end
-        end
-
-        context '正当なユーザーidが指定された場合' do
-          xit 'ユーザ削除のAPIを呼び、trueを返す' do
-          end
+      context '正当なユーザーid、アクセストークンが指定された場合' do
+        xit 'ユーザ削除のAPIを呼び、trueを返す' do
         end
       end
     end
