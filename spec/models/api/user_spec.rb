@@ -107,4 +107,26 @@ RSpec.describe 'User' do
       end
     end
   end
+
+  describe 'edit' do
+    context 'APIサーバーにアクセスできない場合' do
+      xit 'ユーザ編集のAPIを呼ぶことに失敗し、例外を返す' do
+        # TODO: specの内容を作成する
+      end
+    end
+
+    context 'APIサーバーにアクセスできる場合' do
+      context '不正なユーザーデータが指定された場合' do
+        xit 'ユーザ編集のAPIを呼び、例外を返す' do
+          # TODO: specの内容を作成する
+        end
+      end
+
+      context '正当なユーザーデータが指定された場合' do
+        xit 'ユーザ編集のAPIを呼び、編集されたユーザを返す' do
+          # TODO: specの内容を作成する
+        end
+      end
+    end
+  end
 end
