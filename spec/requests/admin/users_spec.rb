@@ -10,44 +10,55 @@ RSpec.describe 'AdminUsers' do
 
     context 'ログインしている場合' do
       context 'ユーザが管理者の場合' do
-        context 'クエリパラメータにpageがない場合' do
-          xit 'ユーザー取得APIにoffset=0パラメータをつけて呼び出すこと' do
+        context 'ユーザー取得の関数get_listの実行時に例外が返ってきた場合' do
+          xit 'ホーム画面にリダイレクトして、取得に失敗した旨をトーストメッセージで表示' do
             # TODO: specの内容を作成する
           end
 
-          xit 'ステータスコード200とともに、先頭から10件分のユーザーを返すこと' do
+          xit 'ユーザー取得の関数を呼び出すこと' do
             # TODO: specの内容を作成する
           end
         end
 
-        context 'クエリパラメータにpageがある場合' do
-          context 'pageの値が0の場合' do
-            xit 'ユーザー取得APIにoffset=0パラメータをつけて呼び出すこと' do
+        context 'ユーザー取得の関数get_listの実行時にユーザの配列が返ってきた場合' do
+          context 'クエリパラメータにpageがない場合' do
+            xit 'ユーザー取得の関数にoffset=0パラメータをつけて呼び出すこと' do
               # TODO: specの内容を作成する
             end
 
-            xit 'ステータスコード200とともに、先頭から10件分のユーザーを返すこと' do
-              # TODO: specの内容を作成する
-            end
-          end
-
-          context 'pageの値が1の場合' do
-            xit 'ユーザー取得APIにoffset=0パラメータをつけて呼び出すこと' do
-              # TODO: specの内容を作成する
-            end
-
-            xit 'ステータスコード200とともに、先頭から10件分のユーザーを返すこと' do
+            xit 'ステータスコード200とともに、10件分のユーザーを表示すること' do
               # TODO: specの内容を作成する
             end
           end
 
-          context 'pageの値が2の場合' do
-            xit 'ユーザー取得APIにoffset=10パラメータをつけて呼び出すこと' do
-              # TODO: specの内容を作成する
+          context 'クエリパラメータにpageがある場合' do
+            context 'pageの値が0の場合' do
+              xit 'ユーザー取得の関数にoffset=0パラメータをつけて呼び出すこと' do
+                # TODO: specの内容を作成する
+              end
+
+              xit 'ステータスコード200とともに、10件分のユーザーを表示すること' do
+                # TODO: specの内容を作成する
+              end
             end
 
-            xit 'ステータスコード200とともに、先頭から11件目〜20件目のユーザーを返すこと' do
-              # TODO: specの内容を作成する
+            context 'pageの値が1の場合' do
+              xit 'ユーザー取得の関数にoffset=0パラメータをつけて呼び出すこと' do
+                # TODO: specの内容を作成する
+              end
+
+              xit 'ステータスコード200とともに、10件分のユーザーを表示すること' do
+              end
+            end
+
+            context 'pageの値が2の場合' do
+              xit 'ユーザー取得の関数にoffset=10パラメータをつけて呼び出すこと' do
+                # TODO: specの内容を作成する
+              end
+
+              xit 'ステータスコード200とともに、10件分のユーザーを表示すること' do
+                # TODO: specの内容を作成する
+              end
             end
           end
         end
@@ -88,17 +99,17 @@ RSpec.describe 'AdminUsers' do
       end
 
       context 'ユーザが管理者の場合' do
-        xit 'ユーザ作成用のAPIを呼んでいること' do
+        xit 'ユーザ作成の関数createを呼んでいること' do
           # TODO: specの内容を作成する
         end
 
-        context '不正なユーザーデータが指定された場合' do
+        context 'ユーザ作成の関数create実行時に例外が返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、作成に失敗した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
         end
 
-        context '正当なユーザーデータが指定された場合' do
+        context 'ユーザ作成の関数create実行時に成功が返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、作成に成功した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
@@ -122,17 +133,17 @@ RSpec.describe 'AdminUsers' do
       end
 
       context 'ユーザが管理者の場合' do
-        xit 'ユーザ更新用のAPIを呼んでいること' do
+        xit 'ユーザ更新の関数editを呼んでいること' do
           # TODO: specの内容を作成する
         end
 
-        context 'APIサーバからエラーが返ってきた場合' do
+        context 'ユーザ更新の関数edit実行時に例外が返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、編集に失敗した旨をトーストメッセージで表示' do
             # TODO: specの内容を作成する
           end
         end
 
-        context 'APIサーバから成功が返ってきた場合' do
+        context 'ユーザ更新の関数edit実行時にユーザが返ってきた場合' do
           context '更新するパラメータにpasswordがない場合' do
             xit '編集に成功した旨をトーストメッセージで表示して、200を返す' do
               # TODO: specの内容を作成する
