@@ -92,13 +92,13 @@ RSpec.describe 'AdminUsers' do
           # TODO: specの内容を作成する
         end
 
-        context 'APIサーバからエラーが返ってきた場合' do
+        context '不正なユーザーデータが指定された場合' do
           xit 'ユーザ管理画面にリダイレクトして、作成に失敗した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
         end
 
-        context 'APIサーバから成功が返ってきた場合' do
+        context '正当なユーザーデータが指定された場合' do
           xit 'ユーザ管理画面にリダイレクトして、作成に成功した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
