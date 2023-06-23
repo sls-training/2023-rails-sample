@@ -30,7 +30,7 @@ RSpec.describe 'AdminUsers' do
                params: { session: { email:, password:, remember_me: '1' } }
         end
 
-        context 'クエリパラメータにpageがない場合' do
+        context 'ユーザ取得時に例外が出る場合' do
           subject { get admin_users_path }
 
           let(:offset) { 0 }
@@ -43,62 +43,50 @@ RSpec.describe 'AdminUsers' do
                 headers: { Authorization: "Bearer #{access_token}" }
               )
               .to_return(
-                body:    User
-                         .order(sort_key => order_by)
-                         .limit(limit)
-                         .offset(offset)
-                         .map { |user| user_to_api_user(user) }
-                         .to_json,
+                body:    {
+                  errors: [
+                    {
+                      name:    'access_token',
+                      message: 'Authentication token is missing'
+                    }
+                  ]
+                }.to_json,
                 status:  200,
                 headers: { 'Content-Type' => 'application/json' }
               )
           end
 
-          it 'ユーザー取得APIにoffset=0パラメータをつけて呼び出すこと' do
-            subject
-            expect(WebMock).to have_requested(:get, 'http://localhost:3000/api/users')
-                                 .with(
-                                   query:   { limit:, offset:, order_by:, sort_key: },
-                                   headers: { Authorization: "Bearer #{access_token}" }
-                                 )
-          end
-
-          it 'ステータスコード200とともに、先頭から10件分のユーザーを返すこと' do
-            subject
-            expect(response).to be_successful
-            users = controller.instance_variable_get(:@users)
-            expect(users.map(&:id)).to eq User
-                                            .order(name: :asc)
-                                            .limit(10)
-                                            .pluck('id')
+          it '例外が出て、ホーム画面にリダイレクトする' do
+            expect(subject).to redirect_to root_url
+            expect(response).to have_http_status :see_other
+            expect(flash[:danger]).to be_present
           end
         end
 
-        context 'クエリパラメータにpageがある場合' do
-          subject { get admin_users_path, params: { page: } }
+        context 'ユーザ取得時に例外が出ない場合' do
+          context 'クエリパラメータにpageがない場合' do
+            subject { get admin_users_path }
 
-          before do
-            WebMock
-              .stub_request(:get, 'http://localhost:3000/api/users')
-              .with(
-                query:   { limit:, offset:, order_by:, sort_key: },
-                headers: { Authorization: "Bearer #{access_token}" }
-              )
-              .to_return(
-                body:    User
-                         .order(sort_key => order_by)
-                         .limit(limit)
-                         .offset(offset)
-                         .map { |user| user_to_api_user(user) }
-                         .to_json,
-                status:  200,
-                headers: { 'Content-Type' => 'application/json' }
-              )
-          end
-
-          context 'pageの値が0の場合' do
-            let(:page) { 0 }
             let(:offset) { 0 }
+
+            before do
+              WebMock
+                .stub_request(:get, 'http://localhost:3000/api/users')
+                .with(
+                  query:   { limit:, offset:, order_by:, sort_key: },
+                  headers: { Authorization: "Bearer #{access_token}" }
+                )
+                .to_return(
+                  body:    User
+                           .order(sort_key => order_by)
+                           .limit(limit)
+                           .offset(offset)
+                           .map { |user| user_to_api_user(user) }
+                           .to_json,
+                  status:  200,
+                  headers: { 'Content-Type' => 'application/json' }
+                )
+            end
 
             it 'ユーザー取得APIにoffset=0パラメータをつけて呼び出すこと' do
               subject
@@ -120,52 +108,99 @@ RSpec.describe 'AdminUsers' do
             end
           end
 
-          context 'pageの値が1の場合' do
-            let(:page) { 1 }
-            let(:offset) { 0 }
+          context 'クエリパラメータにpageがある場合' do
+            subject { get admin_users_path, params: { page: } }
 
-            it 'ユーザー取得APIにoffset=0パラメータをつけて呼び出すこと' do
-              subject
-              expect(WebMock).to have_requested(:get, 'http://localhost:3000/api/users')
-                                   .with(
-                                     query:   { limit:, offset:, order_by:, sort_key: },
-                                     headers: { Authorization: "Bearer #{access_token}" }
-                                   )
+            before do
+              WebMock
+                .stub_request(:get, 'http://localhost:3000/api/users')
+                .with(
+                  query:   { limit:, offset:, order_by:, sort_key: },
+                  headers: { Authorization: "Bearer #{access_token}" }
+                )
+                .to_return(
+                  body:    User
+                           .order(sort_key => order_by)
+                           .limit(limit)
+                           .offset(offset)
+                           .map { |user| user_to_api_user(user) }
+                           .to_json,
+                  status:  200,
+                  headers: { 'Content-Type' => 'application/json' }
+                )
             end
 
-            it 'ステータスコード200とともに、先頭から10件分のユーザーを返すこと' do
-              subject
-              expect(response).to be_successful
-              users = controller.instance_variable_get(:@users)
-              expect(users.map(&:id)).to eq User
-                                              .order(name: :asc)
-                                              .limit(10)
-                                              .pluck('id')
+            context 'pageの値が0の場合' do
+              let(:page) { 0 }
+              let(:offset) { 0 }
+
+              it 'ユーザー取得APIにoffset=0パラメータをつけて呼び出すこと' do
+                subject
+                expect(WebMock).to have_requested(:get, 'http://localhost:3000/api/users')
+                                     .with(
+                                       query:   { limit:, offset:, order_by:, sort_key: },
+                                       headers: { Authorization: "Bearer #{access_token}" }
+                                     )
+              end
+
+              it 'ステータスコード200とともに、先頭から10件分のユーザーを返すこと' do
+                subject
+                expect(response).to be_successful
+                users = controller.instance_variable_get(:@users)
+                expect(users.map(&:id)).to eq User
+                                                .order(name: :asc)
+                                                .limit(10)
+                                                .pluck('id')
+              end
             end
-          end
 
-          context 'pageの値が2の場合' do
-            let(:page) { 2 }
-            let(:offset) { 10 }
+            context 'pageの値が1の場合' do
+              let(:page) { 1 }
+              let(:offset) { 0 }
 
-            it 'ユーザー取得APIにoffset=10パラメータをつけて呼び出すこと' do
-              subject
-              expect(WebMock).to have_requested(:get, 'http://localhost:3000/api/users')
-                                   .with(
-                                     query:   { limit:, offset:, order_by:, sort_key: },
-                                     headers: { Authorization: "Bearer #{access_token}" }
-                                   )
+              it 'ユーザー取得APIにoffset=0パラメータをつけて呼び出すこと' do
+                subject
+                expect(WebMock).to have_requested(:get, 'http://localhost:3000/api/users')
+                                     .with(
+                                       query:   { limit:, offset:, order_by:, sort_key: },
+                                       headers: { Authorization: "Bearer #{access_token}" }
+                                     )
+              end
+
+              it 'ステータスコード200とともに、先頭から10件分のユーザーを返すこと' do
+                subject
+                expect(response).to be_successful
+                users = controller.instance_variable_get(:@users)
+                expect(users.map(&:id)).to eq User
+                                                .order(name: :asc)
+                                                .limit(10)
+                                                .pluck('id')
+              end
             end
 
-            it 'ステータスコード200とともに、先頭から11件目〜20件目のユーザーを返すこと' do
-              subject
-              expect(response).to be_successful
-              users = controller.instance_variable_get(:@users)
-              expect(users.map(&:id)).to eq User
-                                              .order(name: :asc)
-                                              .offset(10)
-                                              .limit(10)
-                                              .pluck('id')
+            context 'pageの値が2の場合' do
+              let(:page) { 2 }
+              let(:offset) { 10 }
+
+              it 'ユーザー取得APIにoffset=10パラメータをつけて呼び出すこと' do
+                subject
+                expect(WebMock).to have_requested(:get, 'http://localhost:3000/api/users')
+                                     .with(
+                                       query:   { limit:, offset:, order_by:, sort_key: },
+                                       headers: { Authorization: "Bearer #{access_token}" }
+                                     )
+              end
+
+              it 'ステータスコード200とともに、先頭から11件目〜20件目のユーザーを返すこと' do
+                subject
+                expect(response).to be_successful
+                users = controller.instance_variable_get(:@users)
+                expect(users.map(&:id)).to eq User
+                                                .order(name: :asc)
+                                                .offset(10)
+                                                .limit(10)
+                                                .pluck('id')
+              end
             end
           end
         end

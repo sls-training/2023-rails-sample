@@ -9,7 +9,6 @@ module Admin
     def index
       # TODO: ユーザのcountをAPIから取得できるようにすること
       user_count = User.count
-
       begin
         user_list = Api::User.get_list(
           access_token:,
@@ -17,7 +16,7 @@ module Admin
           offset:       DISPLAY_AMOUNT * [(params[:page].to_i - 1), 0].max
         )
       rescue StandardError => e
-        redirect_to root_url, status: :see_other, flash: { danger: e }
+        redirect_to root_url, status: :see_other, flash: { danger: e } and return
       end
       total_count = (user_count / DISPLAY_AMOUNT) * DISPLAY_AMOUNT
       @users = Kaminari.paginate_array(user_list, total_count:).page(params[:page]).per(DISPLAY_AMOUNT)
