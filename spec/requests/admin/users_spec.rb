@@ -10,7 +10,7 @@ RSpec.describe 'AdminUsers' do
 
     context 'ログインしている場合' do
       context 'ユーザが管理者の場合' do
-        context 'ユーザー取得の関数get_listの実行時に例外が返ってきた場合' do
+        context 'ユーザー取得の関数の実行時に例外が返ってきた場合' do
           xit 'ホーム画面にリダイレクトして、取得に失敗した旨をトーストメッセージで表示' do
             # TODO: specの内容を作成する
           end
@@ -20,7 +20,7 @@ RSpec.describe 'AdminUsers' do
           end
         end
 
-        context 'ユーザー取得の関数get_listの実行時にユーザの配列が返ってきた場合' do
+        context 'ユーザー取得の関数の実行時にユーザの配列が返ってきた場合' do
           context 'クエリパラメータにpageがない場合' do
             xit 'ユーザー取得の関数にoffset=0パラメータをつけて呼び出すこと' do
               # TODO: specの内容を作成する
@@ -99,17 +99,17 @@ RSpec.describe 'AdminUsers' do
       end
 
       context 'ユーザが管理者の場合' do
-        xit 'ユーザ作成の関数createを呼んでいること' do
+        xit 'ユーザ作成の関数を呼んでいること' do
           # TODO: specの内容を作成する
         end
 
-        context 'ユーザ作成の関数create実行時に例外が返ってきた場合' do
+        context 'ユーザ作成の関数の実行時に例外が返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、作成に失敗した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
         end
 
-        context 'ユーザ作成の関数create実行時に成功が返ってきた場合' do
+        context 'ユーザ作成の関数の実行時に成功が返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、作成に成功した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
@@ -133,17 +133,17 @@ RSpec.describe 'AdminUsers' do
       end
 
       context 'ユーザが管理者の場合' do
-        xit 'ユーザ更新の関数editを呼んでいること' do
+        xit 'ユーザ更新の関数を呼んでいること' do
           # TODO: specの内容を作成する
         end
 
-        context 'ユーザ更新の関数edit実行時に例外が返ってきた場合' do
+        context 'ユーザ更新の関数の実行時に例外が返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、編集に失敗した旨をトーストメッセージで表示' do
             # TODO: specの内容を作成する
           end
         end
 
-        context 'ユーザ更新の関数edit実行時にユーザが返ってきた場合' do
+        context 'ユーザ更新の関数の実行時にユーザが返ってきた場合' do
           context '更新するパラメータにpasswordがない場合' do
             xit '編集に成功した旨をトーストメッセージで表示して、200を返す' do
               # TODO: specの内容を作成する
