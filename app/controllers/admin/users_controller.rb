@@ -16,7 +16,7 @@ module Admin
         offset:       DISPLAY_AMOUNT * [(params[:page].to_i - 1), 0].max
       )
 
-      total_count = user_count.div(DISPLAY_AMOUNT) * DISPLAY_AMOUNT
+      total_count = (user_count / DISPLAY_AMOUNT) * DISPLAY_AMOUNT
       @users = Kaminari.paginate_array(user_list, total_count:).page(params[:page]).per(DISPLAY_AMOUNT)
     end
 
