@@ -142,38 +142,4 @@ RSpec.describe 'AdminUsers' do
       end
     end
   end
-
-  describe 'DELETE /admin/users/:id' do
-    context 'ログインしていない場合' do
-      xit 'ログインページにリダイレクトしてトーストメッセージを表示' do
-        # TODO: specの内容を作成する
-      end
-    end
-
-    context 'ログインしている場合' do
-      context 'ユーザが管理者でない場合' do
-        xit 'ログインページにリダイレクトしてトーストメッセージを表示' do
-          # TODO: specの内容を作成する
-        end
-      end
-
-      context 'ユーザが管理者の場合' do
-        xit 'ユーザ削除用のAPIを呼ぶ' do
-          # TODO: specの内容を作成する
-        end
-
-        context 'APIサーバからエラーが返ってきた場合' do
-          xit 'ユーザ管理画面にリダイレクトして、削除に失敗した旨をトーストメッセージで表示' do
-            # TODO: specの内容を作成する
-          end
-        end
-
-        context 'APIサーバから成功が返ってきた場合' do
-          xit 'ユーザ管理画面にリダイレクトして、削除に成功した旨をトーストメッセージで表示' do
-            # TODO: specの内容を作成する
-          end
-        end
-      end
-    end
-  end
 end
