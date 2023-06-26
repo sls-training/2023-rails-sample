@@ -56,7 +56,7 @@ RSpec.describe 'AdminUsers' do
       context 'ユーザが管理者ではない場合' do
         before { log_in_as(non_admin_user) }
 
-        it 'ログインページにリダイレクトしてトーストメッセージを表示' do
+        it 'ログインページにリダイレクトしてトーストメッセージを表示する' do
           expect(subject).to redirect_to login_url
           expect(response).to have_http_status :see_other
           expect(flash[:danger]).to be_present
