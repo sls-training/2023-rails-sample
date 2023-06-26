@@ -1,0 +1,105 @@
+openapi: 3.0.3
+info:
+  title: チュートリアル用API
+  version: 1.0.1
+servers:
+  - url: http://localhost:3000
+tags:
+  - name: token
+    description: トークン周り
+paths:
+  /token:
+    post:
+      tags:
+        - token
+      summary: ベアラートークンを生成する
+      operationId: createToken
+      parameters:
+        - in: path
+          name: email
+          required: true
+          schema:
+            type: string
+          description: example@railstutorial.org
+        - in: path
+          name: password
+          required: true
+          schema:
+            type: string
+          description: foobar
+
+      requestBody:
+        description: アクセストークンを返す
+        content:
+          application/json:
+            schema:
+              required:
+                - name
+                - photoUrls
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: string
+                  example: eyJhbGciOiJIUzI1NiJ9.AAAAAAAAAABBBBBBBBBBBBBBBCCCCCCCCCCCC
+                password:
+                  type: string
+                  format: string
+                  example: foobar
+      responses:
+        '200':
+          description: 成功した場合
+          content:
+            application/json:
+              schema:
+                properties:
+                  access_token:
+                    type: string
+                    format: string
+                    example: AAAAAAAAAAAAAAAAAAAAAMLheAAAAAAA0%2BuSeid%2BULvsea4JtiGRiSDSJSI%3DEUifiRBkKG5E2XzMDjRfl76ZC9Ub0wnz4XsNiRVBChTYbJcE3F
+
+        '401':
+          description: 入力を間違えて失敗した場合
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          format: string
+                          description: エラーのタイプ
+                          example: access_token
+                        message:
+                          type: string
+                          format: string
+                          description: エラーのメッセージ
+                          example: Incorrect email or password
+
+        '403':
+          description: ユーザに権限がなくて失敗した場合
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          format: string
+                          description: エラーのタイプ
+                          example: access_token
+                        message:
+                          type: string
+                          format: string
+                          description: エラーのメッセージ
+                          example: You are not admin user
