@@ -3,7 +3,7 @@ info:
   title: チュートリアル用API
   version: 1.0.1
 servers:
-  - url: http://localhost:3000
+  - url: http://localhost:3000/api
 tags:
   - name: token
     description: トークン周り
