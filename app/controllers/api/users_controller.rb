@@ -54,7 +54,15 @@ module Api
         render 'api/errors', locals: { errors: }, status: :unprocessable_entity and return
       end
 
-      if user.update(user_params)
+      activated = user_params[:activated]
+      if activated.nil?
+        update_params = user_params
+      else
+        activated_at = activated.downcase == 'true' ? Time.zone.now : nil
+        update_params = user_params.merge(activated_at:)
+      end
+
+      if user.update(update_params)
         # ユーザの更新に成功した場合
         render :update, locals: { user: }, status: :ok
       else
