@@ -10,13 +10,13 @@ RSpec.describe 'AdminUsers' do
 
     context 'ログインしている場合' do
       context 'ユーザが管理者の場合' do
-        context 'ユーザー取得の関数の実行時に例外が返ってきた場合' do
+        context '例外が返ってきた場合' do
           xit 'ホーム画面にリダイレクトして、取得に失敗した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
         end
 
-        context 'ユーザー取得の関数の実行時にユーザの配列が返ってきた場合' do
+        context 'ユーザの配列が返ってきた場合' do
           context 'クエリパラメータにpageがない場合' do
             xit 'ユーザー取得の関数にoffset=0パラメータをつけて呼び出す' do
               # TODO: specの内容を作成する
