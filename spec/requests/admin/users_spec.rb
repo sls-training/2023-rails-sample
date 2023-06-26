@@ -6,7 +6,31 @@ RSpec.describe 'AdminUsers' do
   let!(:non_admin_user) { create(:user, :noadmin) }
 
   describe 'GET /admin/users' do
+    context 'ログインしていない場合' do
+      subject { get admin_users_path }
+
+      it 'ログインページにリダイレクトしてトーストメッセージを表示する' do
+        expect(subject).to redirect_to login_url
+        expect(response).to have_http_status :see_other
+        expect(flash[:danger]).not_to be_nil
+      end
+    end
+
     context 'ログインしている場合' do
+      context 'ユーザが管理者ではない場合' do
+        subject { get admin_users_path }
+
+        let(:non_admin_user) { create(:user, :noadmin) }
+
+        before { log_in_as(non_admin_user) }
+
+        it 'ログインページにリダイレクトしてトーストメッセージを表示する' do
+          expect(subject).to redirect_to login_url
+          expect(response).to have_http_status :see_other
+          expect(flash[:danger]).not_to be_nil
+        end
+      end
+
       context 'ユーザが管理者の場合' do
         let(:order_by) { 'asc' }
         let(:sort_key) { 'name' }
@@ -116,30 +140,6 @@ RSpec.describe 'AdminUsers' do
             end
           end
         end
-      end
-
-      context 'ユーザが管理者ではない場合' do
-        subject { get admin_users_path }
-
-        let(:non_admin_user) { create(:user, :noadmin) }
-
-        before { log_in_as(non_admin_user) }
-
-        it 'ログインページにリダイレクトしてトーストメッセージを表示する' do
-          expect(subject).to redirect_to login_url
-          expect(response).to have_http_status :see_other
-          expect(flash[:danger]).not_to be_nil
-        end
-      end
-    end
-
-    context 'ログインしていない場合' do
-      subject { get admin_users_path }
-
-      it 'ログインページにリダイレクトしてトーストメッセージを表示する' do
-        expect(subject).to redirect_to login_url
-        expect(response).to have_http_status :see_other
-        expect(flash[:danger]).not_to be_nil
       end
     end
   end
