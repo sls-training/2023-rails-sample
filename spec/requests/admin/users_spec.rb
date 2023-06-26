@@ -8,6 +8,14 @@ RSpec.describe 'AdminUsers' do
   describe 'GET /admin/users' do
     subject { get admin_users_path }
 
+    context 'ログインしていない場合' do
+      it 'ログインページにリダイレクトしてトーストメッセージを表示する' do
+        expect(subject).to redirect_to login_url
+        expect(response).to have_http_status :see_other
+        expect(flash[:danger]).to be_present
+      end
+    end
+
     context 'ログインしている場合' do
       context 'ユーザが管理者の場合' do
         context 'クエリパラメータにpageがない場合' do
@@ -56,14 +64,6 @@ RSpec.describe 'AdminUsers' do
       context 'ユーザが管理者ではない場合' do
         before { log_in_as(non_admin_user) }
 
-        it 'ログインページにリダイレクトしてトーストメッセージを表示する' do
-          expect(subject).to redirect_to login_url
-          expect(response).to have_http_status :see_other
-          expect(flash[:danger]).to be_present
-        end
-      end
-
-      context 'ログインしていない場合' do
         it 'ログインページにリダイレクトしてトーストメッセージを表示する' do
           expect(subject).to redirect_to login_url
           expect(response).to have_http_status :see_other
