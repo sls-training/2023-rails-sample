@@ -58,7 +58,7 @@ module Api
       if activated.nil?
         update_params = user_params
       else
-        activated_at = activated.downcase == 'true' ? Time.zone.now : nil
+        activated_at = activated ? Time.zone.now : nil
         update_params = user_params.merge(activated_at:)
       end
 

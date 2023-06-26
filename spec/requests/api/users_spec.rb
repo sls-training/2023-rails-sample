@@ -462,7 +462,7 @@ RSpec.describe 'ApiUsers' do
 
   describe 'PATCH /api/users/:id' do
     subject do
-      patch("/api/users/#{target_user.id}", headers:, params:)
+      patch("/api/users/#{target_user.id}", headers:, params: params.to_json)
       response
     end
 
@@ -482,7 +482,7 @@ RSpec.describe 'ApiUsers' do
     end
 
     context 'アクセストークンがある場合' do
-      let(:headers) { { 'Authorization' => "Bearer #{access_token}" } }
+      let(:headers) { { 'Authorization' => "Bearer #{access_token}", 'Content-Type' => 'application/json' } }
       let!(:user) { create(:user, :admin) }
 
       context 'アクセストークンが有効期限切れの場合' do
