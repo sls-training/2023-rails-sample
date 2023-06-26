@@ -44,6 +44,7 @@ RSpec.describe 'AdminUsers' do
               end
 
               xit 'ステータスコード200とともに、10件分のユーザーを表示する' do
+                # TODO: specの内容を作成する
               end
             end
 
