@@ -531,7 +531,7 @@ RSpec.describe 'ApiUsers' do
             context 'activatedがある場合' do
               let(:params) { { email:, activated: } }
 
-              it 'activated_atも同時に更新される' do
+              it 'activated_atは更新される' do
                 expect { subject }.to(change { User.find_by(id: target_user.id).activated_at })
               end
 
