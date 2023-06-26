@@ -95,10 +95,6 @@ RSpec.describe 'AdminUsers' do
       end
 
       context 'ユーザが管理者の場合' do
-        xit 'ユーザ作成の関数を呼んでいること' do
-          # TODO: specの内容を作成する
-        end
-
         context 'ユーザ作成の関数の実行時に例外が返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、作成に失敗した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
@@ -129,10 +125,6 @@ RSpec.describe 'AdminUsers' do
       end
 
       context 'ユーザが管理者の場合' do
-        xit 'ユーザ更新の関数を呼んでいること' do
-          # TODO: specの内容を作成する
-        end
-
         context 'ユーザ更新の関数の実行時に例外が返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、編集に失敗した旨をトーストメッセージで表示' do
             # TODO: specの内容を作成する
