@@ -545,7 +545,7 @@ RSpec.describe 'ApiUsers' do
           end
 
           context 'emailのユーザが存在する場合' do
-            context 'emailのユーザが自分以外の場合' do
+            context 'emailのユーザが編集対象のユーザ以外の場合' do
               let(:params) { { email: user.email } }
 
               it '422が返って、エラーメッセージを返すこと' do
@@ -554,7 +554,7 @@ RSpec.describe 'ApiUsers' do
               end
             end
 
-            context 'emailのユーザが自分の場合' do
+            context 'emailのユーザが編集対象のユーザの場合' do
               let(:params) { { email: target_user.email } }
 
               it '200が返って、編集したユーザを返すこと' do
