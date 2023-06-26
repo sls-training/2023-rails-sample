@@ -101,7 +101,7 @@ RSpec.describe 'AdminUsers' do
           end
         end
 
-        context 'ユーザ作成の関数の実行時に成功が返ってきた場合' do
+        context 'ユーザ作成の関数の実行時にユーザが返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、作成に成功した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
