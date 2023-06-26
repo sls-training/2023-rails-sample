@@ -511,7 +511,8 @@ RSpec.describe 'ApiUsers' do
 
         context '正しいユーザーデータが指定された場合' do
           context 'emailがすでに存在するユーザのemailの場合' do
-            let(:params) { { email: user.email } }
+            let(:email) { user.email }
+            let(:params) { { email: } }
 
             it '422が返って、エラーメッセージを返すこと' do
               expect(subject).to have_http_status :unprocessable_entity
@@ -520,13 +521,36 @@ RSpec.describe 'ApiUsers' do
           end
 
           context 'emailのユーザが存在しない場合' do
-            let(:params) { { email: Faker::Internet.email } }
+            let(:email) { Faker::Internet.email }
 
-            it '200が返って、編集したユーザを返すこと' do
-              expect(subject).to be_successful
-              expect(subject.parsed_body).to include(
-                *%w[id name admin activated activated_at created_at updated_at]
-              )
+            context 'activatedがない場合' do
+              let(:params) { { email: } }
+
+              it 'activated_atは更新されない' do
+                expect { subject }.not_to(change { User.find_by(id: target_user.id).activated_at })
+              end
+
+              it '200が返って、編集したユーザを返すこと' do
+                expect(subject).to be_successful
+                expect(subject.parsed_body).to include(
+                  *%w[id name admin activated activated_at created_at updated_at]
+                )
+              end
+            end
+
+            context 'activatedがある場合' do
+              let(:params) { { email:, activated: } }
+
+              it 'activated_atも同時に更新される' do
+                expect { subject }.to(change { User.find_by(id: target_user.id).activated_at })
+              end
+
+              it '200が返って、編集したユーザを返すこと' do
+                expect(subject).to be_successful
+                expect(subject.parsed_body).to include(
+                  *%w[id name admin activated activated_at created_at updated_at]
+                )
+              end
             end
           end
         end
