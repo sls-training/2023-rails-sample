@@ -14,10 +14,6 @@ RSpec.describe 'AdminUsers' do
           xit 'ホーム画面にリダイレクトして、取得に失敗した旨をトーストメッセージで表示' do
             # TODO: specの内容を作成する
           end
-
-          xit 'ユーザー取得の関数を呼び出すこと' do
-            # TODO: specの内容を作成する
-          end
         end
 
         context 'ユーザー取得の関数の実行時にユーザの配列が返ってきた場合' do
