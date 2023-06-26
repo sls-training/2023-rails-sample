@@ -132,10 +132,8 @@ RSpec.describe 'AdminUsers' do
         end
 
         context 'ユーザ更新の関数の実行時にユーザが返ってきた場合' do
-          context '更新するパラメータにpasswordがない場合' do
-            xit '編集に成功した旨をトーストメッセージで表示して、200を返す' do
-              # TODO: specの内容を作成する
-            end
+          xit '編集に成功した旨をトーストメッセージで表示して、200を返す' do
+            # TODO: specの内容を作成する
           end
         end
       end
