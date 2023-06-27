@@ -6,7 +6,7 @@ servers:
   - url: http://localhost:3000/api
 tags:
   - name: token
-    description: 他のAPIにアクセスするためのアクセストークンに関するAPI
+    description: アクセストークンに関するAPI
 paths:
   /token:
     post:
