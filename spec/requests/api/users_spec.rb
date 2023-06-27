@@ -466,11 +466,11 @@ RSpec.describe 'ApiUsers' do
       response
     end
 
-    let(:admin) { [true, false].sample }
-    let(:activated) { [true, false].sample }
     let(:target_user) { create(:user) }
 
     context 'アクセストークンがない場合' do
+      let(:admin) { [true, false].sample }
+      let(:activated) { [true, false].sample }
       let(:params) do
         { name: Faker::Name.name, email: Faker::Internet.email, admin:, activated: }
       end
@@ -486,6 +486,8 @@ RSpec.describe 'ApiUsers' do
       let!(:user) { create(:user, :admin) }
 
       context 'アクセストークンが有効期限切れの場合' do
+        let(:admin) { [true, false].sample }
+        let(:activated) { [true, false].sample }
         let(:access_token) { expired_access_token(email: user.email) }
         let(:params) do
           { name: Faker::Name.name, email: Faker::Internet.email, admin:, activated: }
@@ -531,15 +533,34 @@ RSpec.describe 'ApiUsers' do
             context 'activatedがある場合' do
               let(:params) { { email:, activated: } }
 
-              it 'activated_atは更新される' do
-                expect { subject }.to(change { User.find(target_user.id).activated_at })
+              context 'acitvatedがfalseの場合' do
+                let(:activated) { false }
+
+                it 'activated_atは更新される' do
+                  expect { subject }.to(change { User.find(target_user.id).activated_at })
+                end
+
+                it '200が返って、編集したユーザを返すこと' do
+                  expect(subject).to be_successful
+                  expect(subject.parsed_body).to include(
+                    *%w[id name admin activated activated_at created_at updated_at]
+                  )
+                end
               end
 
-              it '200が返って、編集したユーザを返すこと' do
-                expect(subject).to be_successful
-                expect(subject.parsed_body).to include(
-                  *%w[id name admin activated activated_at created_at updated_at]
-                )
+              context 'activatedがtrueの場合' do
+                let(:activated) { true }
+
+                it 'activated_atは更新される' do
+                  expect { subject }.to(change { User.find(target_user.id).activated_at })
+                end
+
+                it '200が返って、編集したユーザを返すこと' do
+                  expect(subject).to be_successful
+                  expect(subject.parsed_body).to include(
+                    *%w[id name admin activated activated_at created_at updated_at]
+                  )
+                end
               end
             end
           end
