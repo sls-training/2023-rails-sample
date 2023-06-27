@@ -47,8 +47,6 @@ RSpec.describe 'AdminUsers' do
         context '例外が返ってきた場合' do
           subject { get admin_users_path }
 
-          let(:offset) { 0 }
-
           before { allow(Api::User).to receive(:get_list).and_raise(StandardError) }
 
           it 'ホーム画面にリダイレクトして、取得に失敗した旨をトーストメッセージで表示する' do
