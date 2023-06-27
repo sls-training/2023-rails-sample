@@ -462,7 +462,7 @@ RSpec.describe 'ApiUsers' do
 
   describe 'PATCH /api/users/:id' do
     subject do
-      patch("/api/users/#{target_user.id}", headers:, params: params.to_json)
+      patch("/api/users/#{target_user.id}", headers:, params:, as: :json)
       response
     end
 
