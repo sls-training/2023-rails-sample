@@ -62,8 +62,14 @@ RSpec.describe 'AdminUsers' do
             user_list = create_list(:user, 20)
             api_users = user_list.take(limit).map do |user|
               Api::User.new(
-                id: user.id, name: user.name, email: user.email, admin: user.admin, activated: user.activated,
-                activated_at: user.activated_at, created_at: user.created_at, updated_at: user.updated_at
+                id:           user.id,
+                name:         user.name,
+                email:        user.email,
+                admin:        user.admin,
+                activated:    user.activated,
+                activated_at: user.activated_at&.iso8601(2),
+                created_at:   user.created_at.iso8601(2),
+                updated_at:   user.updated_at.iso8601(2)
               )
             end
 
