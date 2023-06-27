@@ -18,44 +18,52 @@ RSpec.describe 'AdminUsers' do
 
     context 'ログインしている場合' do
       context 'ユーザが管理者の場合' do
-        context 'クエリパラメータにpageがない場合' do
-          xit 'ユーザー取得APIにoffset=0パラメータをつけて呼び出すこと' do
-            # TODO: specの内容を作成する
-          end
-
-          xit 'ステータスコード200とともに、先頭から10件分のユーザーを返すこと' do
+        context '例外が返ってきた場合' do
+          xit 'ホーム画面にリダイレクトして、取得に失敗した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
         end
 
-        context 'クエリパラメータにpageがある場合' do
-          context 'pageの値が0の場合' do
-            xit 'ユーザー取得APIにoffset=0パラメータをつけて呼び出すこと' do
+        context 'ユーザの配列が返ってきた場合' do
+          context 'クエリパラメータにpageがない場合' do
+            xit 'ユーザー取得の関数にoffset=0パラメータをつけて呼び出す' do
               # TODO: specの内容を作成する
             end
 
-            xit 'ステータスコード200とともに、先頭から10件分のユーザーを返すこと' do
-              # TODO: specの内容を作成する
-            end
-          end
-
-          context 'pageの値が1の場合' do
-            xit 'ユーザー取得APIにoffset=0パラメータをつけて呼び出すこと' do
-              # TODO: specの内容を作成する
-            end
-
-            xit 'ステータスコード200とともに、先頭から10件分のユーザーを返すこと' do
+            xit 'ステータスコード200とともに、10件分のユーザーを表示する' do
               # TODO: specの内容を作成する
             end
           end
 
-          context 'pageの値が2の場合' do
-            xit 'ユーザー取得APIにoffset=10パラメータをつけて呼び出すこと' do
-              # TODO: specの内容を作成する
+          context 'クエリパラメータにpageがある場合' do
+            context 'pageの値が0の場合' do
+              xit 'ユーザー取得の関数にoffset=0パラメータをつけて呼び出す' do
+                # TODO: specの内容を作成する
+              end
+
+              xit 'ステータスコード200とともに、10件分のユーザーを表示する' do
+                # TODO: specの内容を作成する
+              end
             end
 
-            xit 'ステータスコード200とともに、先頭から11件目〜20件目のユーザーを返すこと' do
-              # TODO: specの内容を作成する
+            context 'pageの値が1の場合' do
+              xit 'ユーザー取得の関数にoffset=0パラメータをつけて呼び出す' do
+                # TODO: specの内容を作成する
+              end
+
+              xit 'ステータスコード200とともに、10件分のユーザーを表示する' do
+                # TODO: specの内容を作成する
+              end
+            end
+
+            context 'pageの値が2の場合' do
+              xit 'ユーザー取得の関数にoffset=10パラメータをつけて呼び出す' do
+                # TODO: specの内容を作成する
+              end
+
+              xit 'ステータスコード200とともに、10件分のユーザーを表示する' do
+                # TODO: specの内容を作成する
+              end
             end
           end
         end
@@ -75,30 +83,26 @@ RSpec.describe 'AdminUsers' do
 
   describe 'POST /admin/users' do
     context 'ログインしていない場合' do
-      xit 'ログインページにリダイレクトしてトーストメッセージを表示' do
+      xit 'ログインページにリダイレクトしてトーストメッセージを表示する' do
         # TODO: specの内容を作成する
       end
     end
 
     context 'ログインしている場合' do
       context 'ユーザが管理者ではない場合' do
-        xit 'ログインページにリダイレクトしてトーストメッセージを表示' do
+        xit 'ログインページにリダイレクトしてトーストメッセージを表示する' do
           # TODO: specの内容を作成する
         end
       end
 
       context 'ユーザが管理者の場合' do
-        xit 'ユーザ作成用のAPIを呼んでいること' do
-          # TODO: specの内容を作成する
-        end
-
-        context '不正なユーザーデータが指定された場合' do
+        context '例外が返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、作成に失敗した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
         end
 
-        context '正当なユーザーデータが指定された場合' do
+        context 'ユーザが返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、作成に成功した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
@@ -109,34 +113,28 @@ RSpec.describe 'AdminUsers' do
 
   describe 'PATCH /admin/users/:id' do
     context 'ログインしていない場合' do
-      xit 'ログインページにリダイレクトしてトーストメッセージを表示' do
+      xit 'ログインページにリダイレクトしてトーストメッセージを表示する' do
         # TODO: specの内容を作成する
       end
     end
 
     context 'ログインしている場合' do
       context 'ユーザが管理者ではない場合' do
-        xit 'ログインページにリダイレクトしてトーストメッセージを表示' do
+        xit 'ログインページにリダイレクトしてトーストメッセージを表示する' do
           # TODO: specの内容を作成する
         end
       end
 
       context 'ユーザが管理者の場合' do
-        xit 'ユーザ更新用のAPIを呼んでいること' do
-          # TODO: specの内容を作成する
-        end
-
-        context 'APIサーバからエラーが返ってきた場合' do
-          xit 'ユーザ管理画面にリダイレクトして、編集に失敗した旨をトーストメッセージで表示' do
+        context '例外が返ってきた場合' do
+          xit 'ユーザ管理画面にリダイレクトして、編集に失敗した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
         end
 
-        context 'APIサーバから成功が返ってきた場合' do
-          context '更新するパラメータにpasswordがない場合' do
-            xit '編集に成功した旨をトーストメッセージで表示して、200を返す' do
-              # TODO: specの内容を作成する
-            end
+        context 'ユーザが返ってきた場合' do
+          xit '編集に成功した旨をトーストメッセージで表示して、200を返す' do
+            # TODO: specの内容を作成する
           end
         end
       end
