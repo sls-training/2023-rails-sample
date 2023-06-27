@@ -15,6 +15,7 @@ paths:
       summary: ベアラートークンを生成する
       operationId: createToken
       requestBody:
+        required: true
         description: アクセストークンを返す
         content:
           application/json:
