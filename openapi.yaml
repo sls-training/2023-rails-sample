@@ -21,18 +21,17 @@ paths:
           application/json:
             schema:
               required:
-                - name
+                - email
                 - password
               type: object
               properties:
                 email:
                   type: string
-                  format: string
-                  example: eyJhbGciOiJIUzI1NiJ9.AAAAAAAAAABBBBBBBBBBBBBBBCCCCCCCCCCCC
+                  format: email
                 password:
                   type: string
-                  format: string
-                  example: foobar
+                  format: password
+                  minLength: 6
       responses:
         '200':
           description: 成功した場合
@@ -42,7 +41,6 @@ paths:
                 properties:
                   access_token:
                     type: string
-                    format: string
                     example: AAAAAAAAAAAAAAAAAAAAAMLheAAAAAAA0%2BuSeid%2BULvsea4JtiGRiSDSJSI%3DEUifiRBkKG5E2XzMDjRfl76ZC9Ub0wnz4XsNiRVBChTYbJcE3F
 
         '401':
@@ -59,12 +57,10 @@ paths:
                       properties:
                         name:
                           type: string
-                          format: string
                           description: エラーのタイプ
                           example: access_token
                         message:
                           type: string
-                          format: string
                           description: エラーのメッセージ
                           example: Incorrect email or password
 
@@ -82,11 +78,9 @@ paths:
                       properties:
                         name:
                           type: string
-                          format: string
                           description: エラーのタイプ
                           example: access_token
                         message:
                           type: string
-                          format: string
                           description: エラーのメッセージ
                           example: You are not admin user
