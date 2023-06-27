@@ -47,9 +47,9 @@ module Api
     end
 
     def update
-      ## ユーザがすでに存在している時
+      ## 自分以外のメールアドレスとしてすでに登録されている場合
       email = user_params[:email]
-      if email && ::User.exists?(email:)
+      if email && email != user.email && ::User.exists?(email:)
         errors = [{ name: 'email', message: t('.exist_user') }]
         render 'api/errors', locals: { errors: }, status: :unprocessable_entity and return
       end

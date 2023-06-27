@@ -510,15 +510,6 @@ RSpec.describe 'ApiUsers' do
         end
 
         context '正しいユーザーデータが指定された場合' do
-          context 'emailがすでに存在するユーザのemailの場合' do
-            let(:params) { { email: user.email } }
-
-            it '422が返って、エラーメッセージを返すこと' do
-              expect(subject).to have_http_status :unprocessable_entity
-              expect(subject.parsed_body).to have_key('errors')
-            end
-          end
-
           context 'emailのユーザが存在しない場合' do
             let(:params) { { email: Faker::Internet.email } }
 
@@ -527,6 +518,28 @@ RSpec.describe 'ApiUsers' do
               expect(subject.parsed_body).to include(
                 *%w[id name admin activated activated_at created_at updated_at]
               )
+            end
+          end
+
+          context 'emailのユーザが存在する場合' do
+            context 'emailのユーザが自分以外の場合' do
+              let(:params) { { email: user.email } }
+
+              it '422が返って、エラーメッセージを返すこと' do
+                expect(subject).to have_http_status :unprocessable_entity
+                expect(subject.parsed_body).to have_key('errors')
+              end
+            end
+
+            context 'emailのユーザが自分の場合' do
+              let(:params) { { email: target_user.email } }
+
+              it '200が返って、編集したユーザを返すこと' do
+                expect(subject).to be_successful
+                expect(subject.parsed_body).to include(
+                  *%w[id name admin activated activated_at created_at updated_at]
+                )
+              end
             end
           end
         end
