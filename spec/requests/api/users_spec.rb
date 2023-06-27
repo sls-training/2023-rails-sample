@@ -517,7 +517,7 @@ RSpec.describe 'ApiUsers' do
               let(:params) { { email: } }
 
               it 'activated_atは更新されない' do
-                expect { subject }.not_to(change { User.find_by(id: target_user.id).activated_at })
+                expect { subject }.not_to(change { User.find(target_user.id).activated_at })
               end
 
               it '200が返って、編集したユーザを返すこと' do
@@ -532,7 +532,7 @@ RSpec.describe 'ApiUsers' do
               let(:params) { { email:, activated: } }
 
               it 'activated_atは更新される' do
-                expect { subject }.to(change { User.find_by(id: target_user.id).activated_at })
+                expect { subject }.to(change { User.find(target_user.id).activated_at })
               end
 
               it '200が返って、編集したユーザを返すこと' do
