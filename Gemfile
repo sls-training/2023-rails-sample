@@ -109,6 +109,7 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver', '~> 4.0.0'
   gem 'webdrivers'
+  gem 'committee-rails'
 end
 
 group :production do
