@@ -14,20 +14,6 @@ paths:
         - token
       summary: ベアラートークンを生成する
       operationId: createToken
-      parameters:
-        - in: path
-          name: email
-          required: true
-          schema:
-            type: string
-          description: example@railstutorial.org
-        - in: path
-          name: password
-          required: true
-          schema:
-            type: string
-          description: foobar
-
       requestBody:
         description: アクセストークンを返す
         content:
