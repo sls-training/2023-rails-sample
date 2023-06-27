@@ -44,7 +44,7 @@ RSpec.describe 'AdminUsers' do
                params: { session: { email: admin_user.email, password: admin_user.password, remember_me: '1' } }
         end
 
-        context 'ユーザー取得の関数の実行時に例外が返ってきた場合' do
+        context '例外が返ってきた場合' do
           subject { get admin_users_path }
 
           let(:offset) { 0 }
@@ -59,7 +59,7 @@ RSpec.describe 'AdminUsers' do
           end
         end
 
-        context 'ユーザー取得の関数の実行時にユーザの配列が返ってきた場合' do
+        context 'ユーザの配列が返ってきた場合' do
           before do
             user_list = create_list(:user, 20)
             api_users = user_list.take(limit).map do |user|
@@ -159,13 +159,13 @@ RSpec.describe 'AdminUsers' do
       end
 
       context 'ユーザが管理者の場合' do
-        context 'ユーザ作成の関数の実行時に例外が返ってきた場合' do
+        context '例外が返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、作成に失敗した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
         end
 
-        context 'ユーザ作成の関数の実行時にユーザが返ってきた場合' do
+        context 'ユーザが返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、作成に成功した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
@@ -189,13 +189,13 @@ RSpec.describe 'AdminUsers' do
       end
 
       context 'ユーザが管理者の場合' do
-        context 'ユーザ更新の関数の実行時に例外が返ってきた場合' do
+        context '例外が返ってきた場合' do
           xit 'ユーザ管理画面にリダイレクトして、編集に失敗した旨をトーストメッセージで表示する' do
             # TODO: specの内容を作成する
           end
         end
 
-        context 'ユーザ更新の関数の実行時にユーザが返ってきた場合' do
+        context 'ユーザが返ってきた場合' do
           xit '編集に成功した旨をトーストメッセージで表示して、200を返す' do
             # TODO: specの内容を作成する
           end
