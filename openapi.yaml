@@ -16,7 +16,7 @@ paths:
       operationId: createToken
       requestBody:
         required: true
-        description: アクセストークンを返す
+        description: ユーザのemailとpassword
         content:
           application/json:
             schema:
