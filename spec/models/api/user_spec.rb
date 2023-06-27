@@ -10,39 +10,35 @@ RSpec.describe 'User' do
     let(:sort_key) { 'name' }
     let(:order_by) { 'asc' }
     let(:offset) { 0 }
+    let(:current_user) { create(:user, :admin) }
 
-    context 'アクセストークンがない場合' do
-      let(:access_token) { nil }
+    context 'APIサーバーにアクセスできない場合' do
+      let(:access_token) { AccessToken.new(email: current_user.email).encode }
 
       before do
         WebMock
           .stub_request(:get, 'http://localhost:3000/api/users')
-          .with(query: { limit:, offset:, order_by:, sort_key: })
-          .to_return(
-            body:    {
-              errors: [
-                {
-                  name:    'access_token',
-                  message: 'Authentication token is missing'
-                }
-              ]
-            }.to_json,
-            status:  400,
-            headers: { 'Content-Type' => 'application/json' }
+          .with(
+            query:   { limit:, offset:, order_by:, sort_key: },
+            headers: { Authorization: "Bearer #{access_token}" }
           )
+          .to_raise(StandardError)
       end
 
-      it '例外を投げる' do
-        expect { subject }.to raise_error Api::Error
+      it 'ユーザ取得のAPIを呼ぶことに失敗し、例外を返す' do
+        expect { subject }.to raise_error StandardError
         expect(WebMock).to have_requested(:get, 'http://localhost:3000/api/users')
-                             .with(query: { limit:, offset:, order_by:, sort_key: })
+                             .with(
+                               query:   { limit:, offset:, order_by:, sort_key: },
+                               headers: { Authorization: "Bearer #{access_token}" }
+                             )
       end
     end
 
-    context 'アクセストークンがある場合' do
-      let(:current_user) { create(:user, :admin) }
+    context 'APIサーバーにアクセスできる場合' do
+      context '不正なクエリパラメータ、アクセストークンが指定された場合' do
+        let(:access_token) { expired_access_token(email: current_user.email) }
 
-      context 'アクセストークンが有効期限切れの場合' do
         before do
           WebMock
             .stub_request(:get, 'http://localhost:3000/api/users')
@@ -63,9 +59,7 @@ RSpec.describe 'User' do
             )
         end
 
-        let(:access_token) { expired_access_token(email: current_user.email) }
-
-        it '例外を投げる' do
+        it 'ユーザ取得のAPIを呼び、例外を返す' do
           expect { subject }.to raise_error Api::Error
           expect(WebMock).to have_requested(:get, 'http://localhost:3000/api/users')
                                .with(
@@ -75,7 +69,7 @@ RSpec.describe 'User' do
         end
       end
 
-      context 'アクセストークンが有効期限内の場合' do
+      context '正当なクエリパラメータ、アクセストークンが指定された場合' do
         before do
           WebMock
             .stub_request(:get, 'http://localhost:3000/api/users')
@@ -96,7 +90,7 @@ RSpec.describe 'User' do
 
         let(:access_token) { AccessToken.new(email: current_user.email).encode }
 
-        it 'ユーザの配列が返る' do
+        it 'ユーザ取得のAPIを呼び、ユーザの配列を返す' do
           expect(subject).to include Api::User
           expect(WebMock).to have_requested(:get, 'http://localhost:3000/api/users')
                                .with(
