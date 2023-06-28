@@ -84,3 +84,131 @@ paths:
                           type: string
                           description: エラーのメッセージ
                           example: You are not admin user
+  /users:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - users
+      summary: ユーザを作成する
+      operationId: createUser
+      requestBody:
+        description: アクセストークンを返す
+        content:
+          application/json:
+            schema:
+              required:
+                - name
+                - email
+                - password
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+                  minLength: 6
+                admin:
+                  type: boolean
+
+      responses:
+        '200':
+          description: 成功した場合
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: number
+                  name:
+                    type: string
+                  email:
+                    type: string
+                    format: email
+                  admin:
+                    type: boolean
+                  activated:
+                    type: boolean
+                  activated_at:
+                    type: string
+                    nullable: true
+                    format: date-time
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+
+        '400':
+          description: パラメータの形式が間違っていた場合
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      example:
+                        - name: email
+                          message: is invalid
+                        - name: name
+                          message: Can't be blank
+                        - name: name
+                          message: is too short (minimum is 0 characters)
+        '401':
+          description: アクセストークンが無効な場合
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      example:
+                        - name: access_token
+                          message: Unauthorized. Invalid token
+
+        '404':
+          description: 存在しないIDを指定した場合
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      example:
+                        - name: user_id
+                          message: User does not exist
+        '422':
+          description: ユーザが既に存在している場合
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      example:
+                        - name: email
+                          message: has already been taken
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
