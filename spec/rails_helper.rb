@@ -66,6 +66,7 @@ RSpec.configure do |config|
   config.after(:suite) { FileUtils.rm_rf(ActiveStorage::Blob.service.root) }
 
   # committee
+  include Committee::Rails::Test::Methods
   config.add_setting :committee_options
   config.committee_options = {
     schema_path:                 Rails.root.join('schema/openapi.yaml').to_s,

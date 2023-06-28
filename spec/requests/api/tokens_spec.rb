@@ -4,8 +4,6 @@ require 'rails_helper'
 
 RSpec.describe 'ApiTokens' do
   describe 'POST /api/token' do
-    include Committee::Rails::Test::Methods
-
     context 'ユーザが存在する場合' do
       context 'ユーザがadminの場合' do
         let(:user) { create(:user, :admin) }
