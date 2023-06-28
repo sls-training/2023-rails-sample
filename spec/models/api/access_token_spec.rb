@@ -18,7 +18,7 @@ RSpec.describe 'AccessToken' do
             .stub_request(:post, 'http://localhost:3000/api/token')
             .with(body: { email:, password: })
             .to_return(
-              body:   {
+              body:    {
                 errors: [
                   {
                     name:    'access_token',
@@ -26,7 +26,8 @@ RSpec.describe 'AccessToken' do
                   }
                 ]
               }.to_json,
-              status: 400
+              status:  400,
+              headers: { content_type: 'application/json' }
             )
         end
 
@@ -49,7 +50,7 @@ RSpec.describe 'AccessToken' do
               .stub_request(:post, 'http://localhost:3000/api/token')
               .with(body: { email:, password: })
               .to_return(
-                body:   {
+                body:    {
                   errors: [
                     {
                       name:    'access_token',
@@ -57,7 +58,8 @@ RSpec.describe 'AccessToken' do
                     }
                   ]
                 }.to_json,
-                status: 400
+                status:  400,
+                headers: { content_type: 'application/json' }
               )
           end
 
@@ -76,7 +78,7 @@ RSpec.describe 'AccessToken' do
               .stub_request(:post, 'http://localhost:3000/api/token')
               .with(body: { email:, password: })
               .to_return(
-                body:   {
+                body:    {
                   errors: [
                     {
                       name:    'access_token',
@@ -84,7 +86,8 @@ RSpec.describe 'AccessToken' do
                     }
                   ]
                 }.to_json,
-                status: 403
+                status:  403,
+                headers: { content_type: 'application/json' }
               )
           end
 
@@ -109,7 +112,7 @@ RSpec.describe 'AccessToken' do
             .stub_request(:post, 'http://localhost:3000/api/token')
             .with(body: { email:, password: })
             .to_return(
-              body:   {
+              body:    {
                 errors: [
                   {
                     name:    'access_token',
@@ -117,7 +120,8 @@ RSpec.describe 'AccessToken' do
                   }
                 ]
               }.to_json,
-              status: 400
+              status:  400,
+              headers: { content_type: 'application/json' }
             )
         end
 
@@ -139,7 +143,7 @@ RSpec.describe 'AccessToken' do
               .stub_request(:post, 'http://localhost:3000/api/token')
               .with(body: { email:, password: })
               .to_return(
-                body:   {
+                body:    {
                   errors: [
                     {
                       name:    'access_token',
@@ -147,7 +151,8 @@ RSpec.describe 'AccessToken' do
                     }
                   ]
                 }.to_json,
-                status: 400
+                status:  400,
+                headers: { content_type: 'application/json' }
               )
           end
 
@@ -166,10 +171,11 @@ RSpec.describe 'AccessToken' do
               .stub_request(:post, 'http://localhost:3000/api/token')
               .with(body: { email:, password: })
               .to_return(
-                body:   {
+                body:    {
                   access_token: AccessToken.new(email:).encode
                 }.to_json,
-                status: 200
+                status:  200,
+                headers: { content_type: 'application/json' }
               )
           end
 
