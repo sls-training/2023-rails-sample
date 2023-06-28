@@ -21,10 +21,10 @@ module SessionsHelper
   end
 
   def verify_access_token?
-    Api::AccessToken.new(value: access_token).valid?
+    Api::AccessToken.new(value: raw_access_token).valid?
   end
 
-  def access_token
+  def raw_access_token
     cookies[:access_token]
   end
 

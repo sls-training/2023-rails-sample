@@ -11,7 +11,7 @@ module Admin
       user_count = User.count
 
       user_list = Api::User.get_list(
-        access_token:,
+        access_token: raw_access_token,
         limit:        DISPLAY_AMOUNT,
         offset:       DISPLAY_AMOUNT * [(params[:page].to_i - 1), 0].max
       )
