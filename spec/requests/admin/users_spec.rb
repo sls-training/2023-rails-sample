@@ -6,7 +6,10 @@ RSpec.describe 'AdminUsers' do
   let!(:non_admin_user) { create(:user, :noadmin) }
 
   describe 'GET /admin/users' do
-    subject { get admin_users_path, params: { page: defined?(page) ? page : nil }.compact }
+    subject do
+      get admin_users_path, params: { page: defined?(page) ? page : nil }.compact
+      response
+    end
 
     context 'ログインしていない場合' do
       it 'ログインページにリダイレクトしてトーストメッセージを表示する' do
@@ -80,7 +83,7 @@ RSpec.describe 'AdminUsers' do
 
             it 'ステータスコード200とともに、10件分のユーザーを表示する' do
               subject
-              expect(response).to be_successful
+              expect(subject).to be_successful
               users = controller.instance_variable_get(:@users)
               expect(users.count).to be 10
             end
@@ -96,8 +99,7 @@ RSpec.describe 'AdminUsers' do
               end
 
               it 'ステータスコード200とともに、10件分のユーザーを表示する' do
-                subject
-                expect(response).to be_successful
+                expect(subject).to be_successful
                 users = controller.instance_variable_get(:@users)
                 expect(users.count).to be 10
               end
@@ -112,8 +114,7 @@ RSpec.describe 'AdminUsers' do
               end
 
               it 'ステータスコード200とともに、10件分のユーザーを表示する' do
-                subject
-                expect(response).to be_successful
+                expect(subject).to be_successful
                 users = controller.instance_variable_get(:@users)
                 expect(users.count).to be 10
               end
@@ -128,8 +129,7 @@ RSpec.describe 'AdminUsers' do
               end
 
               it 'ステータスコード200とともに、10件分のユーザーを表示する' do
-                subject
-                expect(response).to be_successful
+                expect(subject).to be_successful
                 users = controller.instance_variable_get(:@users)
                 expect(users.count).to be 10
               end
