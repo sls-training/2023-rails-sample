@@ -9,9 +9,10 @@ RSpec.describe 'ApiTokens' do
     context 'ユーザが存在する場合' do
       context 'ユーザがadminの場合' do
         let(:user) { create(:user, :admin) }
+        let(:headers) { { 'Content-Type': 'application/json' } }
 
         it 'スキーマ通りに200が返って、アクセストークンを返すこと' do
-          post '/api/token', params: { email: user.email, password: user.password }
+          post '/api/token', headers:, params: { email: user.email, password: user.password }, as: :json
           expect(response.parsed_body).to have_key('access_token')
           assert_response_schema_confirm(200)
         end
@@ -21,7 +22,7 @@ RSpec.describe 'ApiTokens' do
         let(:noadmin) { create(:user, :noadmin) }
 
         it 'スキーマ通りに403が返って、エラーメッセージを返すこと' do
-          post '/api/token', params: { email: noadmin.email, password: noadmin.password }
+          post '/api/token', headers:, params: { email: noadmin.email, password: noadmin.password }, as: :json
           expect(response.parsed_body).to have_key('errors')
           assert_response_schema_confirm(403)
         end
@@ -30,7 +31,7 @@ RSpec.describe 'ApiTokens' do
 
     context 'ユーザが存在しない場合' do
       it 'スキーマ通りに401が返って、エラーメッセージを返すこと' do
-        post '/api/token', params: { email: 'test@hogehgoe.com', password: 'invalid password' }
+        post '/api/token', headers:, params: { email: 'test@hogehgoe.com', password: 'invalid password' }, as: :json
         expect(response.parsed_body).to have_key('errors')
         assert_response_schema_confirm(401)
       end
