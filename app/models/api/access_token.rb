@@ -1,23 +1,19 @@
 # frozen_string_literal: true
 
+require 'openapi_client'
+
 module Api
   class AccessToken
     extend HttpMethod
     attr_reader :value
 
     def self.create(email:, password:)
-      response = post(
-        '/token', params:  { email:, password: },
-                  headers: { 'Content-Type' => 'application/json' }
-      )
-      data = JSON.parse(response.body, symbolize_names: true)
-      case response
-      when Net::HTTPSuccess
-        value = data[:access_token]
-        new(value:)
-      else
-        raise Api::Error.from_json(data[:errors])
-      end
+      api_instance = OpenapiClient::TokenApi.new
+      create_token_request = OpenapiClient::CreateTokenRequest.new({ email:, password: })
+
+      # ベアラートークンを生成する
+      result = api_instance.create_token(create_token_request)
+      new(value: result.access_token)
     end
 
     def initialize(value: nil)
