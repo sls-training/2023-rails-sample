@@ -67,6 +67,7 @@ paths:
                           type: string
                           description: エラーのメッセージ
                           example: Incorrect email or password
+                additionalProperties: false
 
         '403':
           description: ユーザに権限がなくて失敗した場合
