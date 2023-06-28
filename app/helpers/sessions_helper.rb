@@ -21,7 +21,11 @@ module SessionsHelper
   end
 
   def verify_access_token?
-    Api::AccessToken.new(value: cookies[:access_token]).valid?
+    Api::AccessToken.new(value: raw_access_token).valid?
+  end
+
+  def raw_access_token
+    cookies[:access_token]
   end
 
   # 変数とかをメソッドで管理する感じ

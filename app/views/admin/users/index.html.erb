@@ -41,22 +41,22 @@
               <tbody>
                 <% @users.each do | user | %>
                 <tr>
-                  <td scope="row"><%= user[:id] %></td>
-                  <td><%= user[:name] %></td>
-                  <td><%= user[:email] %></td>
+                  <td scope="row"><%= user.id %></td>
+                  <td><%= user.name %></td>
+                  <td><%= user.email %></td>
                   <td>
-                    <% if user[:admin] %>
+                    <% if user.admin %>
                     <i class="fa-solid fa-check"></i>
                     <% end %>
                   </td>
                   <td>
-                    <% if user[:activated_at] %>
+                    <% if user.activated_at %>
                     <i class="fa-solid fa-check"></i>
                     <% end %>
                   </td>
-                  <td><%= user[:activated_at]&.strftime("%Y/%m/%d %H:%M:%S") %></td>
-                  <td><%= user[:created_at].strftime("%Y/%m/%d %H:%M:%S") %></td>
-                  <td><%= user[:updated_at].strftime("%Y/%m/%d %H:%M:%S") %></td>
+                  <td><%= user.activated_at&.to_datetime.strftime("%Y/%m/%d %H:%M:%S") %></td>
+                  <td><%= user.created_at.to_datetime.strftime("%Y/%m/%d %H:%M:%S") %></td>
+                  <td><%= user.updated_at.to_datetime.strftime("%Y/%m/%d %H:%M:%S") %></td>
                   <td class="d-flex flex-row justify-content-between">
                     <%= button_tag "編集",
                         id:"edit-user-button", 

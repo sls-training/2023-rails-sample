@@ -28,7 +28,7 @@ module Api
           end
 
         else
-          raise Api::Error.from_json(users[:errors])
+          raise Api::Error, users[:errors]
         end
       end
 
