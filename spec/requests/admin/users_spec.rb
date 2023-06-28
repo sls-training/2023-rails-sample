@@ -6,9 +6,9 @@ RSpec.describe 'AdminUsers' do
   let!(:non_admin_user) { create(:user, :noadmin) }
 
   describe 'GET /admin/users' do
-    context 'ログインしていない場合' do
-      subject { get admin_users_path }
+    subject { get admin_users_path, params: { page: defined?(page) ? page : nil }.compact }
 
+    context 'ログインしていない場合' do
       it 'ログインページにリダイレクトしてトーストメッセージを表示する' do
         expect(subject).to redirect_to login_url
         expect(response).to have_http_status :see_other
@@ -18,8 +18,6 @@ RSpec.describe 'AdminUsers' do
 
     context 'ログインしている場合' do
       context 'ユーザが管理者ではない場合' do
-        subject { get admin_users_path }
-
         let(:non_admin_user) { create(:user, :noadmin) }
 
         before { log_in_as(non_admin_user) }
@@ -45,8 +43,6 @@ RSpec.describe 'AdminUsers' do
         end
 
         context '例外が返ってきた場合' do
-          subject { get admin_users_path }
-
           before { allow(Api::User).to receive(:get_list).and_raise(StandardError) }
 
           it 'ホーム画面にリダイレクトして、取得に失敗した旨をトーストメッセージで表示する' do
@@ -77,8 +73,6 @@ RSpec.describe 'AdminUsers' do
           end
 
           context 'クエリパラメータにpageがない場合' do
-            subject { get admin_users_path }
-
             it 'ユーザー取得の関数にoffset=0パラメータをつけて呼び出す' do
               subject
               expect(Api::User).to have_received(:get_list).with(access_token:, limit:, offset: 0)
@@ -93,8 +87,6 @@ RSpec.describe 'AdminUsers' do
           end
 
           context 'クエリパラメータにpageがある場合' do
-            subject { get admin_users_path, params: { page: } }
-
             context 'pageの値が0の場合' do
               let(:page) { 0 }
 
