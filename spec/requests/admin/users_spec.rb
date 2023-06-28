@@ -7,9 +7,11 @@ RSpec.describe 'AdminUsers' do
 
   describe 'GET /admin/users' do
     subject do
-      get admin_users_path, params: { page: defined?(page) ? page : nil }.compact
+      get admin_users_path, params: { page: }.compact
       response
     end
+
+    let(:page) { nil }
 
     context 'ログインしていない場合' do
       it 'ログインページにリダイレクトしてトーストメッセージを表示する' do
