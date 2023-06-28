@@ -462,15 +462,15 @@ RSpec.describe 'ApiUsers' do
 
   describe 'PATCH /api/users/:id' do
     subject do
-      patch("/api/users/#{target_user.id}", headers:, params:)
+      patch("/api/users/#{target_user.id}", headers:, params:, as: :json)
       response
     end
 
-    let(:admin) { [true, false].sample }
-    let(:activated) { [true, false].sample }
     let(:target_user) { create(:user) }
 
     context 'アクセストークンがない場合' do
+      let(:admin) { [true, false].sample }
+      let(:activated) { [true, false].sample }
       let(:params) do
         { name: Faker::Name.name, email: Faker::Internet.email, admin:, activated: }
       end
@@ -482,10 +482,12 @@ RSpec.describe 'ApiUsers' do
     end
 
     context 'アクセストークンがある場合' do
-      let(:headers) { { 'Authorization' => "Bearer #{access_token}" } }
+      let(:headers) { { 'Authorization' => "Bearer #{access_token}", 'Content-Type' => 'application/json' } }
       let!(:user) { create(:user, :admin) }
 
       context 'アクセストークンが有効期限切れの場合' do
+        let(:admin) { [true, false].sample }
+        let(:activated) { [true, false].sample }
         let(:access_token) { expired_access_token(email: user.email) }
         let(:params) do
           { name: Faker::Name.name, email: Faker::Internet.email, admin:, activated: }
@@ -511,18 +513,60 @@ RSpec.describe 'ApiUsers' do
 
         context '正しいユーザーデータが指定された場合' do
           context 'emailのユーザが存在しない場合' do
-            let(:params) { { email: Faker::Internet.email } }
+            let(:email) { Faker::Internet.email }
 
-            it '200が返って、編集したユーザを返すこと' do
-              expect(subject).to be_successful
-              expect(subject.parsed_body).to include(
-                *%w[id name admin activated activated_at created_at updated_at]
-              )
+            context 'activatedがない場合' do
+              let(:params) { { email: } }
+
+              it 'activated_atは更新されない' do
+                expect { subject }.not_to(change { User.find(target_user.id).activated_at })
+              end
+
+              it '200が返って、編集したユーザを返すこと' do
+                expect(subject).to be_successful
+                expect(subject.parsed_body).to include(
+                  *%w[id name admin activated activated_at created_at updated_at]
+                )
+              end
+            end
+
+            context 'activatedがある場合' do
+              let(:params) { { email:, activated: } }
+
+              context 'acitvatedがfalseの場合' do
+                let(:activated) { false }
+
+                it 'activated_atは更新される' do
+                  expect { subject }.to(change { User.find(target_user.id).activated_at })
+                end
+
+                it '200が返って、編集したユーザを返すこと' do
+                  expect(subject).to be_successful
+                  expect(subject.parsed_body).to include(
+                    *%w[id name admin activated activated_at created_at updated_at]
+                  )
+                end
+              end
+
+              context 'activatedがtrueの場合' do
+                let(:activated) { true }
+
+                it 'activated_atは更新される' do
+                  expect { subject }.to(change { User.find(target_user.id).activated_at })
+                end
+
+                it '200が返って、編集したユーザを返すこと' do
+                  expect(subject).to be_successful
+                  expect(subject.parsed_body).to include(
+                    *%w[id name admin activated activated_at created_at updated_at]
+                  )
+                end
+              end
             end
           end
 
           context 'emailのユーザが存在する場合' do
-            context 'emailのユーザが自分以外の場合' do
+            context 'emailのユーザが編集対象のユーザ以外の場合' do
               let(:params) { { email: user.email } }
 
               it '422が返って、エラーメッセージを返すこと' do
@@ -531,7 +575,7 @@ RSpec.describe 'ApiUsers' do
               end
             end
 
-            context 'emailのユーザが自分の場合' do
+            context 'emailのユーザが編集対象のユーザの場合' do
               let(:params) { { email: target_user.email } }
 
               it '200が返って、編集したユーザを返すこと' do
