@@ -2,8 +2,11 @@
 
 module Api
   class Error < StandardError
-    def self.from_json(json)
-      Api::Error.new(json)
+    attr_reader :errors
+
+    def initialize(errors)
+      super('')
+      @errors = errors
     end
   end
 end
