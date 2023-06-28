@@ -20,7 +20,7 @@ module Admin
       @users = Kaminari.paginate_array(user_list, total_count:).page(params[:page]).per(DISPLAY_AMOUNT)
     rescue Api::Error => e
       redirect_to root_url, status: :see_other, flash: {
-        danger: JSON.parse(e.message).map { |error| "#{error['name']} : #{error['message']}" }.join('\n')
+        danger: e.errors.map { |error| "#{error[:name]} : #{error[:message]}" }.join('\n')
       }
     rescue StandardError => e
       redirect_to root_url, status: :see_other, flash: { danger: e.message }
