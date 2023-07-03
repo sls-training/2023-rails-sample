@@ -28,10 +28,6 @@ paths:
                 email:
                   type: string
                   format: email
-                password:
-                  type: string
-                  format: password
-                  minLength: 6
 
       responses:
         '200':
@@ -41,10 +37,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  access_token:
+                  typo_access_token:
                     type: string
                     example: AAAAAAAAAAAAAAAAAAAAAMLheAAAAAAA0%2BuSeid%2BULvsea4JtiGRiSDSJSI%3DEUifiRBkKG5E2XzMDjRfl76ZC9Ub0wnz4XsNiRVBChTYbJcE3F
-                additionalProperties: false
 
         '401':
           description: 入力を間違えて失敗した場合
@@ -62,11 +57,11 @@ paths:
                           type: string
                           description: エラーのタイプ
                           example: access_token
-                        message:
+                        typo_message:
                           type: string
                           description: エラーのメッセージ
                           example: Incorrect email or password
-                additionalProperties: false
+                additionalProperties: true
 
         '403':
           description: ユーザに権限がなくて失敗した場合
