@@ -1,9 +1,8 @@
 {
   "name": "Ruby on Rails (Community)",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
-
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/app",
   // Configure tool-specific properties.
   "customizations": {
     // Configure properties specific to VS Code.
