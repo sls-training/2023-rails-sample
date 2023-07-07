@@ -4,13 +4,13 @@ env:
   variables:
     IMAGE_REPO_NAME: rails-tutorial
     AWS_ACCOUNT_ID: 963528663175
-    WS_DEFAULT_REGION: ap-northeast-1
+    AWS_DEFAULT_REGION: ap-northeast-1
 
 phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin https://${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
+      - aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
   build:
     commands:
       - echo Build started on `date`
