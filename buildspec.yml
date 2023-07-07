@@ -1,0 +1,25 @@
+version: 0.2
+
+env:
+  variables:
+    IMAGE_REPOSITORY: rails-tutorial
+    AWS_ACCOUNT_ID: 963528663175
+    AWS_REGION: ap-northeast-1
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region ${AWS_REGION})
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -f ./docker/Dockerfile.rails  -t ${IMAGE_REPOSITORY}:${IMAGE_TAG} . --platform linux/amd64
+      - docker tag ${IMAGE_REPOSITORY}:${IMAGE_TAG} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_REPOSITORY}:${IMAGE_TAG}
+
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${IMAGE_REPOSITORY}:${IMAGE_TAG}
