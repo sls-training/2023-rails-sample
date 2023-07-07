@@ -3,6 +3,7 @@ version: 0.2
 env:
   variables:
     IMAGE_REPO_NAME: rails-tutorial
+    IMAGE_TAG: latest
     AWS_ACCOUNT_ID: 963528663175
     AWS_DEFAULT_REGION: ap-northeast-1
 
