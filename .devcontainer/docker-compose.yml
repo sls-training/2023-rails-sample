@@ -12,7 +12,7 @@ services:
         RAILS_VERSIONS: '7.0.4'
         NODE_VERSION: '18'
     volumes:
-      - ..:/app:cached
+      - ..:/app:delegated
       - bundle-volume:/usr/local/bundle
       - public:/app/public
       - tmp:/app/tmp
