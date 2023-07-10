@@ -313,8 +313,15 @@ GEM
     reverse_markdown (2.1.1)
       nokogiri
     rexml (3.2.5)
+    rspec (3.12.0)
+      rspec-core (~> 3.12.0)
+      rspec-expectations (~> 3.12.0)
+      rspec-mocks (~> 3.12.0)
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
+    rspec-daemon (0.1.5)
+      pry
+      rspec
     rspec-expectations (3.12.3)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.12.0)
@@ -462,6 +469,7 @@ DEPENDENCIES
   rails (~> 7.0.4, >= 7.0.4.3)
   rails-controller-testing
   rexml (~> 3.2, >= 3.2.4)
+  rspec-daemon
   rspec-rails
   rubocop-config-timedia!
   selenium-webdriver (~> 4.0.0)
