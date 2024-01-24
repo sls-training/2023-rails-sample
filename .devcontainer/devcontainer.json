@@ -15,7 +15,8 @@
         "Shopify.ruby-lsp",
         "esbenp.prettier-vscode",
         "misogi.ruby-rubocop",
-        "KoichiSasada.vscode-rdbg"
+        "KoichiSasada.vscode-rdbg",
+        "tk0miya.rspec-daemon"
       ],
       "settings": {
         "files.insertFinalNewline": true,
